@@ -1,5 +1,7 @@
 package global.sesoc.tp.dao;
 
+import java.util.ArrayList;
+
 import global.sesoc.tp.vo.StaffVO;
 
 /**
@@ -13,6 +15,13 @@ public interface StaffMapper {
 	
 	int update_staff(StaffVO vo);		//스텝 정보수정
 	int update_staff_profile(StaffVO vo);	//수정
+	
+	
+	
+	public ArrayList<StaffVO> staffList(StaffVO svo);	//staff리스트
+	
+	int delete_staff(StaffVO vo);				//스탭정보 삭제
+	int delete_staff_profile(StaffVO vo); 		//삭제
 	
 	
 

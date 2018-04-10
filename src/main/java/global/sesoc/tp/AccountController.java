@@ -14,7 +14,7 @@ import global.sesoc.tp.vo.CustomerVO;
 @Controller
 @RequestMapping("Account")
 
-public class AccountController {
+public class AccountController { //testtest
 
 	@Autowired
 	CustomerDAO dao;

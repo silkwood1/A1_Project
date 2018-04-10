@@ -2,6 +2,7 @@ package global.sesoc.tp.vo;
 
 public class StaffVO {
 
+	private String staffId;
 	private int staffNo;			// 사원 번호
 	private int deptDiv;			// 부서 구분
 	private int positionDiv;		// 직급 구분

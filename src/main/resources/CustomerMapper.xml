@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="global.sesoc.tp.dao.CustomerMapper">
+  	
+  	<!--  
+  	<select id="customerList" resultType="Customer">
+  		select * from customer
+  	</select>
+  	-->
+  	
+  	<select id="customerList" resultType="Customer">
+  		select * from customer
+  		
+  		<if test="customerDiv != null and customerDiv != ''">
+  			where customerDiv = #{customerDiv}
+  		</if>
+  		
+  		<if test="customerComName != null and customerComName != ''">
+  			where customerComName = #{customerComName}
+  		</if>
+  		
+  	</select>
+  	
+  	<!--  
+  	<select id="customerListFilter" resultType="Customer">
+  		select * from customer
+  		 
+  		<if test="div != null">
+  			where customerDiv = #{div}
+  		</if>
+  		
+  		<if test="name != null">
+  			customerComName = #{name}
+  		</if>
+  	</select>
+  	-->
+  	
+  </mapper>

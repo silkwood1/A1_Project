@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="global.sesoc.tp.dao.UserMapper">
+	<insert id="join_list" parameterType="User">
+		insert into user_list
+		values (
+		#{userId}, #{userPassword}, #{userBn}, sysdate
+		)
+	</insert>
+
+	<insert id="join_profile" parameterType="User">
+		insert into user_profile
+		values (
+		#{userBn}, #{userCname}, #{userName}, #{userCellNo},
+		#{userOfficeNo},
+		#{userFaxNo}, #{userEmail}, #{userZipcode},
+		#{userAddress}
+		)
+	</insert>
+
+	<select id="id_chk" parameterType="String" resultType="int">
+		select
+		count(*) from user_list where userId = #{String}
+	</select>
+
+	<select id="get_bn" parameterType="User" resultType="String">
+		select
+		userBn from user_profile where userName = #{userName} and userEmail =
+		#{userEmail}
+	</select>
+
+	<select id="get_id" parameterType="String" resultType="String">
+		select
+		userId from user_list where userBn = #{String}
+	</select>
+	
+	<select id="get_user" parameterType="String" resultType="User">
+		select * from user_list where userBn = #{String}
+	</select>
+	
+	<select id="login" parameterType="User" resultType="String">
+		select userBn from user_list where userId = #{userId} and userPassword = #{userPassword}
+	</select>
+</mapper>

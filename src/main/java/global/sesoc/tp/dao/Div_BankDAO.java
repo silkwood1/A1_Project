@@ -10,7 +10,7 @@ import global.sesoc.tp.vo.Div_BankVO;
  * 은행 관련 DAO
  */
 @Repository
-public class Div_BankDAO {asdfasdf
+public class Div_BankDAO {
 	@Autowired
 	SqlSession sqlSession;
 

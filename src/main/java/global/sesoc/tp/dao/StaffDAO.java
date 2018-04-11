@@ -1,9 +1,10 @@
 package global.sesoc.tp.dao;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import global.sesoc.tp.vo.StaffVO;
 
 /*
@@ -69,5 +70,39 @@ public class StaffDAO {
 			e.printStackTrace();
 		}
 		return s;
+	}
+	
+	public int delete_staff(String staffno){
+		int s = 0;
+		StaffMapper mapper = sqlSession.getMapper(StaffMapper.class);
+		try {
+			s = mapper.delete_staff(staffno);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
+	
+	public int delete_staff_profile(String staffno){
+		int s = 0;
+		StaffMapper mapper = sqlSession.getMapper(StaffMapper.class);
+		try {
+			s = mapper.delete_staff_profile(staffno);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
+	
+	
+	public ArrayList<StaffVO> staffList(StaffVO svo){
+		StaffMapper mapper = sqlSession.getMapper(StaffMapper.class);
+		ArrayList<StaffVO> staffList = new ArrayList<StaffVO>();
+		try {
+			staffList = mapper.staffList(svo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return staffList;
 	}
 }

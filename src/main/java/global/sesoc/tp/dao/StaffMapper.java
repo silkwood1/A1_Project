@@ -20,8 +20,8 @@ public interface StaffMapper {
 	
 	public ArrayList<StaffVO> staffList(StaffVO svo);	//staff리스트
 	
-	int delete_staff(StaffVO vo);				//스탭정보 삭제
-	int delete_staff_profile(StaffVO vo); 		//삭제
+	int delete_staff(String staffno);				//스탭정보 삭제
+	int delete_staff_profile(String staffno); 		//삭제
 	
 	
 

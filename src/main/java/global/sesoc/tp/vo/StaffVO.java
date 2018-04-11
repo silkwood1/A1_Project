@@ -2,6 +2,8 @@ package global.sesoc.tp.vo;
 
 public class StaffVO {
 
+	private String staffId;			//사원 id
+	private String staffPassword;	//사원 비밀번호
 	private int staffNo;			// 사원 번호
 	private int deptDiv;			// 부서 구분
 	private int positionDiv;		// 직급 구분
@@ -21,7 +23,9 @@ public class StaffVO {
 	public StaffVO() {}
 
 	// staff - not null 생성자
-	public StaffVO(int staffNo, String staffName, String staffIdno, String staffCellNo) {
+	public StaffVO(String staffId,String staffPassword,int staffNo, String staffName, String staffIdno, String staffCellNo) {
+		this.staffId = staffId;
+		this.staffPassword = staffPassword;
 		this.staffNo = staffNo;
 		this.staffName = staffName;
 		this.staffIdno = staffIdno;
@@ -29,9 +33,11 @@ public class StaffVO {
 	}
 
 	// staff - 전체 생성자
-	public StaffVO(int staffNo, int deptDiv, int positionDiv, String staffName, String staffIdno,
+	public StaffVO(String staffId,String staffPassword,int staffNo, int deptDiv, int positionDiv, String staffName, String staffIdno,
 			String staffCellNo, String staffTellNo, String staffEmail, String staffZipcode, String staffAddress,
 			int staffSalary, int bankDiv, String staffAccountNo, String staffNote) {
+		this.staffId = staffId;
+		this.staffPassword = staffPassword;
 		this.staffNo = staffNo;
 		this.deptDiv = deptDiv;
 		this.positionDiv = positionDiv;
@@ -49,8 +55,27 @@ public class StaffVO {
 	}
 
 	// G & S
+	
+	
+	
 	public int getStaffNo() {
 		return staffNo;
+	}
+
+	public String getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
+
+	public String getStaffPassword() {
+		return staffPassword;
+	}
+
+	public void setStaffPassword(String staffPassword) {
+		this.staffPassword = staffPassword;
 	}
 
 	public void setStaffNo(int staffNo) {
@@ -163,12 +188,15 @@ public class StaffVO {
 
 	@Override
 	public String toString() {
-		return "StaffVO [staffNo=" + staffNo + ", deptDiv="
-				+ deptDiv + ", positionDiv=" + positionDiv + ", staffName=" + staffName + ", staffIdno=" + staffIdno
-				+ ", staffCellNo=" + staffCellNo + ", staffTellNo=" + staffTellNo + ", staffEmail=" + staffEmail
-				+ ", staffZipcode=" + staffZipcode + ", staffAddress=" + staffAddress + ", staffSalary=" + staffSalary
-				+ ", bankDiv=" + bankDiv + ", staffAccountNo=" + staffAccountNo + ", staffNote=" + staffNote + "]";
+		return "StaffVO [staffId=" + staffId + ", staffPassword=" + staffPassword + ", staffNo=" + staffNo
+				+ ", deptDiv=" + deptDiv + ", positionDiv=" + positionDiv + ", staffName=" + staffName + ", staffIdno="
+				+ staffIdno + ", staffCellNo=" + staffCellNo + ", staffTellNo=" + staffTellNo + ", staffEmail="
+				+ staffEmail + ", staffZipcode=" + staffZipcode + ", staffAddress=" + staffAddress + ", staffSalary="
+				+ staffSalary + ", bankDiv=" + bankDiv + ", staffAccountNo=" + staffAccountNo + ", staffNote="
+				+ staffNote + "]";
 	}
+
+	
 	
 	
 

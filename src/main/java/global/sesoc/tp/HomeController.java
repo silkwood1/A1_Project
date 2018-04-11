@@ -85,8 +85,8 @@ public class HomeController {
 	@RequestMapping(value = "join", method = RequestMethod.POST)
 	public String join_form(@RequestBody UserVO vo) {
 		try {
-			dao.join_list(vo);
-			dao.join_profile(vo);
+			dao.join_profile(vo);//1
+			dao.join_list(vo);//2
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "0";

@@ -6,9 +6,11 @@
 	<typeAliases>
 		<typeAlias type="global.sesoc.tp.vo.UserVO" alias="User" />
 		<typeAlias type="global.sesoc.tp.vo.CustomerVO" alias="Customer" />
+		<typeAlias type="global.sesoc.tp.vo.StaffVO" alias="Staff"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="UserMapper.xml" />
 		<mapper resource="CustomerMapper.xml" />
+		<mapper resource="StaffMapper.xml"/>
 	</mappers>
 </configuration>

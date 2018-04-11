@@ -19,7 +19,7 @@
   		</if>
   		
   		<if test="customerComName != null and customerComName != ''">
-  			where customerComName = #{customerComName}
+  			where customerCname = #{customerCname}
   		</if>
   		
   	</select>

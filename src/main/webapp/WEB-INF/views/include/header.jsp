@@ -35,6 +35,156 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+  
+  
+  <script>
+
+	/*
+	버튼에 Drop-List Filter 적용.
+	
+	*/
+	//첫번째 필터적용 
+	//drop list 필터 추가부분 
+	/* When the user clicks on the button,
+	toggle between hiding and showing the dropdown content */
+	function myFunction() {
+		document.getElementById("myDropdown").classList.toggle("show");
+	}
+
+	function filterFunction() {
+		var input, filter, ul, li, a, i;
+		input = document.getElementById("myInput");
+		filter = input.value.toUpperCase();
+		div = document.getElementById("myDropdown");
+		
+		a = div.getElementsByTagName("a");
+		for (i = 0; i < a.length; i++) {
+			if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+				a[i].style.display = "";
+			} else {
+				a[i].style.display = "none";
+			}
+		}
+		
+	}
+	
+	//두번째 필터적용 
+	//drop list 필터 추가부분 
+	/* When the user clicks on the button,
+	toggle between hiding and showing the dropdown content */
+	function myFunction1() {
+		document.getElementById("myDropdown1").classList.toggle("show");
+	}
+
+	function filterFunction() {
+		var input, filter, ul, li, a, i;
+		input = document.getElementById("myInput1");
+		filter = input.value.toUpperCase();
+		div = document.getElementById("myDropdown1");
+		a = div.getElementsByTagName("a1");
+		for (i = 0; i < a.length; i++) {
+			if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+				a[i].style.display = "";
+			} else {
+				a[i].style.display = "none";
+			}
+		}
+	}
+
+	
+	//검색어 입력 필터
+	$(document).ready(function(){
+		  $("#myInput").on("keyup", function() {
+		    var value = $(this).val().toLowerCase();
+		    $("#myTable tr").filter(function() {
+		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		    });
+		  });
+		});
+	
+	
+</script>
+
+<style type="text/css">
+/*Dropdown list 버튼 스타일*/
+/* Dropdown Button */
+.dropbtn {
+	background-color: white;
+	color: black;
+	padding: 16px;
+	font-size: 10px;
+	border: none;
+	cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+	background-color: lightblue;
+}
+
+/* The search field */
+#myInput {
+	border-box: box-sizing;
+	background-image: url('searchicon.png');
+	background-position: 14px 12px;
+	background-repeat: no-repeat;
+	font-size: 16px;
+	padding: 14px 20px 12px 45px;
+	border: none;
+	border-bottom: 1px solid #ddd;
+}
+
+/* The search field when it gets focus/clicked on */
+#myInput:focus {
+	outline: 3px solid #ddd;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f6f6f6;
+	min-width: 230px;
+	border: 1px solid #ddd;
+	z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+	background-color: #f1f1f1
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+	display: block;
+}
+
+
+</style>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   </head>
      
   <body>  
@@ -219,7 +369,7 @@
                           <span>거래처 관리(Account Management)</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="customer_list">거래처 리스트(Account list)</a></li>
+                          <li><a  href="/Account/AccountBoard">거래처 리스트(Account list)</a></li>
                       </ul>
                   </li>
 

@@ -23,11 +23,11 @@ public class StaffController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(StaffController.class);
 	
-	@RequestMapping(value = "staff_list", method = RequestMethod.GET)
+	@RequestMapping(value = "/stafflist", method = RequestMethod.GET)
 	public String StafflistBoard(Model model) {
 
 		 
-		return "/staff/staff_list";
+		return "staff/stafflist";
 	}
 	
 	@RequestMapping(value = "EditStaff", method = RequestMethod.GET)

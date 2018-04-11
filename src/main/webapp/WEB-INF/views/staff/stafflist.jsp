@@ -71,7 +71,7 @@
 										<tr>
 											<%-- <c:if test="${sessionScope.Member.id == 'admin'}"> --%>
 											<td><input type="checkbox" name="listCheck"
-												value="${b.tradeNo}"></td>
+												value="${staff.staffNo}"></td>
 											<%-- </c:if> --%>
 
 											<%--  <td><a href="/staff/read?boardnum=${b.boardnum}">${b.title}</a></td> --%>

@@ -19,7 +19,7 @@ public class Div_RankDAO {
 		int a = 0;
 		Div_RankMapper mapper = sqlSession.getMapper(Div_RankMapper.class);
 		try {
-			a = mapper.insert_RankDiv(rank);
+			a = mapper.insert_rankDiv(rank);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -31,7 +31,7 @@ public class Div_RankDAO {
 		int a = 0;
 		Div_RankMapper mapper = sqlSession.getMapper(Div_RankMapper.class);
 		try {
-			a = mapper.update_RankDiv(rank);
+			a = mapper.update_rankDiv(rank);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -43,7 +43,7 @@ public class Div_RankDAO {
 		int a = 0;
 		Div_RankMapper mapper = sqlSession.getMapper(Div_RankMapper.class);
 		try {
-			a = mapper.delete_RankDiv(rank);
+			a = mapper.delete_rankDiv(rank);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -51,11 +51,11 @@ public class Div_RankDAO {
 	}
 
 	// 중복찾기
-	public Div_RankVO select_RankDiv(Div_RankVO rank) {
-		int a = 0;
+	public Div_RankVO select_RankDiv(String rankExp) {
+		Div_RankVO a = null;
 		Div_RankMapper mapper = sqlSession.getMapper(Div_RankMapper.class);
 		try {
-			a = mapper.select_RankDiv(rank);
+			a = mapper.select_deptDiv(rankExp);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -251,7 +251,7 @@
                           <span>직원관리(Staff management)</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="blank.html">직원관리 리스트(Staff management list)</a></li> 
+                          <li><a  href="staff_list">직원관리 리스트(Staff management list)</a></li> 
                       </ul>
                   </li>
                   <li class="sub-menu">

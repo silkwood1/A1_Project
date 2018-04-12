@@ -1,4 +1,4 @@
-package global.sesoc.tp;
+package global.sesoc.tp.email;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import global.sesoc.tp.dao.UserDAO;
-import global.sesoc.tp.email.EmailSender;
 import global.sesoc.tp.vo.UserVO;
 
 @Controller

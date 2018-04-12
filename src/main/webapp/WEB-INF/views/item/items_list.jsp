@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%@include file="include/header.jsp"%>
+<%@include file="../include/header.jsp"%>
 <section id="main-content">
 	<section class="wrapper">
 		<div class="row">
@@ -13,4 +13,4 @@
 		</div>
 	</section>
 </section>
-<%@include file="include/footer.jsp"%>
+<%@include file="../include/footer.jsp"%>

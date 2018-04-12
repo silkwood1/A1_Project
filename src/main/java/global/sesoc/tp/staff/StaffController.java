@@ -1,4 +1,4 @@
-package global.sesoc.tp;
+package global.sesoc.tp.staff;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package global.sesoc.tp;
+package global.sesoc.tp.item;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import global.sesoc.tp.dao.ItemsDAO;
 
 @Controller
-public class ItemsController {
+@RequestMapping("item")
+
+public class itemController {
 	
 	@Autowired
 	private ItemsDAO dao;
@@ -16,6 +18,6 @@ public class ItemsController {
 	@RequestMapping(value = "items_list", method = RequestMethod.GET)
 	public String items_list() {
 
-		return "items_list";
+		return "item/items_list";
 	}
 }

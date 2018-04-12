@@ -199,7 +199,7 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="home" class="logo"><b>마네지네코</b></a>
+            <a href="/home" class="logo"><b>마네지네코</b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
@@ -379,7 +379,7 @@
                           <span>품목관리(Item management)</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="items_list">품목(Item)</a></li>
+                          <li><a  href="item/items_list">품목(Item)</a></li>
                           <li><a  href="buttons.html">매입(Purchase)</a></li>
                       </ul>
                   </li>
@@ -401,7 +401,7 @@
                           <span>직원관리(Staff management)</span>
                       </a>
                       <ul class="sub">
-                          <li><a href="staff/stafflist">직원관리 리스트(Staff management list)</a></li> 
+                          <li><a href="/staff/stafflist">직원관리 리스트(Staff management list)</a></li> 
                       </ul>
                   </li>
                   <li class="sub-menu">

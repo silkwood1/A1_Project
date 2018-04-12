@@ -1,4 +1,4 @@
-package global.sesoc.tp;
+package global.sesoc.tp.account;
 
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ import global.sesoc.tp.vo.CustomerVO;
 @Controller
 @RequestMapping("Account")
 
-public class AccountController { //testtest
+public class AccountController {
 
 	@Autowired
 	CustomerDAO dao;
@@ -34,6 +34,7 @@ public class AccountController { //testtest
 		cvo.setCustomerComName(name);
 		
 		ArrayList<CustomerVO> customerList = new ArrayList<CustomerVO>();
+		
 		/*
 		 * dao에 인자로 div, name를 보내서 query문에서 동적 query로 처리한다. 
 		 */

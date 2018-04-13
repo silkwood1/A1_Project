@@ -70,4 +70,8 @@
 		delete from user_profile where userBn = #{String} 
 	</delete>
 	
+	<select id="get_cname" parameterType="String" resultType="String">
+		select userCname from user_profile where userBn = #{String}
+	</select>
+	
 </mapper>

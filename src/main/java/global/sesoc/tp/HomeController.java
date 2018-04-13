@@ -3,7 +3,6 @@ package global.sesoc.tp;
 import java.io.IOException;
 import java.util.Locale;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -42,9 +41,11 @@ public class HomeController {
 	public void login_home(HttpSession session, String login_id, HttpServletResponse response) throws IOException {
 		UserVO user = new UserVO();
 		user = dao.get_name(login_id);
+		user.setUserCname(dao.get_cname(user.getUserBn()));
 		session.setAttribute("name", user.getUserName());
 		session.setAttribute("id", login_id);
 		session.setAttribute("bn", user.getUserBn());
+		session.setAttribute("cname", user.getUserCname());
 		
 		response.sendRedirect("home");
 	}

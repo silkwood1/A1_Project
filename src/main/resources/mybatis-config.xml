@@ -7,10 +7,12 @@
 		<typeAlias type="global.sesoc.tp.vo.UserVO" alias="User" />
 		<typeAlias type="global.sesoc.tp.vo.CustomerVO" alias="Customer" />
 		<typeAlias type="global.sesoc.tp.vo.StaffVO" alias="Staff"/>
+		<typeAlias type="global.sesoc.tp.vo.ItemsVO" alias="Item" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="UserMapper.xml" />
 		<mapper resource="CustomerMapper.xml" />
 		<mapper resource="StaffMapper.xml"/>
+		<mapper resource="ItemsMapper.xml"/>
 	</mappers>
 </configuration>

@@ -2,16 +2,18 @@ package global.sesoc.tp.vo;
 
 public class ItemsVO {
 
-	private String itemDiv;				// 품목구분
-	private String itemExp;				// 품목구분 설명
-	private String itemCode;			// 품목코드
-	private String itemName;			// 품목명
-	private String itemPrice1;			// 단위 원가(구매가)
-	private String itemPrice2;			// 단위 판매가
-	private String itemQuantity;		// 재고
+	private String itemDiv; // 품목구분
+	private String itemExp; // 품목구분 설명
+	private String itemCode; // 품목코드
+	private String itemName; // 품목명
+	private String itemPrice1; // 단위 원가(구매가)
+	private String itemPrice2; // 단위 판매가
+	private String itemQuantity; // 재고
+	private String itemIndate;
 
 	// 기본 생성자
-	public ItemsVO() {}
+	public ItemsVO() {
+	}
 
 	// tb_itemDiv 생성자
 	public ItemsVO(String itemDiv, String itemExp) {
@@ -27,19 +29,28 @@ public class ItemsVO {
 	}
 
 	// items - 전체 생성자
-	public ItemsVO(String itemDiv, String itemCode, String itemName, String itemPrice1,
-			String itemPrice2, String itemQuantity) {
+	public ItemsVO(String itemDiv, String itemCode, String itemName, String itemPrice1, String itemPrice2,
+			String itemQuantity, String itemIndate) {
 		this.itemDiv = itemDiv;
 		this.itemCode = itemCode;
 		this.itemName = itemName;
 		this.itemPrice1 = itemPrice1;
 		this.itemPrice2 = itemPrice2;
 		this.itemQuantity = itemQuantity;
+		this.itemIndate = itemIndate;
 	}
 
 	// G & S
 	public String getItemDiv() {
 		return itemDiv;
+	}
+
+	public String getItemIndate() {
+		return itemIndate;
+	}
+
+	public void setItemIndate(String itemIndate) {
+		this.itemIndate = itemIndate;
 	}
 
 	public void setItemDiv(String itemDiv) {
@@ -97,8 +108,8 @@ public class ItemsVO {
 	@Override
 	public String toString() {
 		return "ItemsVO [itemDiv=" + itemDiv + ", itemExp=" + itemExp + ", itemCode=" + itemCode + ", itemName="
-				+ itemName + ", itemPrice1=" + itemPrice1 + ", itemPrice2=" + itemPrice2
-				+ ", itemQuantity=" + itemQuantity + "]";
+				+ itemName + ", itemPrice1=" + itemPrice1 + ", itemPrice2=" + itemPrice2 + ", itemQuantity="
+				+ itemQuantity + "]";
 	}
 
 }

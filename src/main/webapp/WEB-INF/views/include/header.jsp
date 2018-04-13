@@ -199,7 +199,7 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="/home" class="logo"><b>마네지네코</b></a>
+            <a href="/home" class="logo"><b>${cname }</b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
@@ -341,12 +341,6 @@
                 </ul>
                 <!--  notification end -->
             </div>
-            <div class="top-menu">
-            	<ul class="nav pull-right top-menu">
-            		<li><a class="logout" href="update">개인정보수정</a></li>
-                    <li><a class="logout" href="logout">로그아웃</a></li>
-            	</ul>
-            </div>
         </header>
       <!--header end-->
       
@@ -360,7 +354,7 @@
               <ul class="sidebar-menu" id="nav-accordion">
               
               	  <p class="centered"><a href="profile.html"><img src="/resources/assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered">SC IT MASTER 6조</h5>
+              	  <h5 class="centered">${cname }</h5>
               	  
               	  
               	  <li class="sub-menu">
@@ -376,10 +370,10 @@
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-desktop"></i>
-                          <span>품목관리(Item management)</span>
+                          <span>품목 관리(Item management)</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="item/items_list">품목(Item)</a></li>
+                          <li><a  href="/item/items_list">품목(Item)</a></li>
                           <li><a  href="buttons.html">매입(Purchase)</a></li>
                       </ul>
                   </li>
@@ -387,7 +381,7 @@
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-cogs"></i>
-                          <span>판매관리(Sales Management)</span>
+                          <span>판매 관리(Sales Management)</span>
                       </a>
                       <ul class="sub">
                           <li><a  href="calendar.html">매출(Sales profit)</a></li>
@@ -398,7 +392,7 @@
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-book"></i>
-                          <span>직원관리(Staff management)</span>
+                          <span>직원 관리(Staff management)</span>
                       </a>
                       <ul class="sub">
                           <li><a href="/staff/stafflist">직원관리 리스트(Staff management list)</a></li> 
@@ -407,13 +401,24 @@
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-tasks"></i>
-                          <span>현장관리(Field control) </span>
+                          <span>현장 관리(Field control) </span>
                       </a>
                       <ul class="sub">
                           <li><a  href="form_component.html">현장관리 1</a></li>
                           <li><a  href="form_component.html">현장관리 2</a></li>
                           <li><a  href="form_component.html">현장관리 3</a></li>
                       </ul>
+                  </li>
+                  
+                  <li class="sub-menu">
+                  	<a href="">
+                  		<i class="fa fa-book"></i>
+                  		<span>사업자 관리</span>
+                  	</a>
+                  	<ul class="sub">
+	            		<li><a href="/update">개인정보수정</a></li>
+	                    <li><a href="/logout">로그아웃</a></li>
+                  	</ul>
                   </li>
                   
                   <li class="sub-menu">

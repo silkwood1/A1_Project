@@ -150,4 +150,15 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 	}
+
+	public String get_cname(String userBn) {
+		String a = "";
+		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+		try{
+			a = mapper.get_cname(userBn);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return a;
+	}
 }

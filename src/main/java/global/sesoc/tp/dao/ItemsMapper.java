@@ -1,12 +1,14 @@
 package global.sesoc.tp.dao;
 
+import java.util.ArrayList;
+
 import global.sesoc.tp.vo.ItemsVO;
 
 /**
  * 품목
  */
 public interface ItemsMapper {
-	// itemsDiv 생성
-	public int insert_itemsDiv(ItemsVO items);
+	//리스트 불러오기
+	public ArrayList<ItemsVO> items_list();
 
 }

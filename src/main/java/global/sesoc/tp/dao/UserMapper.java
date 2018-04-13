@@ -30,4 +30,6 @@ public interface UserMapper {
 
 	void sayonara(String bn);	//탈퇴 _ profile
 
+	String get_cname(String userBn);	//회사명 가져오기
+
 }

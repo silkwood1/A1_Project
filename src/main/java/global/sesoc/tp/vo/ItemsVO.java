@@ -1,7 +1,8 @@
 package global.sesoc.tp.vo;
 
 public class ItemsVO {
-
+	private int itemNum;
+	private String userBn;	//유저 사업자번호
 	private String itemDiv; // 품목구분
 	private String itemExp; // 품목구분 설명
 	private String itemCode; // 품목코드
@@ -10,6 +11,7 @@ public class ItemsVO {
 	private String itemPrice2; // 단위 판매가
 	private String itemQuantity; // 재고
 	private String itemIndate;
+	
 
 	// 기본 생성자
 	public ItemsVO() {
@@ -29,15 +31,15 @@ public class ItemsVO {
 	}
 
 	// items - 전체 생성자
-	public ItemsVO(String itemDiv, String itemCode, String itemName, String itemPrice1, String itemPrice2,
-			String itemQuantity, String itemIndate) {
+	public ItemsVO(String userBn, String itemDiv, String itemCode, String itemName, String itemPrice1, String itemPrice2,
+			String itemQuantity) {
+		this.userBn = userBn;
 		this.itemDiv = itemDiv;
 		this.itemCode = itemCode;
 		this.itemName = itemName;
 		this.itemPrice1 = itemPrice1;
 		this.itemPrice2 = itemPrice2;
 		this.itemQuantity = itemQuantity;
-		this.itemIndate = itemIndate;
 	}
 
 	// G & S
@@ -45,8 +47,24 @@ public class ItemsVO {
 		return itemDiv;
 	}
 
+	public int getItemNum() {
+		return itemNum;
+	}
+
+	public void setItemNum(int itemNum) {
+		this.itemNum = itemNum;
+	}
+
 	public String getItemIndate() {
 		return itemIndate;
+	}
+
+	public String getUserBn() {
+		return userBn;
+	}
+
+	public void setUserBn(String userBn) {
+		this.userBn = userBn;
 	}
 
 	public void setItemIndate(String itemIndate) {
@@ -107,9 +125,9 @@ public class ItemsVO {
 
 	@Override
 	public String toString() {
-		return "ItemsVO [itemDiv=" + itemDiv + ", itemExp=" + itemExp + ", itemCode=" + itemCode + ", itemName="
-				+ itemName + ", itemPrice1=" + itemPrice1 + ", itemPrice2=" + itemPrice2 + ", itemQuantity="
-				+ itemQuantity + "]";
+		return "ItemsVO [userBn=" + userBn + ", itemDiv=" + itemDiv + ", itemExp=" + itemExp + ", itemCode=" + itemCode
+				+ ", itemName=" + itemName + ", itemPrice1=" + itemPrice1 + ", itemPrice2=" + itemPrice2
+				+ ", itemQuantity=" + itemQuantity + ", itemIndate=" + itemIndate + "]";
 	}
 
 }

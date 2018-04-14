@@ -22,9 +22,24 @@
 											e.preventDefault();
 										});
 					});
-
-	function add_item() {
-		alert('아이템 추가 버튼');
+	function item_delete(num){
+		var itemNum = num;
+		if(confirm('정말 삭제하시겠습니까?') == true){
+			$.ajax({
+				type : 'POST',
+				url : 'delete',
+				data : {'num': itemNum},
+				success : function(data){
+					alert('정상적으로 삭제되었습니다.');
+					location.reload();
+				},
+				error : function(err){
+					alert("에러");
+				}
+			});
+		}else{
+			return;
+		}
 	}
 </script>
 
@@ -50,8 +65,7 @@
 
 
 					<!--테이블 검색어 입력 박스 -->
-					<br>
-					<input class="form-control" id="myInput" type="text"
+					<br> <input class="form-control" id="myInput" type="text"
 						placeholder="Search.." style="width: 701px;"></br>
 
 					<section id="unseen">
@@ -59,19 +73,6 @@
 
 							<table class="table table-bordered table-striped table-condensed">
 								<thead>
-									<tr>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th>
-										<th><a id="btnExport" href="#" download="">Export</a></th>
-										<th><input type="button" class="btn btn-info"
-											onclick="add_item()" value="품목 추가"></th>
-									</tr>
 									<tr>
 										<c:if test="${sessionScope.Member.id == 'admin'}">
 											<th></th>
@@ -82,9 +83,9 @@
 													분류</button>
 												<div id="myDropdown" class="dropdown-content">
 													<!--이 부분은 DB에서 값을 가져와서 Drop list에서 선택값을 출력해준다. -->
-													<a href="/item/item_list?div=1">구매</a> <a
-														href="/item/item_list?div=2">판매</a> <a
-														href="/item/item_list">전체</a>
+													<a href="/item/items_list?div=2">구매</a> <a
+														href="/item/items_list?div=1">판매</a> <a
+														href="/item/items_list">전체</a>
 												</div>
 											</div>
 										</th>
@@ -95,15 +96,23 @@
 										<th>보유 수량</th>
 										<th>등록일</th>
 										<th></th>
-										<th></th>
-										<th></th>
+										<th><a id="btnExport" href="#" download="">Export</a></th>
+										<th><input type="button" class="btn btn-info"
+											onclick="location.href='items_insert'" value="품목 추가"></th>
 									</tr>
 								</thead>
 								<tbody id="item_table">
 
 									<c:forEach var="item" items="${items}">
 										<tr>
-											<td>${item.itemDiv}</td>
+										<c:choose>
+											<c:when test="${item.itemDiv == 1 }">
+												<td>판매</td>
+											</c:when>
+											<c:otherwise>
+												<td>구매</td>
+											</c:otherwise>
+										</c:choose>
 											<td>${item.itemCode}</td>
 											<td>${item.itemName}</td>
 											<td>${item.itemPrice1}</td>
@@ -113,11 +122,11 @@
 											<td></td>
 
 											<td><a class="btn btn-info"
-												href="/item/item_info?customerBsn=" ${customer.customerBsn}>상세보기</a>
+												href="/item/items_info?num=${item.itemNum }">상세보기</a>
 											</td>
 
 											<td><a class="btn btn-danger  btn-sm"
-												href="/item/item_delete">삭제</a></td>
+												href="javascript:item_delete(${item.itemNum });">삭제</a></td>
 										</tr>
 									</c:forEach>
 								</tbody>

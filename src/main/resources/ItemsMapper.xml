@@ -4,7 +4,29 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="global.sesoc.tp.dao.ItemsMapper">
-	<select id="items_list" resultType="Item">
-		select * from items
+	<select id="items_list" parameterType="String" resultType="Item">
+		select * from items where UserBn = #{String} order by itemindate desc
+	</select>
+	
+	<select id="items_list2" parameterType="Map" resultType="Item">
+		select * from items where UserBn = #{bn} and itemDiv = #{div}
+	</select>
+	
+	<select id="code_search" parameterType="String" resultType="int">
+		select count(*) from items where itemcode = #{String}
+	</select>
+	
+	<insert id="item_insert" parameterType="Item">
+		insert into items values (
+			itemsNo_seq.nextval ,#{userBn}, #{itemDiv}, #{itemCode}, #{itemName}, #{itemPrice1}, #{itemPrice2}, #{itemQuantity}, sysdate
+		)
+	</insert>
+	
+	<delete id="item_delete" parameterType="String">
+		delete from items where itemnum = #{String}
+	</delete>
+	
+	<select id="items_info" parameterType="int" resultType="Item">
+		select * from items where itemnum = #{int}
 	</select>
 </mapper>

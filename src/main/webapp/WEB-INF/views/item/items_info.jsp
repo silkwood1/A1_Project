@@ -11,7 +11,7 @@
 <!--main content start-->
 <script type="text/javascript">
 $(document).ready(function() {
-	$('#insert_btn').click(function(){
+	$('#update_btn').click(function(){
 		var div = $('#itemDiv').val();
 		var code = $('#itemCode').val();
 		var name = $('#itemName').val();
@@ -42,7 +42,7 @@ $(document).ready(function() {
 			data : JSON.stringify(data),
 			success : function(data){
 				if(data == "1"){
-					$('#item_insert_form').submit();
+					$('#item_update_form').submit();
 				}else{
 					alert('중복된 품목코드가 존재합니다.');
 				}
@@ -69,7 +69,7 @@ $(document).ready(function() {
 						<i class="fa fa-angle-right"></i>품목 수정
 					</h4>
 					<form action="/item/update" method="post"
-						class="form-horizontal style-form" id="item_insert_form">
+						class="form-horizontal style-form" id="item_update_form">
 						<!-- line 1 -->
 						<table>
 							<tr>
@@ -155,7 +155,7 @@ $(document).ready(function() {
 						</table>
 
 						<div class="form-group" align="center">
-							<button type="button" class="btn btn-theme" id="insert_btn">수정</button>
+							<button type="button" class="btn btn-theme" id="update_btn">수정</button>
 							<button type="button" class="btn btn-theme" onclick="location.href='items_list'">목록으로</button>
 						</div>
 					</form>

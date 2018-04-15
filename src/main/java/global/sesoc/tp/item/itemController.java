@@ -98,4 +98,17 @@ public class itemController {
 		
 		return "/item/items_info";
 	}
+	
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public void update(HttpSession session, ItemsVO item, HttpServletResponse res) throws IOException {
+		String bn = (String) session.getAttribute("bn");
+		item.setUserBn(bn);
+		
+		System.out.println(item.toString());
+		System.out.println(bn);
+		
+		dao.item_update(item);
+		
+		res.sendRedirect("items_list");
+	}
 }

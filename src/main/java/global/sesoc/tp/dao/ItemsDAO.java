@@ -79,5 +79,14 @@ public class ItemsDAO {
 		return items;
 	}
 
+	public void item_update(ItemsVO item) {
+		ItemsMapper mapper = sqlSession.getMapper(ItemsMapper.class);
+		try{
+			mapper.item_update(item);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
 	
 }

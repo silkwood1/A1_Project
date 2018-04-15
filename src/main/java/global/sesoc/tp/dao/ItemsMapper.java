@@ -21,5 +21,7 @@ public interface ItemsMapper {
 	public void item_delete(String itemNum);
 	//상세읽기
 	public ItemsVO items_info(int num);
+	//수정
+	public void item_update(ItemsVO item);
 
 }

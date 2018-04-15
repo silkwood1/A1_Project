@@ -29,4 +29,8 @@
 	<select id="items_info" parameterType="int" resultType="Item">
 		select * from items where itemnum = #{int}
 	</select>
+	
+	<update id="item_update" parameterType="Item">
+		update 
+	</update>
 </mapper>

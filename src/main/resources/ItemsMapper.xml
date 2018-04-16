@@ -31,6 +31,10 @@
 	</select>
 	
 	<update id="item_update" parameterType="Item">
-		update 
+		update items set itemDiv = #{itemDiv}, itemCode = #{itemCode}, itemName = #{itemName}, itemQuantity = #{itemQuantity}, itemPrice1 = #{itemPrice1}, itemPrice2 = #{itemPrice2} where itemNum = #{itemNum} 
 	</update>
+	
+	<select id="code_search2" parameterType="int" resultType="String">
+		select itemCode from items where itemNum = #{itemNum}
+	</select>
 </mapper>

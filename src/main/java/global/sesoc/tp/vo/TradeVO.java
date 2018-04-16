@@ -1,146 +1,123 @@
 package global.sesoc.tp.vo;
 
 public class TradeVO {
-	private int tradeNo;			// 거래 일련번호
-	private int tradeDiv;			// 거래분류
-	private String tradeExp;		// 거래분류 설명
-	private String itemCode;		// 품목코드
-	private String customerBn;		// 고객 사업자번호
-	private int tradeQuantity;		// 거래량
-	private int paymentDiv;			// 결제수단
-	private int tradePayable;		// 미지급금
-	private int tradeReceivable;	// 미수금
-	private int tradeTotal;			// 거래총액
-	private String tradeNote;		// 비고
 
-	// 기본 생성자
+	private String 	userBn;   	// 유저 사업자번호
+	private	int 	tradeNo; 	// 번호
+	private	String	tradeDiv;  	// 거래구분
+	private String 	customerNo;	// 거래처
+	private	String 	itemCode;	// 품목
+	private	String 	tradeQuantity;	// 거래량
+	private String		tradePayable;	// 미지급금
+	private String 	tradeReceivable;	// 미수금
+	private String 	tradeTotal;		// 총액
+	private String 	paymentDiv;		// 결제수단 분휴 
+	private String 	tradeIndate;	// 거래 일자
+	private String 	tradeNote;		// 구분코
+	
 	public TradeVO() {}
 
-	// tb_tradeDiv 생성자
-	public TradeVO(int tradeDiv, String tradeExp) {
-		this.tradeDiv = tradeDiv;
-		this.tradeExp = tradeExp;
-	}
-
-	// trade - not null 생성자
-	public TradeVO(int tradeNo, int tradeDiv, String itemCode, String customerBn, int tradeTotal) {
+	public TradeVO(String userBn, int tradeNo, String tradeDiv, String customerNo, String itemCode, String tradeQuantity,
+			String tradePayable, String tradeReceivable, String tradeTotal, String paymentDiv, String tradeIndate,
+			String tradeNote) {
+		super();
+		this.userBn = userBn;
 		this.tradeNo = tradeNo;
 		this.tradeDiv = tradeDiv;
+		this.customerNo = customerNo;
 		this.itemCode = itemCode;
-		this.customerBn = customerBn;
-		this.tradeTotal = tradeTotal;
-	}
-
-	// trade - 전체 생성자
-	public TradeVO( int tradeNo, int tradeDiv, String itemCode, String customerBn, int tradeQuantity, int paymentDiv,
-			int tradePayable, int tradeReceivable, int tradeTotal, String tradeNote) {
-		this.tradeNo = tradeNo;
-		this.tradeDiv = tradeDiv;
-		this.itemCode = itemCode;
-		this.customerBn = customerBn;
 		this.tradeQuantity = tradeQuantity;
-		this.paymentDiv = paymentDiv;
 		this.tradePayable = tradePayable;
 		this.tradeReceivable = tradeReceivable;
 		this.tradeTotal = tradeTotal;
+		this.paymentDiv = paymentDiv;
+		this.tradeIndate = tradeIndate;
 		this.tradeNote = tradeNote;
 	}
-
-	// G & S
-	public int getTradeDiv() {
-		return tradeDiv;
+	
+	public String getUserBn() {
+		return userBn;
 	}
-
-	public void setTradeDiv(int tradeDiv) {
-		this.tradeDiv = tradeDiv;
+	public void setUserBn(String userBn) {
+		this.userBn = userBn;
 	}
-
-	public String getTradeExp() {
-		return tradeExp;
-	}
-
-	public void setTradeExp(String tradeExp) {
-		this.tradeExp = tradeExp;
-	}
-
 	public int getTradeNo() {
 		return tradeNo;
 	}
-
 	public void setTradeNo(int tradeNo) {
 		this.tradeNo = tradeNo;
 	}
-
+	public String getTradeDiv() {
+		return tradeDiv;
+	}
+	public void setTradeDiv(String tradeDiv) {
+		this.tradeDiv = tradeDiv;
+	}
+	public String getCustomerNo() {
+		return customerNo;
+	}
+	public void setCustomerNo(String customerNo) {
+		this.customerNo = customerNo;
+	}
 	public String getItemCode() {
 		return itemCode;
 	}
-
 	public void setItemCode(String itemCode) {
 		this.itemCode = itemCode;
 	}
-
-	public String getCustomerBn() {
-		return customerBn;
-	}
-
-	public void setCustomerBn(String customerBn) {
-		this.customerBn = customerBn;
-	}
-
-	public int getTradeQuantity() {
+	public String getTradeQuantity() {
 		return tradeQuantity;
 	}
-
-	public void setTradeQuantity(int tradeQuantity) {
+	public void setTradeQuantity(String tradeQuantity) {
 		this.tradeQuantity = tradeQuantity;
 	}
-
-	public int getPaymentDiv() {
-		return paymentDiv;
-	}
-
-	public void setPaymentDiv(int paymentDiv) {
-		this.paymentDiv = paymentDiv;
-	}
-
-	public int getTradePayable() {
+	public String getTradePayable() {
 		return tradePayable;
 	}
-
-	public void setTradePayable(int tradePayable) {
+	public void setTradePayable(String tradePayable) {
 		this.tradePayable = tradePayable;
 	}
-
-	public int getTradeReceivable() {
+	public String getTradeReceivable() {
 		return tradeReceivable;
 	}
-
-	public void setTradeReceivable(int tradeReceivable) {
+	public void setTradeReceivable(String tradeReceivable) {
 		this.tradeReceivable = tradeReceivable;
 	}
-
-	public int getTradeTotal() {
+	public String getTradeTotal() {
 		return tradeTotal;
 	}
-
-	public void setTradeTotal(int tradeTotal) {
+	public void setTradeTotal(String tradeTotal) {
 		this.tradeTotal = tradeTotal;
 	}
-
+	public String getPaymentDiv() {
+		return paymentDiv;
+	}
+	public void setPaymentDiv(String paymentDiv) {
+		this.paymentDiv = paymentDiv;
+	}
+	public String getTradeIndate() {
+		return tradeIndate;
+	}
+	public void setTradeIndate(String tradeIndate) {
+		this.tradeIndate = tradeIndate;
+	}
 	public String getTradeNote() {
 		return tradeNote;
 	}
-
 	public void setTradeNote(String tradeNote) {
 		this.tradeNote = tradeNote;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "TradeVO [tradeNo=" + tradeNo + ", tradeDiv=" + tradeDiv + ", tradeExp=" + tradeExp + ", itemCode="
-				+ itemCode + ", customerBn=" + customerBn + ", tradeQuantity=" + tradeQuantity + ", paymentDiv="
-				+ paymentDiv + ", tradePayable=" + tradePayable + ", tradeReceivable=" + tradeReceivable
-				+ ", tradeTotal=" + tradeTotal + ", tradeNote=" + tradeNote + "]";
+		return "TradeVO [userBn=" + userBn + ", tradeNo=" + tradeNo + ", tradeDiv=" + tradeDiv + ", customerNo="
+				+ customerNo + ", itemCode=" + itemCode + ", tradeQuantity=" + tradeQuantity + ", tradePayable="
+				+ tradePayable + ", tradeReceivable=" + tradeReceivable + ", tradeTotal=" + tradeTotal + ", paymentDiv="
+				+ paymentDiv + ", tradeIndate=" + tradeIndate + ", tradeNote=" + tradeNote + "]";
 	}
+	
+	
+	
+
 	
 }

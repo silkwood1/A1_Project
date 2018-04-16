@@ -88,5 +88,15 @@ public class ItemsDAO {
 		}
 	}
 
+	public String code_search2(int itemNum) {
+		String a = "";
+		ItemsMapper mapper = sqlSession.getMapper(ItemsMapper.class);
+		try{
+			a = mapper.code_search2(itemNum);
+		}catch(Exception e){
+			e.printStackTrace();
+		}		return a;
+	}
+
 	
 }

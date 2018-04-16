@@ -125,7 +125,6 @@
 /* The search field */
 #myInput {
 	border-box: box-sizing;
-	background-image: url('searchicon.png');
 	background-position: 14px 12px;
 	background-repeat: no-repeat;
 	font-size: 16px;
@@ -357,38 +356,26 @@
               	  <h5 class="centered">${cname }</h5>
               	  
               	  
-              	  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-desktop"></i>
-                          <span>거래처 관리(Account Management)</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="/Account/AccountBoard">거래처 리스트(Account list)</a></li>
-                      </ul>
-                  </li>
+              	  <!-- 거래처 관리 -->
+               <li class="sub-menu"><a href="/account/accountBoard"> <i
+                     class="fa fa-desktop"></i> <span>거래처 관리(Account
+                        Management)</span>
+               </a></li>
+               <!-- /거래처 관리 -->
 
                   <li class="sub-menu">
-                      <a href="javascript:;" >
+                      <a href="/item/items_list" >
                           <i class="fa fa-desktop"></i>
                           <span>품목 관리(Item management)</span>
                       </a>
-                      <ul class="sub">
-                          <li><a  href="/item/items_list">품목(Item)</a></li>
-                          <li><a  href="buttons.html">매입(Purchase)</a></li>
-                      </ul>
                   </li>
 
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-cogs"></i>
-                          <span>판매 관리(Sales Management)</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="calendar.html">매출(Sales profit)</a></li>
-                          <li><a  href="gallery.html">판매현황(Sales table)</a></li>
-                          <li><a  href="todo_list.html">장부내역(Ledger detail)</a></li>
-                      </ul>
-                  </li>
+                <!-- 거래 관리 -->
+               <li class="sub-menu"><a href="/trade/tradeBoard"> <i
+                     class="fa fa-cogs"></i> <span>거래관리(Trades Management)</span>
+               </a></li>
+               <!-- /거래 관리 -->
+               
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-book"></i>

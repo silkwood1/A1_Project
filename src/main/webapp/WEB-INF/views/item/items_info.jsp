@@ -18,6 +18,7 @@ $(document).ready(function() {
 		var price1 = $('#itemPrice1').val();
 		var price2 = $('#itemPrice2').val();
 		var quantity = $('#itemQuantity').val();
+		var num = $('#itemNum').val();
 		
 		if(code == "" || code == null){
 			alert('품목코드를 입력해주세요.');
@@ -33,7 +34,7 @@ $(document).ready(function() {
 			quantity = "";
 		}
 		
-		var data = {'itemCode' : code};
+		var data = {'itemCode' : code, 'itemNum' : num};
 		
 		$.ajax({
 			type : 'POST',
@@ -70,6 +71,7 @@ $(document).ready(function() {
 					</h4>
 					<form action="/item/update" method="post"
 						class="form-horizontal style-form" id="item_update_form">
+						<input type="hidden" id="itemNum" name="itemNum" value="${item.itemNum }">
 						<!-- line 1 -->
 						<table>
 							<tr>

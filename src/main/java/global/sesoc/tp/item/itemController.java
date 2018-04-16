@@ -59,9 +59,18 @@ public class itemController {
 	@RequestMapping(value = "item_insert_chk", method = RequestMethod.POST)
 	public String item_insert_chk(@RequestBody ItemsVO item) {
 		String a = "";
+		String c = "";
 		int b = 0;
+		
+		System.out.println(item.getItemNum());
+		
 		b = dao.code_search(item.getItemCode());
-		if(b == 0 ){
+		c = dao.code_search2(item.getItemNum());
+		
+		System.out.println(item.getItemCode());
+		System.out.println(c);
+		
+		if(item.getItemCode().equals(c) || b == 0){
 			a = "1";
 		}else{
 			a = "0";

@@ -4,8 +4,8 @@
 <!--footer start-->
       <footer class="site-footer">
           <div class="text-center">
-              2014 - Alvarez.is
-              <a href="index.html#" class="go-top">
+              Copyright(c) 2018. team_A6. All rights reserved. 
+              <a href="#top" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>
           </div>

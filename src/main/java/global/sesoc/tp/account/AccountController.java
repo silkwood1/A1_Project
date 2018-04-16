@@ -12,14 +12,14 @@ import global.sesoc.tp.dao.CustomerDAO;
 import global.sesoc.tp.vo.CustomerVO;
 
 @Controller
-@RequestMapping("Account")
+@RequestMapping("account")
 
 public class AccountController {
 
 	@Autowired
 	CustomerDAO dao;
 
-	@RequestMapping(value = "AccountBoard", method = RequestMethod.GET)
+	@RequestMapping(value = "accountBoard", method = RequestMethod.GET)
 	public String mainBoard(Model model,String div, String name) {
 
 		System.out.println("!!!!!!!!"+div);
@@ -48,7 +48,7 @@ public class AccountController {
 	}
 	
 
-	@RequestMapping(value = "AccountBoard", method = RequestMethod.POST)
+	@RequestMapping(value = "accountBoard", method = RequestMethod.POST)
 	public String mainBoard2(Model model) {
 
 		/*
@@ -59,7 +59,7 @@ public class AccountController {
 		return "/account/accountBoard";
 	}
 	
-	@RequestMapping(value = "AccountModify", method = RequestMethod.GET)
+	@RequestMapping(value = "accountModify", method = RequestMethod.GET)
 	public String accountModify(String customerBsn, Model model) {
 		
 		
@@ -72,7 +72,7 @@ public class AccountController {
 		return "/account/accountBoardModify";
 	}
 	
-	@RequestMapping(value = "AccountDelete", method = RequestMethod.GET)
+	@RequestMapping(value = "accountDelete", method = RequestMethod.GET)
 	public String accountDelete() {
 		
 		

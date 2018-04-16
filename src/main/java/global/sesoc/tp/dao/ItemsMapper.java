@@ -23,5 +23,7 @@ public interface ItemsMapper {
 	public ItemsVO items_info(int num);
 	//수정
 	public void item_update(ItemsVO item);
+	//코드 중복처리2
+	public String code_search2(int itemNum);
 
 }

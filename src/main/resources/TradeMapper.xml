@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="global.sesoc.tp.dao.TradeMapper">
+  	
+  	<!-- 새 거래 등록 -->
+  	<insert id="insertTrade" parameterType="Trade">
+  		insert into Trade (
+  			userBn
+  			, tradeNo
+  			, tradeDiv
+  			, customerNo
+  			, itemCode
+  			, tradeQuantity
+  			, tradePayable
+  			, tradeReceivable
+  			, tradeTotal
+  			, paymentDiv
+  			, tradeNote
+  		) values (
+  			#{userBn}
+  			, tradeNo_seq.nextval
+  			, #{tradeDiv}
+  			, #{customerNo}
+  			, #{itemCode}
+  			, #{tradeQuantity}
+  			, #{tradePayable}
+  			, #{tradeReceivable}
+  			, #{tradeTotal}
+  			, #{paymentDiv}
+  			, #{tradeNote}
+  		)
+  	</insert>
+  	
+  	<!-- 전체 거래 리스트 -->
+  	<select id="tradeList" resultType="Trade">
+  		select 
+  		t.userBn userBn
+  		, t.tradeNo tradeNo
+  		, td.tradeExp tradeDiv
+  		, c.customerName customerNo
+  		, i.itemName itemCode
+  		, pd.paymentExp paymentDiv
+  		, t.tradeNote tradeNote
+  		, t.tradeQuantity tradeQuantity
+  		, t.tradePayable tradePayable
+  		, t.tradeReceivable tradeReceivable
+  		, t.tradeTotal tradeTotal
+  		, TO_CHAR(t.tradeIndate, 'YYYY-MM-DD') tradeIndate
+  			from trade t, tb_tradeDiv td, customer c, items i, tb_paymentDiv pd
+  			where t.userBn = #{userBn}
+  			and
+  			td.tradeDiv = t.tradeDiv
+  			and
+  			c.customerNo = t.customerNo
+			and
+			i.itemCode = t.itemCode
+			and
+			pd.paymentDiv = t.paymentDiv
+  			order by tradeNo DESC
+  	</select>
+  	
+  	<!-- 거래 번호로 거래 조회 -->
+  	<select id="selectTrade" parameterType="int" resultType="Trade">
+  		select 
+  		t.userBn userBn
+  		, t.tradeNo tradeNo
+  		, td.tradeExp tradeDiv
+  		, c.customerName customerNo
+  		, i.itemName itemCode
+  		, pd.paymentExp paymentDiv
+  		, t.tradeNote tradeNote
+  		, TO_CHAR(t.tradeQuantity, '999,999,999,999') tradeQuantity
+  		, TO_CHAR(t.tradePayable, '999,999,999,999') tradePayable
+  		, TO_CHAR(t.tradeReceivable, '999,999,999,999') tradeReceivable
+  		, TO_CHAR(t.tradeTotal, '999,999,999,999') tradeTotal
+  		, TO_CHAR(t.tradeIndate, 'YYYY-MM-DD HH24:MI:SS') tradeIndate
+  			from trade t, tb_tradeDiv td, customer c, items i, tb_paymentDiv pd
+  			where t.tradeNo = #{tradeNo}
+  			and
+  			td.tradeDiv = t.tradeDiv
+  			and
+  			c.customerNo = t.customerNo
+			and
+			i.itemCode = t.itemCode
+			and
+			pd.paymentDiv = t.paymentDiv
+  	</select>
+  	
+  	<!-- 거래 삭제 -->
+  	<delete id="deleteTrade" parameterType="int">
+  		delete from Trade
+  			where tradeNo = #{tradeNo}
+  	</delete>
+  	
+  	<!-- 거래 수정 -->
+  	<update id="updateTrade" parameterType="Trade">
+  		update trade
+  		set
+  			tradeDiv = #{tradeDiv}
+  			, customerNo = #{customerNo}
+  			, itemCode = #{itemCode}
+  			, tradeQuantity = #{tradeQuantity}
+  			<if test="tradePayable != null">
+  			, tradePayable = #{tradePayable}
+  			</if>
+  			<if test="tradeReceivable != null">
+  			, tradeReceivable = #{tradeReceivable}
+  			</if>
+  			, tradeTotal = #{tradeTotal}
+  			, paymentDiv = #{paymentDiv}
+  			<if test="tradeNote != null">
+  			, tradeNote = #{tradeNote}
+  			</if>
+  	</update>
+  	
+  </mapper>

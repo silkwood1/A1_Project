@@ -65,8 +65,8 @@
 
 
 					<!--테이블 검색어 입력 박스 -->
-					<br> <input class="form-control" id="myInput" type="text"
-						placeholder="Search.." style="width: 701px;"></br>
+					<br><input class="form-control" id="myInput" type="text"
+						placeholder="여기에 키다운 해야할듯? 찾기" style="width: 701px;">
 
 					<section id="unseen">
 						<div id="exceldown">

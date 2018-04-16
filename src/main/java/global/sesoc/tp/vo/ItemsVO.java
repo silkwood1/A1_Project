@@ -31,8 +31,9 @@ public class ItemsVO {
 	}
 
 	// items - 전체 생성자
-	public ItemsVO(String userBn, String itemDiv, String itemCode, String itemName, String itemPrice1, String itemPrice2,
+	public ItemsVO(int itemNum, String userBn, String itemDiv, String itemCode, String itemName, String itemPrice1, String itemPrice2,
 			String itemQuantity) {
+		this.itemNum = itemNum;
 		this.userBn = userBn;
 		this.itemDiv = itemDiv;
 		this.itemCode = itemCode;
@@ -125,9 +126,11 @@ public class ItemsVO {
 
 	@Override
 	public String toString() {
-		return "ItemsVO [userBn=" + userBn + ", itemDiv=" + itemDiv + ", itemExp=" + itemExp + ", itemCode=" + itemCode
-				+ ", itemName=" + itemName + ", itemPrice1=" + itemPrice1 + ", itemPrice2=" + itemPrice2
-				+ ", itemQuantity=" + itemQuantity + ", itemIndate=" + itemIndate + "]";
+		return "ItemsVO [itemNum=" + itemNum + ", userBn=" + userBn + ", itemDiv=" + itemDiv + ", itemExp=" + itemExp
+				+ ", itemCode=" + itemCode + ", itemName=" + itemName + ", itemPrice1=" + itemPrice1 + ", itemPrice2="
+				+ itemPrice2 + ", itemQuantity=" + itemQuantity + ", itemIndate=" + itemIndate + "]";
 	}
+
+	
 
 }

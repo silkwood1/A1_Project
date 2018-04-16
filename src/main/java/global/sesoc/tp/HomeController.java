@@ -127,12 +127,6 @@ public class HomeController {
 		}
 	}
 	
-	@RequestMapping(value = "qrcode", method = RequestMethod.GET)
-	public String qrcode() {
-		
-		return "QRcodeGenerate/generator";
-	}
-	
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public void logout(HttpSession session, HttpServletResponse response) throws IOException {
 		session.invalidate();
@@ -164,6 +158,7 @@ public class HomeController {
 		System.out.println(user.toString());
 		if(dao.update_user(user) == 0 || dao.update_user_profile(user) == 1){
 			session.setAttribute("name", user.getUserName());
+			session.setAttribute("cname", user.getUserCname());
 			return "home";
 		}
 		return "update";

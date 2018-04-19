@@ -98,5 +98,16 @@ public class ItemsDAO {
 		}		return a;
 	}
 
+	public ArrayList<ItemsVO> items_list3(String val) {
+		ArrayList<ItemsVO> items = new ArrayList<ItemsVO>();
+		ItemsMapper mapper = sqlSession.getMapper(ItemsMapper.class);
+		try{
+			items = mapper.items_list3(val);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return items;
+	}
+
 	
 }

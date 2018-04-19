@@ -41,6 +41,12 @@
 			return;
 		}
 	}
+	
+	function goSearch(){
+		var search_text = $("#myInput").val();
+		
+		location.href="items_list?val=" + search_text;
+	}
 </script>
 
 <!-- **********************************************************************************************************************************************************
@@ -65,18 +71,14 @@
 
 
 					<!--테이블 검색어 입력 박스 -->
-					<br><input class="form-control" id="myInput" type="text"
-						placeholder="여기에 키다운 해야할듯? 찾기" style="width: 701px;">
-
+					<br>
+						<input class="form-control" id="myInput" type="text"
+							placeholder="검색어(코드, 품목명) 입력 후 엔터." style="width: 701px;" onkeypress="if(event.keyCode==13) {goSearch();}">
 					<section id="unseen">
 						<div id="exceldown">
-
 							<table class="table table-bordered table-striped table-condensed">
 								<thead>
 									<tr>
-										<c:if test="${sessionScope.Member.id == 'admin'}">
-											<th></th>
-										</c:if>
 										<th>
 											<div class="dropdown">
 												<button onclick="myFunction()" class="dropbtn">품목

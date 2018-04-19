@@ -33,6 +33,37 @@ function setComma(inNum) {
 	return outNum;
 }
 
+//글자 수 제한
+function chkword(obj, maxlength) {     
+	var str = obj.value; // 이벤트가 일어난 컨트롤의 value 값     
+	var str_length = str.length; // 전체길이       
+	
+	// 변수초기화     
+	var max_length = maxlength; // 제한할 글자수 크기     
+	var i = 0; // for문에 사용     
+	var ko_byte = 0; // 한글일경우는 2 그밗에는 1을 더함     
+	var li_len = 0; // substring하기 위해서 사용     
+	var one_char = ""; // 한글자씩 검사한다     
+	var str2 = ""; // 글자수를 초과하면 제한할수 글자전까지만 보여준다.       
+	
+	for (i = 0; i < str_length; i++) {         // 한글자추출        
+		one_char = str.charAt(i);             
+		ko_byte++;         
+	}           // 전체 크기가 max_length를 넘지않으면        
+		
+	if (ko_byte <= max_length) {             
+		li_len = i + 1;         
+	}            // 전체길이를 초과하면     
+
+	if (ko_byte > max_length) {         
+		//alert(max_length + " 자릿수 이상 입력할 수 없습니다. \n초과된 내용은 자동으로 삭제 됩니다.");
+		alert("더 이상 입력할 수 없습니다. \n초과된 내용은 자동으로 삭제됩니다.");
+		str2 = str.substr(0, max_length);         
+		obj.value = str2;     
+	}     
+	obj.focus();   
+}
+
 $(document).ready(function() {
 	//alert('ready');
 	var td = $('#hid_tradeDiv').val();
@@ -62,22 +93,20 @@ $(document).ready(function() {
 		$('#pd4').attr('selected', 'selected');
 	}
 	
-	// 수정하기 버튼 눌렀을 때
-	var openEdit;
-	openEdit = function() {
-		$('#tDiv').prop('diabled', false);
-		$('#cne').prop('readonly', false);
-		$('#ice').prop('readonly', false);
-		$('#tqy').prop('readonly', false);
-		$('#tpl').prop('readonly', false);
-		$('#trl').prop('readonly', false);
-		$('#ttl').prop('readonly', false);
-		$('#pDiv').prop('disabled', false);
-		$('#incharge').prop('readonly', false);
-		$('#crk').prop('readonly', false);
-		$('#tnote').prop('readonly', false);
-	}
-	
+	var tradeDiv, customerNo, itemCode, paymentDiv, tradeNote;
+	var tradeQuantity, tradePayable, tradeReceivable, tradeTotal;
+
+	$('#edit').click(function(){
+		customerNo = $('#input_customer').val();
+		itemCode = $('#input_item').val();
+		tradeQuantity = $('#input_quantity').val();
+		tradePayable = $('#input_payable').val();
+		tradeReceivable = $('#input_receivable').val();
+		tradeTotal = $('#input_total').val();
+		
+		alert(customerNo + ", " + itemCode + ", " + tradeQuantity + ", " + tradePayable + ", " + tradeReceivable + ", " + tradeTotal);
+	});
+		
 });
 </script>
 <%@ include file="../include/header.jsp"%>
@@ -91,6 +120,7 @@ $(document).ready(function() {
 		<h3>
 			<i class="fa fa-angle-right"></i>거래 정보 페이지
 		</h3>
+		<input type="hidden" id="hid_userBn" value="${bn }">
 		<input type="hidden" id="hid_tradeDiv" value="${t.tradeDiv }">
 		<input type="hidden" id="hid_paymentDiv" value="${t.paymentDiv }">
 		<!-- BASIC FORM ELELEMNTS -->
@@ -103,12 +133,13 @@ $(document).ready(function() {
 					<form class="form-horizontal style-form"
 						enctype="multipart/form-data">
 
+						<!-- line 1 -->
 						<table>
 							<tr>
 								<td>
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label"
-											style="width: 100px;">거래일자</label>
+											style="width: 100px;">등록일자</label>
 										<div class="col-sm-6" style="width: 309px;">
 											<input type="text" class="form-control" id="tDate"
 											value="${t.tradeIndate }" readonly="readonly" />
@@ -130,7 +161,34 @@ $(document).ready(function() {
 							</tr>
 						</table>
 						
-						<!-- line 1 -->
+						<!-- line 2 -->
+						<table>
+							<tr>
+								<td>
+									<div class="form-group">
+										<label class="col-sm-2 col-sm-2 control-label"
+											style="width: 100px;">담당직원</label>
+										<div class="col-sm-6" style="width: 309px;">
+											<input type="text" class="form-control" id="incharge"
+												value="###" readonly="readonly"/>
+										</div>
+									</div>
+								</td>
+
+								<td>
+									<div class="form-group">
+										<label class="col-sm-2 col-sm-2 control-label"
+											style="width: 110px;">&emsp;회원등급</label>
+										<div class="col-sm-6" style="width: 309px;">
+											<input type="text" class="form-control" id="crk"
+												value="###" readonly="readonly"/>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+						
+						<!-- line 3 -->
 						<table>
 							<tr>
 								<td>
@@ -138,11 +196,11 @@ $(document).ready(function() {
 										<label class="col-sm-2 col-sm-2 control-label"
 											style="width: 100px;">거래구분</label>
 										<div class="col-sm-6" style="width: 309px;">
-											<select class="form-control" id="tDiv" disabled="disabled">
-												<option id="td1">판매</option>
-												<option id="td2">구매</option>
-												<option id="td3">판매취소</option>
-												<option id="td4">구매취소</option>
+											<select class="form-control" id="tDiv">
+												<option id="td1" name="1">판매</option>
+												<option id="td2" name="2">구매</option>
+												<option id="td3" name="3">판매취소</option>
+												<option id="td4" name="4">구매취소</option>
 											</select>
 										</div>
 									</div>
@@ -152,68 +210,8 @@ $(document).ready(function() {
 										<label class="col-sm-2 col-sm-2 control-label"
 											style="width: 110px;">&emsp;거래처</label>
 										<div class="col-sm-6" style="width: 309px;">
-											<input type="text" class="form-control" id="cne" name="CN"
-											value="${t.customerNo }" readonly="readonly"/>
-										</div>
-									</div>
-								</td>
-							</tr>
-						</table>
-
-						<!-- line 2 -->
-						<table>
-							<tr>
-								<td>
-									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label"
-											style="width: 100px;">품목</label>
-										<div class="col-sm-6" style="width: 309px;">
-											<input type="text" class="form-control" id="ice"
-												name="RegDate" value="${t.itemCode }" readonly="readonly" />
-										</div>
-									</div>
-								</td>
-
-								<td>
-									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label"
-											style="width: 110px;">&emsp;수량</label>
-										<div class="col-sm-6" style="width: 309px;">
-											<input type="text" class="form-control" id="tqy"
-											onchange="getNumber(this);" onkeyup="getNumber(this);"
-												name="BsnNum" value="${t.tradeQuantity }" readonly="readonly"
-												style="text-align: right;" />
-										</div>
-									</div>
-								</td>
-							</tr>
-						</table>
-
-						<!-- line 3 -->
-						<table>
-							<tr>
-								<td>
-									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label"
-											style="width: 100px;">미지급금</label>
-										<div class="col-sm-6" style="width: 309px;">
-											<input type="text" class="form-control" id="tpl"
-											onchange="getNumber(this);" onkeyup="getNumber(this);"
-												name="CName" value="${t.tradePayable }" readonly="readonly"
-												style="text-align: right;" />
-										</div>
-									</div>
-								</td>
-
-								<td>
-									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label"
-											style="width: 110px;">&emsp;미수금</label>
-										<div class="col-sm-6" style="width: 309px;">
-											<input type="text" class="form-control" id="trl"
-											onchange="getNumber(this);" onkeyup="getNumber(this);"
-												name="RepreName" value="${t.tradeReceivable }" readonly="readonly"
-												style="text-align: right;" />
+											<input type="text" class="form-control" id="input_customer"
+											value="${t.customerNo }" />
 										</div>
 									</div>
 								</td>
@@ -226,12 +224,10 @@ $(document).ready(function() {
 								<td>
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label"
-											style="width: 100px;">총액</label>
+											style="width: 100px;">품목</label>
 										<div class="col-sm-6" style="width: 309px;">
-											<input type="text" class="form-control" id="ttl"
-											onchange="getNumber(this);" onkeyup="getNumber(this);"
-												name="BsnNum" value="${t.tradeTotal }" readonly="readonly"
-												style="text-align: right;" />
+											<input type="text" class="form-control" id="input_item" 
+												value="${t.itemCode }" />
 										</div>
 									</div>
 								</td>
@@ -239,14 +235,11 @@ $(document).ready(function() {
 								<td>
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label"
-											style="width: 110px;">&emsp;결제수단</label>
+											style="width: 110px;">&emsp;수량</label>
 										<div class="col-sm-6" style="width: 309px;">
-											<select class="form-control" id="pDiv" name="field" disabled="disabled">
-												<option id="pd1">카드</option>
-												<option id="pd2">현금</option>
-												<option id="pd3">계좌이체</option>
-												<option id="pd4">수표</option>
-											</select>
+											<input type="text" class="form-control" id="input_quantity"
+											onchange="getNumber(this);" onkeyup="getNumber(this); chkword(this,13);"
+												value="${t.tradeQuantity }" style="text-align: right;" />
 										</div>
 									</div>
 								</td>
@@ -259,10 +252,11 @@ $(document).ready(function() {
 								<td>
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label"
-											style="width: 100px;">담당직원</label>
+											style="width: 100px;">미지급금</label>
 										<div class="col-sm-6" style="width: 309px;">
-											<input type="text" class="form-control" id="incharge"
-												name="Staff" value="###" readonly="readonly"/>
+											<input type="text" class="form-control" id="input_payable"
+											onchange="getNumber(this);" onkeyup="getNumber(this); chkword(this,13);"
+												value="${t.tradePayable }" style="text-align: right;" />
 										</div>
 									</div>
 								</td>
@@ -270,10 +264,11 @@ $(document).ready(function() {
 								<td>
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label"
-											style="width: 110px;">&emsp;회원등급</label>
+											style="width: 110px;">&emsp;미수금</label>
 										<div class="col-sm-6" style="width: 309px;">
-											<input type="text" class="form-control" id="crk"
-												name="Staff" value="###" readonly="readonly"/>
+											<input type="text" class="form-control" id="input_receivable"
+											onchange="getNumber(this);" onkeyup="getNumber(this); chkword(this,13);"
+												value="${t.tradeReceivable }" style="text-align: right;" />
 										</div>
 									</div>
 								</td>
@@ -281,12 +276,44 @@ $(document).ready(function() {
 						</table>
 
 						<!-- line 6 -->
+						<table>
+							<tr>
+								<td>
+									<div class="form-group">
+										<label class="col-sm-2 col-sm-2 control-label"
+											style="width: 100px;">총액</label>
+										<div class="col-sm-6" style="width: 309px;">
+											<input type="text" class="form-control" id="input_total"
+											onchange="getNumber(this);" onkeyup="getNumber(this); chkword(this,13);"
+												value="${t.tradeTotal }" style="text-align: right;" />
+										</div>
+									</div>
+								</td>
+
+								<td>
+									<div class="form-group">
+										<label class="col-sm-2 col-sm-2 control-label"
+											style="width: 110px;">&emsp;결제수단</label>
+										<div class="col-sm-6" style="width: 309px;">
+											<select class="form-control" id="pDiv">
+												<option id="pd1">카드</option>
+												<option id="pd2">현금</option>
+												<option id="pd3">계좌이체</option>
+												<option id="pd4">수표</option>
+											</select>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+
+						<!-- line 7 -->
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label"
 								style="width: 100px;">비고 </label>
 							<div class="col-sm-6" style="width: 309px;">
-								<textarea class="form-control" id="tnote" name="Remark"
-									style="width: 666px; height: 85px;" readonly="readonly">${t.tradeNote }</textarea>
+								<textarea class="form-control" id="input_note"
+									style="width: 666px; height: 85px;">${t.tradeNote }</textarea>
 							</div>
 							<br> <br>
 						</div>
@@ -301,15 +328,14 @@ $(document).ready(function() {
 							</div>
 						</div> -->
 						
-
-						<!-- line 8 -->
+					</form>
+					<!-- line 8 -->
 						<div class="form-group" align="center">
-							<button id="goEdit" class="btn btn-default" onclick="openEdit()">수정하기</button>&nbsp&nbsp
+							<button id="edit" class="btn btn-default">수정하기</button>&nbsp&nbsp
 							<button type="button" class="btn btn-default"
 								onclick="location.href='/trade/tradeBoard'">목록으로</button>&nbsp&nbsp
 							<button type="button" class="btn btn-danger" onclick="location.href='/trade/deleteTrade?tradeNo=${t.tradeNo }'">삭제하기</button>
 						</div>
-					</form>
 				</div>
 			</div>
 			<!-- col-lg-12-->

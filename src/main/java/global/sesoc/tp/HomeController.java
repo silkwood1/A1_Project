@@ -1,6 +1,7 @@
 package global.sesoc.tp;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import global.sesoc.tp.dao.UserDAO;
+import global.sesoc.tp.vo.ScheduleVO;
 import global.sesoc.tp.vo.UserVO;
 
 @Controller
@@ -171,5 +173,28 @@ public class HomeController {
 		dao.sayonara(bn);
 		
 		response.sendRedirect("logout");
+	}
+	
+	@RequestMapping(value = "calendar", method = RequestMethod.GET)
+	public String calendar(HttpSession session) {
+		ScheduleVO sc1 = new ScheduleVO();
+		ScheduleVO sc2 = new ScheduleVO();
+		
+		ArrayList<ScheduleVO> list = null;
+		try {
+			list = (ArrayList<ScheduleVO>)session.getAttribute("list");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		if (list == null) {
+			list = new ArrayList<ScheduleVO>();
+			list.add(sc1);
+			list.add(sc2);
+			
+		}
+		session.setAttribute("list", list);
+	
+		return "Calendar/Calendar";
 	}
 }

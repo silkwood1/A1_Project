@@ -37,4 +37,8 @@
 	<select id="code_search2" parameterType="int" resultType="String">
 		select itemCode from items where itemNum = #{itemNum}
 	</select>
+	
+	<select id="items_list3" parameterType="String" resultType="Item">
+		select * from items where itemCode like '%'||#{String}||'%' or itemName like '%'||#{String}||'%'
+	</select>
 </mapper>

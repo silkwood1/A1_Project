@@ -72,10 +72,10 @@
   		, i.itemName itemCode
   		, pd.paymentExp paymentDiv
   		, t.tradeNote tradeNote
-  		, TO_CHAR(t.tradeQuantity, '999,999,999,999') tradeQuantity
-  		, TO_CHAR(t.tradePayable, '999,999,999,999') tradePayable
-  		, TO_CHAR(t.tradeReceivable, '999,999,999,999') tradeReceivable
-  		, TO_CHAR(t.tradeTotal, '999,999,999,999') tradeTotal
+  		, TO_CHAR(t.tradeQuantity, '9,999,999,999') tradeQuantity
+  		, TO_CHAR(t.tradePayable, '9,999,999,999') tradePayable
+  		, TO_CHAR(t.tradeReceivable, '9,999,999,999') tradeReceivable
+  		, TO_CHAR(t.tradeTotal, '9,999,999,999') tradeTotal
   		, TO_CHAR(t.tradeIndate, 'YYYY-MM-DD HH24:MI:SS') tradeIndate
   			from trade t, tb_tradeDiv td, customer c, items i, tb_paymentDiv pd
   			where t.tradeNo = #{tradeNo}
@@ -95,7 +95,7 @@
   			where tradeNo = #{tradeNo}
   	</delete>
   	
-  	<!-- 거래 수정 -->
+  	<!-- 거래 정보 수정 -->
   	<update id="updateTrade" parameterType="Trade">
   		update trade
   		set

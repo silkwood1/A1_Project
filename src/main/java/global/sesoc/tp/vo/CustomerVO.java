@@ -1,52 +1,53 @@
 package global.sesoc.tp.vo;
 
 public class CustomerVO {
-	private int customerDiv;
-	private int customerNo;
-	private String customerRegDate;
-	private String customerBsn;
-	private String customerComName;
-	private String customerName;
-	private int customerCellNo;
-	private int customerOfficeNo;
-	private String customerFaxNo;
-	private String customerEmail;
-	private String customerPost;
-	private String customerAddr;
-	private String customerHandler;
-	private String customerNote;
+	private String userBn; 				//유저 사업자번호
+	private int customerNo;				//고객 번호
+	private String customerDiv;			//고객 분류
+	private String customerBn;			//사업자번호
+	private String customerCname;		//상호명
+	private String customerName;		//대표자명
+	private String customerCellNo;			//휴대전화번호
+	private String customerOfficeNo;		//사무실 전화번호
+	private String customerFaxNo;		//팩스번호
+	private String customerEmail;		//이메일 주소
+	private String customerZipcode;		//우편번호
+	private String customerAddress;		//상세주소
+	private String customerIndate;		//등록 일자
+	private String rankDiv;				//고객 등급
+	private String inCharge;				//담당자
+	private String customerNote;		//비고
+	
+	public CustomerVO() {}
 
-	public CustomerVO() {
-
-	}
-
-	public CustomerVO(int customerDiv, int customerNo, String customerRegDate, String customerBsn,
-			String customerComName, String customerName, int customerCellNo, int customerOfficeNo, String customerFaxNo,
-			String customerEmail, String customerPost, String customerAddr, String customerHandler,
-			String customerNote) {
-		super();
-		this.customerDiv = customerDiv;
+	public CustomerVO(String userBn, int customerNo, String customerDiv, String customerBn, String customerCname,
+			String customerName, String customerCellNo, String customerOfficeNo, String customerFaxNo,
+			String customerEmail, String customerZipcode, String customerAddress, String customerIndate, String rankDiv,
+			String inCharge, String customerNote) {
+		this.userBn = userBn;
 		this.customerNo = customerNo;
-		this.customerRegDate = customerRegDate;
-		this.customerBsn = customerBsn;
-		this.customerComName = customerComName;
+		this.customerDiv = customerDiv;
+		this.customerBn = customerBn;
+		this.customerCname = customerCname;
 		this.customerName = customerName;
 		this.customerCellNo = customerCellNo;
 		this.customerOfficeNo = customerOfficeNo;
 		this.customerFaxNo = customerFaxNo;
 		this.customerEmail = customerEmail;
-		this.customerPost = customerPost;
-		this.customerAddr = customerAddr;
-		this.customerHandler = customerHandler;
+		this.customerZipcode = customerZipcode;
+		this.customerAddress = customerAddress;
+		this.customerIndate = customerIndate;
+		this.rankDiv = rankDiv;
+		this.inCharge = inCharge;
 		this.customerNote = customerNote;
 	}
 
-	public int getCustomerDiv() {
-		return customerDiv;
+	public String getUserBn() {
+		return userBn;
 	}
 
-	public void setCustomerDiv(int customerDiv) {
-		this.customerDiv = customerDiv;
+	public void setUserBn(String userBn) {
+		this.userBn = userBn;
 	}
 
 	public int getCustomerNo() {
@@ -57,28 +58,28 @@ public class CustomerVO {
 		this.customerNo = customerNo;
 	}
 
-	public String getCustomerRegDate() {
-		return customerRegDate;
+	public String getCustomerDiv() {
+		return customerDiv;
 	}
 
-	public void setCustomerRegDate(String customerRegDate) {
-		this.customerRegDate = customerRegDate;
+	public void setCustomerDiv(String customerDiv) {
+		this.customerDiv = customerDiv;
 	}
 
-	public String getCustomerBsn() {
-		return customerBsn;
+	public String getCustomerBn() {
+		return customerBn;
 	}
 
-	public void setCustomerBsn(String customerBsn) {
-		this.customerBsn = customerBsn;
+	public void setCustomerBn(String customerBn) {
+		this.customerBn = customerBn;
 	}
 
-	public String getCustomerComName() {
-		return customerComName;
+	public String getCustomerCname() {
+		return customerCname;
 	}
 
-	public void setCustomerComName(String customerComName) {
-		this.customerComName = customerComName;
+	public void setCustomerCname(String customerCname) {
+		this.customerCname = customerCname;
 	}
 
 	public String getCustomerName() {
@@ -89,19 +90,19 @@ public class CustomerVO {
 		this.customerName = customerName;
 	}
 
-	public int getCustomerCellNo() {
+	public String getCustomerCellNo() {
 		return customerCellNo;
 	}
 
-	public void setCustomerCellNo(int customerCellNo) {
+	public void setCustomerCellNo(String customerCellNo) {
 		this.customerCellNo = customerCellNo;
 	}
 
-	public int getCustomerOfficeNo() {
+	public String getCustomerOfficeNo() {
 		return customerOfficeNo;
 	}
 
-	public void setCustomerOfficeNo(int customerOfficeNo) {
+	public void setCustomerOfficeNo(String customerOfficeNo) {
 		this.customerOfficeNo = customerOfficeNo;
 	}
 
@@ -121,28 +122,44 @@ public class CustomerVO {
 		this.customerEmail = customerEmail;
 	}
 
-	public String getCustomerPost() {
-		return customerPost;
+	public String getCustomerZipcode() {
+		return customerZipcode;
 	}
 
-	public void setCustomerPost(String customerPost) {
-		this.customerPost = customerPost;
+	public void setCustomerZipcode(String customerZipcode) {
+		this.customerZipcode = customerZipcode;
 	}
 
-	public String getCustomerAddr() {
-		return customerAddr;
+	public String getCustomerAddress() {
+		return customerAddress;
 	}
 
-	public void setCustomerAddr(String customerAddr) {
-		this.customerAddr = customerAddr;
+	public void setCustomerAddress(String customerAddress) {
+		this.customerAddress = customerAddress;
 	}
 
-	public String getCustomerHandler() {
-		return customerHandler;
+	public String getCustomerIndate() {
+		return customerIndate;
 	}
 
-	public void setCustomerHandler(String customerHandler) {
-		this.customerHandler = customerHandler;
+	public void setCustomerIndate(String customerIndate) {
+		this.customerIndate = customerIndate;
+	}
+
+	public String getRankDiv() {
+		return rankDiv;
+	}
+
+	public void setRankDiv(String rankDiv) {
+		this.rankDiv = rankDiv;
+	}
+
+	public String getInCharge() {
+		return inCharge;
+	}
+
+	public void setInCharge(String inCharge) {
+		this.inCharge = inCharge;
 	}
 
 	public String getCustomerNote() {
@@ -155,13 +172,14 @@ public class CustomerVO {
 
 	@Override
 	public String toString() {
-		return "CustomerVO [customerDiv=" + customerDiv + ", customerNo=" + customerNo + ", customerRegDate="
-				+ customerRegDate + ", customerBsn=" + customerBsn + ", customerComName=" + customerComName
-				+ ", customerName=" + customerName + ", customerCellNo=" + customerCellNo + ", customerOfficeNo="
-				+ customerOfficeNo + ", customerFaxNo=" + customerFaxNo + ", customerEmail=" + customerEmail
-				+ ", customerPost=" + customerPost + ", customerAddr=" + customerAddr + ", customerHandler="
-				+ customerHandler + ", customerNote=" + customerNote + "]";
+		return "CustomerVO [userBn=" + userBn + ", customerNo=" + customerNo + ", customerDiv=" + customerDiv
+				+ ", customerBn=" + customerBn + ", customerCname=" + customerCname + ", customerName=" + customerName
+				+ ", customerCellNo=" + customerCellNo + ", customerOfficeNo=" + customerOfficeNo + ", customerFaxNo="
+				+ customerFaxNo + ", customerEmail=" + customerEmail + ", customerZipcode=" + customerZipcode
+				+ ", customerAddress=" + customerAddress + ", customerIndate=" + customerIndate + ", rankDiv=" + rankDiv
+				+ ", incharge=" + inCharge + ", customerNote=" + customerNote + "]";
 	}
+
 	
 
 }

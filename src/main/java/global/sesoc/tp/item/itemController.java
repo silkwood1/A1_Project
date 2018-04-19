@@ -28,7 +28,7 @@ public class itemController {
 	private ItemsDAO dao;
 	
 	@RequestMapping(value = "items_list", method = RequestMethod.GET)
-	public String items_list(Model m, HttpSession session, String div) {
+	public String items_list(Model m, HttpSession session, String div, String val) {
 		ArrayList<ItemsVO> items = new ArrayList<ItemsVO>();
 		String bn = (String) session.getAttribute("bn");
 		
@@ -36,11 +36,17 @@ public class itemController {
 			div = "0";
 		}
 		
+		if(val == null){
+			val = "0";
+		}
+		
 		if(div.equals("1") || div.equals("2")){
 			HashMap<String, String> hm = new HashMap<String, String>();
 			hm.put("div", div);
 			hm.put("bn", bn);
 			items = dao.items_list2(hm);
+		}else if(!(val.equals("0"))){
+			items = dao.items_list3(val);
 		}else{
 			items = dao.items_list(bn);		
 		}

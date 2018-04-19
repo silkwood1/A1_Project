@@ -15,12 +15,12 @@ public class CustomerDAO {
 	@Autowired
 	SqlSession sqlSession;
 
-	public ArrayList<CustomerVO> customerList(CustomerVO cvo){
+	public ArrayList<CustomerVO> customerList(String userBn){
 		
 		CustomerMapper mapper = sqlSession.getMapper(CustomerMapper.class);
 		ArrayList<CustomerVO> customerList = new ArrayList<CustomerVO>();
 		try {
-			customerList = mapper.customerList(cvo);
+			customerList = mapper.customerList(userBn);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -29,16 +29,62 @@ public class CustomerDAO {
 		
 	}
 	
+	// 등록
+	public int insertCustomer(CustomerVO customer) {
+		CustomerMapper mapper = sqlSession.getMapper(CustomerMapper.class);
+		int result = 0;
+		
+		try {
+			result = mapper.insertCustomer(customer);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 	
-//	public ArrayList<UserVO> loadJa(int dif) {
-//		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-//		ArrayList<UserVO> j = new ArrayList<Japanese>();
-//		try{
-//			j = mapper.loadJa(dif);
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}
-//		return j;
-//	}	
+	// 선택
+	public CustomerVO selectCustomer(int customerNo) {
+		CustomerMapper mapper = sqlSession.getMapper(CustomerMapper.class);
+		CustomerVO result = null;
+		
+		try {
+			result = mapper.selectCustomer(customerNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	// 수정
+	public int updateCustomer(CustomerVO customer) {
+		CustomerMapper mapper = sqlSession.getMapper(CustomerMapper.class);
+		int result = 0;
+		
+		try {
+			result = mapper.updateCustomer(customer);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	// 삭제
+	public int deleteCustomer(int customerNo) {
+		CustomerMapper mapper = sqlSession.getMapper(CustomerMapper.class);
+		int result = 0;
+		
+		try {
+			result = mapper.deleteCustomer(customerNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	
 	
 }

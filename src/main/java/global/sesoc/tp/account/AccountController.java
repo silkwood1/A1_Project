@@ -2,11 +2,15 @@ package global.sesoc.tp.account;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import global.sesoc.tp.dao.CustomerDAO;
 import global.sesoc.tp.vo.CustomerVO;
@@ -19,34 +23,56 @@ public class AccountController {
 	@Autowired
 	CustomerDAO dao;
 
-	@RequestMapping(value = "accountBoard", method = RequestMethod.GET)
-	public String mainBoard(Model model,String div, String name) {
+	//주소 검색
+	@RequestMapping(value = "addr_insert", method = RequestMethod.POST)
+	public String addr() {
 
-		System.out.println("!!!!!!!!"+div);
-		System.out.println("!!!!!!!!"+name);
+		return "../addr_insert";
+	}
+	
+	// 거래처 목록 페이지
+	@RequestMapping(value = "accountBoard", method = RequestMethod.GET)
+	public String mainBoard(HttpSession session, Model model, CustomerVO customer) {
 		
-		CustomerVO cvo = new CustomerVO();
-		
-		if(div != null) {
-		cvo.setCustomerDiv(Integer.parseInt(div));
-		}
-		
-		cvo.setCustomerComName(name);
-		
+		String userBn = (String) session.getAttribute("bn");
 		ArrayList<CustomerVO> customerList = new ArrayList<CustomerVO>();
 		
-		/*
-		 * dao에 인자로 div, name를 보내서 query문에서 동적 query로 처리한다. 
-		 */
-		customerList = dao.customerList(cvo);
-
-		System.out.println(customerList);
-
+		try {
+			customerList = dao.customerList(userBn);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		model.addAttribute("c", customerList);
-
+		
 		return "/account/accountBoard";
 	}
 	
+	// 새 거래처 등록 페이지
+	@RequestMapping(value = "goInsertAccount", method = RequestMethod.GET)
+	public String goInsertAccount(Model model) {
+		
+		return "/account/insertAccount";
+	}
+	
+	// 새 거래처 등록
+	@ResponseBody
+	@RequestMapping(value = "insertAccount", method = RequestMethod.POST)
+	public String insertAccount(Model model, CustomerVO customer) {
+		System.out.println(customer.toString());
+		
+		int res = 0;
+		try {
+			res = dao.insertCustomer(customer);
+			System.out.println("res : " + res);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String result = String.valueOf(res);
+		System.out.println("result : " + result);
+		
+		return result;
+	}
 
 	@RequestMapping(value = "accountBoard", method = RequestMethod.POST)
 	public String mainBoard2(Model model) {
@@ -59,25 +85,40 @@ public class AccountController {
 		return "/account/accountBoard";
 	}
 	
+	// 거래처 수정 페이지
 	@RequestMapping(value = "accountModify", method = RequestMethod.GET)
-	public String accountModify(String customerBsn, Model model) {
+	public String accountModify(Model model, @RequestParam int customerNo) {
+		System.out.println(customerNo);
+		CustomerVO customer = null;
 		
+		try {
+			customer = dao.selectCustomer(customerNo);
+			System.out.println(customer.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
+		model.addAttribute("cu", customer);
 		
-		//Database에서 search (select문)
-		//select query로 얻은 출력을 model로 해서 jsp단으로 보내주기.
-		
-		
-		
-		return "/account/accountBoardModify";
+		return "/account/accountModify";
 	}
 	
+	// 거래처 삭제
 	@RequestMapping(value = "accountDelete", method = RequestMethod.GET)
-	public String accountDelete() {
-		
-		
+	public String accountDelete(Model model, @RequestParam int customerNo) {
+		int res = 0;
+		String result = null;
+		try {
+			res = dao.deleteCustomer(customerNo);
+			
+			if (res == 1) {
+				result = "redirect:accountBoard";
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 				
-		return "/account/accountBoardDelete";
+		return result;
 	}
 
 }

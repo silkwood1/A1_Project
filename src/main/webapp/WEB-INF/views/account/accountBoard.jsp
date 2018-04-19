@@ -32,41 +32,11 @@ $(document).ready(function(){
 			<div class="col-md-12">
 				<div class="content-panel">
 					<h4>
-						<i class="fa fa-angle-right"></i>거래처 관리(Account Management)
-								
+						<i class="fa fa-angle-right"></i>거래처 관리
+		
 					</h4>
-					
-					
-					<!--테이블 검색어 입력 박스 -->
-					<br><input class="form-control" id="myInput" type="text" placeholder="Search.." style="width: 701px; "></br> 
-					
-					<!--  
-					<table id="myTable">
-						<tr class="header">
-							<th style="width: 60%;">Name</th>
-							<th style="width: 40%;">Country</th>
-						</tr>
-						<tr>
-							<td>Alfreds Futterkiste</td>
-							<td>Germany</td>
-						</tr>
-						<tr>
-							<td>Berglunds snabbkop</td>
-							<td>Sweden</td>
-						</tr>
-						<tr>
-							<td>Island Trading</td>
-							<td>UK</td>
-						</tr>
-						<tr>
-							<td>Koniglich Essen</td>
-							<td>Germany</td>
-						</tr>
-					</table>
-					-->
 					<section id="unseen">
 						<div id="exceldown">
-						
 						<table class="table table-bordered table-striped table-condensed">
 							<thead>
 								<tr>
@@ -80,14 +50,9 @@ $(document).ready(function(){
 									<th></th>
 									<th></th>
 									<th></th>
-									<th></th>
-									<th><input type="button" class="btn btn-info"
-										onclick="writeBoard()" value="Column..."></th>
-									<th></th>
-									
 									<th><th><a id="btnExport" href="#" download="">Export</a></th>
 									<th><input type="button" class="btn btn-info"
-										onclick="writeBoard()" value="글쓰기"></th>
+										onclick="location.href='/account/goInsertAccount'" value="새 거래처"></th>
 								</tr>
 
 								<tr>
@@ -95,12 +60,12 @@ $(document).ready(function(){
 										<th></th>
 									</c:if>
 									<!--<th>고객분류(Customer division)</th>-->
-									<th>
+									
+									<!-- <th>
 										<div class="dropdown">
-											<button onclick="myFunction()" class="dropbtn">고객분류(Customer
-												division)</button>
+											<button onclick="myFunction()" class="dropbtn">고객분류</button>
 											<div id="myDropdown" class="dropdown-content">
-												<!--이 부분은 DB에서 값을 가져와서 Drop list에서 선택값을 출력해준다. -->
+												이 부분은 DB에서 값을 가져와서 Drop list에서 선택값을 출력해준다.
 											
 													<a href="/Account/AccountBoard?div=1">판매처</a>
 													<a href="/Account/AccountBoard?div=2">매입처</a>
@@ -108,94 +73,61 @@ $(document).ready(function(){
 											
 											</div>
 										</div>
-									</th>
-
-									<th>거래처 번호(Customer number)</th>
-									
-									<th>>사업자 번호(Business number)</th>
-									<!--<th>상호명(Company name)</th>-->
-									<th>
+									</th> -->
+									<th>고객분류</th>
+									<th>번호</th>
+									<th>등록날짜</th>
+									<th>사업자 번호</th>
+									<th>상호명</th>
+									<%-- <th>
 										<div class="dropdown">
-											<button onclick="myFunction1()" class="dropbtn">상호명(Company name)</button>
+											<button onclick="myFunction1()" class="dropbtn">상호명</button>
 											<div id="myDropdown1" class="dropdown-content">
 												<!--이 부분은 DB에서 값을 가져와서 Drop list에서 선택값을 출력해준다. -->
 												<input type="text" placeholder="Search.." id="myInput1" onkeyup="filterFunction()"> 
-													<c:forEach var="e" items="${c}">
+													<c:forEach var="c" items="${c}">
 														
 														<a href="/Account/AccountBoard?name=${e.customerComName}">${e.customerComName}</a>
 													
 													</c:forEach>
 											</div>
 										</div>
-									</th>
-
-
-									<th>대표자명(Representative name)</th>
-									<th>휴대폰 번호(Cellular number)</th>
-									<th>사무실 번호(Office number)</th>
-									<th>팩스 번호(Fax number)</th>
-									<th>이메일(Email address)</th>
-									
-									
-									<th>담당직원(Staff)</th>
-									<th>회원등급(Membership)</th>
-									<th>비고(Remark)</th>
+									</th> --%>
+									<th>대표자명</th>
+									<th>휴대폰 번호</th>
+									<th>사무실 번호</th>
+									<th>주소</th>
+									<th>담당직원</th>
+									<th>회원등급</th>
+									<th></th>
 									<th></th>
 								</tr>
 							</thead>
-							<tbody id="myTable">
+							<tbody>
 							
-								<c:forEach var="customer" items="${c}">
+								<c:forEach var="c" items="${c}">
 									<tr>
-										<td>${customer.customerDiv}</td>
-										<td>${customer.customerNo}</td>
-										
-										<td>${customer.customerBsn}</td>
-										<td>${customer.customerComName}</td>
-										<td>${customer.customerName}</td>
-										<td>${customer.customerCellNo}</td>
-										<td>${customer.customerOfficeNo}</td>
-										<td>${customer.customerFaxNo}</td>
-										<td>${customer.customerEmail}</td>
-										
-										
-										<td>${customer.customerHandler}</td>
-										<td>${customer.customerNote}</td>
-										<td></td>
-										
-										<td><a class="btn btn-info" href="/Account/AccountModify?customerBsn="${customer.customerBsn}>상세보기</a>
+										<td>${c.customerDiv}</td>
+										<td>${c.customerNo}</td>
+										<td>${c.customerIndate}</td>
+										<td>${c.customerBn}</td>
+										<td>${c.customerCname}</td>
+										<td>${c.customerName}</td>
+										<td>${c.customerCellNo}</td>
+										<td>${c.customerFaxNo}</td>
+										<td>${c.customerAddress}</td>
+										<td>${c.inCharge}</td>
+										<td>${c.rankDiv }</td>
+										<td><a class="btn btn-info btn-sm" href="/account/accountModify?customerNo=${c.customerNo}">수정</a>
 										</td>
 										
-										<td><a class="btn btn-danger  btn-sm"  href="/Account/AccountDelete">삭제</a>
+										<td><a class="btn btn-danger btn-sm"  href="/account/accountDelete?customerNo=${c.customerNo}">삭제</a>
 										</td>
 									</tr>
-								
 								</c:forEach>
-								<!--  
-                              <c:forEach var="b" items="${b}">
-                              	<tr>
-                              		<c:if test="${sessionScope.Member.id == 'admin'}">
-                              	 		<td><input type="checkbox" name="listCheck" value="${b.id}"></td>
-                                  	</c:if>
-                              		 
-                                	 	 <td>${b.boardnum}</td>
-                                	 	 <td>${b.field}</td>
-                                	 	 <td>${b.id}</td>
-                                	 	 <td><a href="/Board/read?boardnum=${b.boardnum}">${b.title}</a></td>
-                                	 	 <td>${b.inputdate}</td>
-                                	 	 <td>${b.hits}</td>
-                                 </tr>
-                              </c:forEach>
-                              -->
 							</tbody>
 						</table>
-						<!--  
-                          <c:if test="${sessionScope.Member.id == 'admin'}">
-                          	<div class="form-group" align="center">
-                             	 <button type="submit" class="btn btn-danger">Delete</button>
-                          	</div>
-                          </c:if>
-                          -->
+						
 						</div>
 					</section>
 

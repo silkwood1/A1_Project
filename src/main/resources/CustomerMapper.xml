@@ -4,38 +4,110 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="global.sesoc.tp.dao.CustomerMapper">
-  	
-  	<!--  
+
+	<!-- 거래처 리스트 -->  	
   	<select id="customerList" resultType="Customer">
-  		select * from customer
+		select
+		c.userBn userBn
+		, customerNo
+		, tcd.customerExp customerDiv
+		, customerBn
+		, customerCname
+		, customerName
+		, customerCellNo
+		, customerOfficeNo
+		, customerFaxNo
+		, customerEmail
+		, customerZipcode
+		, customerAddress
+		, trd.rankExp rankDiv
+		, inCharge
+		, customerNote
+		, TO_CHAR(c.customerIndate, 'YYYY-MM-DD') customerIndate
+			from customer c, tb_customerDiv tcd, tb_rankDiv trd
+			where 
+			c.userBn = #{userBn}
+			and
+			tcd.customerDiv = c.customerDiv
+			and
+			trd.rankDiv = c.rankDiv
+			order by customerNo DESC
   	</select>
-  	-->
   	
-  	<select id="customerList" resultType="Customer">
-  		select * from customer
-  		
-  		<if test="customerDiv != null and customerDiv != ''">
-  			where customerDiv = #{customerDiv}
-  		</if>
-  		
-  		<if test="customerComName != null and customerComName != ''">
-  			where customerCname = #{customerCname}
-  		</if>
-  		
+  	<!-- 새 거래처 등록 -->
+  	<insert id="insertCustomer" parameterType="Customer">
+  		insert into Customer (
+  			userBn
+  			, customerNo
+  			, customerDiv
+  			, customerBn
+  			, customerCname
+  			, customerName
+  			, customerCellNo
+  			, customerOfficeNo
+  			, customerFaxNo
+  			, customerEmail
+  			, customerZipcode
+  			, customerAddress
+  			, rankDiv
+  			, inCharge
+  			, customerNote
+  		) values (
+			#{userBn}
+			, customerNo_seq.nextval
+			, #{customerDiv}
+			, #{customerBn}
+			, #{customerCname}
+			, #{customerName}
+			, #{customerCellNo}
+			, #{customerOfficeNo}
+			, #{customerFaxNo}
+			, #{customerEmail}
+			, #{customerZipcode}
+			, #{customerAddress}
+			, #{rankDiv}
+			, #{inCharge}
+			, #{customerNote}
+  		)
+  	</insert>
+  	
+  	<!-- 거래처 번호로 거래처 조회 -->
+  	<select id="selectCustomer" parameterType="int" resultType="Customer">
+  		select
+  		c.userBn userBn 
+  		, tcd.customerExp customerDiv
+  		, c.customerBn customerBn
+  		, c.customerNo customerNo
+  		, c.customerCname customerCname
+  		, c.customerName customerName
+  		, c.customerCellNo customerCellNo
+  		, c.customerOfficeNo customerOfficeNo 
+  		, c.customerFaxNo customerFaxNo
+  		, c.customerEmail customerEmail
+  		, c.customerZipcode customerZipcode
+  		, c.customerAddress customerAddress
+  		, trd.rankExp rankDiv
+  		, c.inCharge inCharge
+  		, c.customerNote customerNote
+  			from customer c, tb_customerDiv tcd, tb_rankDiv trd
+  			where c.customerNo = #{customerNo}
+  			and
+  			tcd.customerDiv = c.customerDiv
+  			and
+  			trd.rankDiv = c.rankDiv
   	</select>
   	
-  	<!--  
-  	<select id="customerListFilter" resultType="Customer">
-  		select * from customer
-  		 
-  		<if test="div != null">
-  			where customerDiv = #{div}
-  		</if>
-  		
-  		<if test="name != null">
-  			customerComName = #{name}
-  		</if>
-  	</select>
-  	-->
+  	<!-- 거래처 삭제 -->
+  	<delete id="deleteCustomer" parameterType="int">
+  		delete from Customer
+  			where customerNo = #{customerNo}
+  	
+  	</delete>
+  	
+  	<!-- 거래처 정보 수정 -->
+  	<update id="updateCustomer" parameterType="Customer">
+  	
+  	</update>
+  	
   	
   </mapper>

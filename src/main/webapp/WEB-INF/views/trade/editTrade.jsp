@@ -211,7 +211,7 @@ $(document).ready(function() {
 											style="width: 110px;">&emsp;거래처</label>
 										<div class="col-sm-6" style="width: 309px;">
 											<input type="text" class="form-control" id="input_customer"
-											value="${t.customerNo }" />
+											value="${t.customerNo }" readonly="readonly" onclick=""/>
 										</div>
 									</div>
 								</td>

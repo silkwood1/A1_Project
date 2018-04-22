@@ -21,8 +21,6 @@
 <section id="main-content">
 	<section class="wrapper">
 		<div class="row">
-
-
 			<div class="row mt">
 				<!-- SERVER STATUS PANELS -->
 				<div class="col-md-4 col-sm-4 mb">
@@ -55,8 +53,6 @@
 					<! --/grey-panel -->
 				</div>
 				<!-- /col-md-4-->
-
-
 				<div class="col-md-4 col-sm-4 mb">
 					<div class="white-panel pn">
 						<div class="white-header">

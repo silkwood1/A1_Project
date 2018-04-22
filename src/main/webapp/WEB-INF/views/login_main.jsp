@@ -11,7 +11,6 @@
 <script src="http://malsup.github.com/jquery.cycle2.js"></script>
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/ui-darkness/jquery-ui.css" rel="stylesheet">	
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <script type="text/javascript">
@@ -220,12 +219,11 @@
 				$("#pw_name").val("");
 			}
 		});
-		
-		//창 열기 버튼을 클릭했을경우
-		$("#btn").on("click", function() {
-			$("#dialog").dialog("open"); //다이얼로그창 오픈
-		});
 	});
+	
+	function dialog_open(){
+		$("#dialog").dialog("open"); //다이얼로그창 오픈
+	}
 	
 	function goPopup(){
 		// 주소검색을 수행할 팝업 페이지를 호출합니다.
@@ -308,96 +306,60 @@
 	}
 </script>
 <style type="text/css">
-body {
-	background-color: olive;
-}
-
-.cycle-slideshow, .cycle-slideshow * {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-.cycle-slideshow {
-	width: 500px;
-	min-width: 200px;
-	max-width: 500px;
-	margin: 10px auto;
-	padding: 0;
-	position: relative;
-	margin: 10px auto;
-}
-
-.cycle-slideshow div.slide {
-	width: 100%;
-	height: 100%;
-}
-
-.cycle-slideshow img {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	padding: 0;
-	display: block;
-}
-
-.cycle-slideshow img:first-child {
-	position: static;
-}
-
-.cycle-pager {
-	text-align: center;
-	width: 100%;
-	position: relative;
-	overflow: hidden;
-}
-
-.cycle-pager span {
-	font-family: arial;
-	font-size: 50px;
-	width: 16px;
-	height: 16px;
-	display: inline-block;
-	color: #ddd;
-	cursor: pointer;
-}
-
-.cycle-pager span.cycle-pager-active {
-	color: #D69746;
-}
-
-.cycle-pager>* {
-	cursor: pointer;
-}
-
 .join_table th, td {
 	padding: 5px;
 }
+
+#video { 
+     position: absolute;
+     top: 0px;
+     left: 0px;
+     min-width: 100%;
+     min-height: 100%;
+     width: auto;
+     height: auto;
+     z-index: -1;
+     overflow: hidden;
+}
+
+#main_div { 
+	position:absolute;
+	top:50%; 
+	left:50%; 
+	width:300px; 
+	height:200px; 
+	overflow:hidden;  
+	margin-top:-150px; 
+	margin-left:-100px;
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+}
+#main_button{
+	position: absolute;
+	left: 90%;
+}
 </style>
 </head>
-<body>
-	<h2>로그인 UI 예시</h2>
-	<div class="cycle-slideshow" data-cycle-fx=scrollHorz
-		data-cycle-timeout=3000>
-		<div class="cycle-pager"></div>
-		<img src="resources/images/1.jpg"> <img
-			src="resources/images/2.jpg"> <img src="resources/images/3.jpg">
-	</div>
-
-	<input type="button" id="btn" value="창 열기" />
-
+<body onkeypress="if(event.keyCode==13) {dialog_open();}">
+	
+	<video id="video" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
+	      <source src="resources/videos/oro.mp4">
+	</video>
+	
+	<div id="main_div"><p>로그인하려면 엔터를 입력하세요.</p></div>
+	<input type="button" value="만든 사람들" id="main_button">
 	<div id="dialog" title="로그인">
 		<form action="login" method="post" id="login_form">
 			<table>
 				<tr>
-					<th>아이디</th>
-					<td><input type="text" placeholder="아이디 입력" name="login_id" id="login_id"></td>
-					<td rowspan="2"><input type="button" value="로그인" onclick="login_chk()"></td>
+					<th style="width: 2cm;">아이디</th>
+					<td><input type="text" placeholder="아이디 입력" name="login_id" id="login_id"  tabindex="0"></td>
+					<td rowspan="2"><a href="javascript:login_chk()"  tabindex="1"><img src="/resources/images/login_btn.png" style="width: 90%;"></a></td>
 				</tr>
 				<tr>
 					<th>비밀번호</th>
-					<td><input type="password" id="login_pw" placeholder="비밀번호 입력"></td>
+					<td onkeypress="if(event.keyCode==13) {login_chk();}"><input type="password" id="login_pw" placeholder="비밀번호 입력"  tabindex="0"></td>
 				</tr>
 			</table>
 		</form>

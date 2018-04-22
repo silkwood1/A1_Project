@@ -66,10 +66,7 @@
 				<div class="content-panel">
 					<h4>
 						<i class="fa fa-angle-right"></i>품목 리스트
-
 					</h4>
-
-
 					<!--테이블 검색어 입력 박스 -->
 					<br>
 						<input class="form-control" id="myInput" type="text"
@@ -91,13 +88,12 @@
 												</div>
 											</div>
 										</th>
-										<th>품목 코드</th>
-										<th>품목명</th>
-										<th>원가</th>
-										<th>판매가</th>
-										<th>보유 수량</th>
-										<th>등록일</th>
-										<th></th>
+										<th><div class="dropbtn">품목 코드</div></th>
+										<th><div class="dropbtn">품목명</div></th>
+										<th><div class="dropbtn">원가</div></th>
+										<th><div class="dropbtn">판매가</div></th>
+										<th><div class="dropbtn">보유 수량</div></th>
+										<th><div class="dropbtn">등록일</div></th>
 										<th><a id="btnExport" href="#" download="">Export</a></th>
 										<th><input type="button" class="btn btn-info"
 											onclick="location.href='items_insert'" value="품목 추가"></th>
@@ -121,7 +117,6 @@
 											<td>${item.itemPrice2}</td>
 											<td>${item.itemQuantity}</td>
 											<td>${item.itemIndate}</td>
-											<td></td>
 
 											<td><a class="btn btn-info"
 												href="/item/items_info?num=${item.itemNum }">상세보기</a>

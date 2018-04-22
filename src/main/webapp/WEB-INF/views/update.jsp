@@ -122,10 +122,24 @@
 		});
 	}
 </script>
+<style>
+	table {
+		margin-left: 1cm;
+		margin-bottom: 10px;
+	}
+</style>
 <section id="main-content">
 	<section class="wrapper">
+		<h3>
+			<i class="fa fa-angle-right"></i>사업자 관리
+		</h3>
+		
 		<div class="row">
 			<div class="col-md-12" id="col-md-12">
+				<div class="content-panel">
+					<h4>
+						<i class="fa fa-angle-right"></i>개인정보수정
+					</h4>
 				<form name="form" action="update_user" id="update_form" method="post" onsubmit="return update_chk()">
 					<table class="update_table">
 						<tr>
@@ -194,6 +208,7 @@
 					<input type="submit" value="수정">
 					<input type="button" value="계정 탈퇴" onclick="goodbye()">
 				</form>
+				</div>
 			</div>
 		</div>
 	</section>

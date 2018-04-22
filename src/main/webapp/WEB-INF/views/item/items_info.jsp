@@ -64,9 +64,9 @@ $(document).ready(function() {
 
 		<!-- BASIC FORM ELELEMNTS -->
 		<div class="row mt">
-			<div class="col-lg-12">
-				<div class="form-panel">
-					<h4 class="mb" align="center">
+			<div class="col-md-12">
+				<div class="content-panel">
+					<h4>
 						<i class="fa fa-angle-right"></i>품목 수정
 					</h4>
 					<form action="/item/update" method="post"

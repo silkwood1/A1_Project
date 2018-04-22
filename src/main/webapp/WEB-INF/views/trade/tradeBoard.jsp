@@ -228,7 +228,7 @@ $(document).ready(function() {
 <section id="main-content">
 	<section class="wrapper">
 		<h3>
-			<i class="fa fa-angle-right"></i> Trade Management
+			<i class="fa fa-angle-right"></i>거래 관리
 		</h3>
 
 		<!-- BASIC FORM ELELEMNTS -->
@@ -237,7 +237,7 @@ $(document).ready(function() {
 			<div class="col-md-12">
 				<div class="content-panel">
 					<h4>
-						<i class="fa fa-angle-right"></i>거래 관리
+						<i class="fa fa-angle-right"></i>거래 내역
 					</h4>
 
 					<input type="hidden" id="hid_userBn" value="${bn }">

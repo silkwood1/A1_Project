@@ -23,7 +23,7 @@ $(document).ready(function(){
 <section id="main-content">
 	<section class="wrapper">
 		<h3>
-			<i class="fa fa-angle-right"></i> Account Management Board
+			<i class="fa fa-angle-right"></i>거래처 관리
 		</h3>
 
 		<!-- BASIC FORM ELELEMNTS -->
@@ -32,7 +32,7 @@ $(document).ready(function(){
 			<div class="col-md-12">
 				<div class="content-panel">
 					<h4>
-						<i class="fa fa-angle-right"></i>거래처 관리
+						<i class="fa fa-angle-right"></i>거래처 리스트
 		
 					</h4>
 					<section id="unseen">
@@ -40,67 +40,20 @@ $(document).ready(function(){
 						<table class="table table-bordered table-striped table-condensed">
 							<thead>
 								<tr>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th><th><a id="btnExport" href="#" download="">Export</a></th>
-									<th><input type="button" class="btn btn-info"
-										onclick="location.href='/account/goInsertAccount'" value="새 거래처"></th>
-								</tr>
-
-								<tr>
-									<c:if test="${sessionScope.Member.id == 'admin'}">
-										<th></th>
-									</c:if>
-									<!--<th>고객분류(Customer division)</th>-->
-									
-									<!-- <th>
-										<div class="dropdown">
-											<button onclick="myFunction()" class="dropbtn">고객분류</button>
-											<div id="myDropdown" class="dropdown-content">
-												이 부분은 DB에서 값을 가져와서 Drop list에서 선택값을 출력해준다.
-											
-													<a href="/Account/AccountBoard?div=1">판매처</a>
-													<a href="/Account/AccountBoard?div=2">매입처</a>
-													<a href="/Account/AccountBoard">전체리스트</a>
-											
-											</div>
-										</div>
-									</th> -->
 									<th>고객분류</th>
 									<th>번호</th>
 									<th>등록날짜</th>
 									<th>사업자 번호</th>
 									<th>상호명</th>
-									<%-- <th>
-										<div class="dropdown">
-											<button onclick="myFunction1()" class="dropbtn">상호명</button>
-											<div id="myDropdown1" class="dropdown-content">
-												<!--이 부분은 DB에서 값을 가져와서 Drop list에서 선택값을 출력해준다. -->
-												<input type="text" placeholder="Search.." id="myInput1" onkeyup="filterFunction()"> 
-													<c:forEach var="c" items="${c}">
-														
-														<a href="/Account/AccountBoard?name=${e.customerComName}">${e.customerComName}</a>
-													
-													</c:forEach>
-											</div>
-										</div>
-									</th> --%>
 									<th>대표자명</th>
 									<th>휴대폰 번호</th>
 									<th>사무실 번호</th>
 									<th>주소</th>
 									<th>담당직원</th>
 									<th>회원등급</th>
-									<th></th>
-									<th></th>
+									<th><a id="btnExport" href="#" download="">Export</a></th>
+									<th><input type="button" class="btn btn-info"
+										onclick="location.href='/account/goInsertAccount'" value="새 거래처"></th>
 								</tr>
 							</thead>
 							<tbody>

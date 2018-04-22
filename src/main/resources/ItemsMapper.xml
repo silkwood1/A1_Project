@@ -9,7 +9,7 @@
 	</select>
 	
 	<select id="items_list2" parameterType="Map" resultType="Item">
-		select * from items where UserBn = #{bn} and itemDiv = #{div}
+		select * from items where UserBn = #{bn} and itemDiv = #{div} order by itemindate desc
 	</select>
 	
 	<select id="code_search" parameterType="String" resultType="int">
@@ -39,6 +39,6 @@
 	</select>
 	
 	<select id="items_list3" parameterType="String" resultType="Item">
-		select * from items where itemCode like '%'||#{String}||'%' or itemName like '%'||#{String}||'%'
+		select * from items where itemCode like '%'||#{String}||'%' or itemName like '%'||#{String}||'%' order by itemindate desc
 	</select>
 </mapper>

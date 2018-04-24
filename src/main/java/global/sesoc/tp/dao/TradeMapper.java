@@ -15,5 +15,15 @@ public interface TradeMapper {
 	public int deleteTrade(int tradeNo);
 	// 거래 수정
 	public int updateTrade(TradeVO trade);
+	// 거래구분으로 찾기
+	public ArrayList<TradeVO> searchTradeByTdiv(TradeVO trade);
+	// 고객명으로 찾기
+	public ArrayList<TradeVO> searchTradeByCustomer(TradeVO trade);
+	// 품목명으로 찾기
+	public ArrayList<TradeVO> searchTradeByItem(TradeVO trade);
+	// 결제수단으로 찾기
+	public ArrayList<TradeVO> searchTradeByPdiv(TradeVO trade);
+	// 상태별로 찾기
+	public ArrayList<TradeVO> searchTradeByStatus(TradeVO trade);
 	
 }

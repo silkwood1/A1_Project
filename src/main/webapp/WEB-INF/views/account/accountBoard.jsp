@@ -83,6 +83,20 @@ $(document).ready(function(){
 									<th>등록날짜</th>
 									<th>사업자 번호</th>
 									<th>상호명</th>
+									<%-- <th>
+										<div class="dropdown">
+											<button onclick="myFunction1()" class="dropbtn">상호명</button>
+											<div id="myDropdown1" class="dropdown-content">
+												<!--이 부분은 DB에서 값을 가져와서 Drop list에서 선택값을 출력해준다. -->
+												<input type="text" placeholder="Search.." id="myInput1" onkeyup="filterFunction()"> 
+													<c:forEach var="c" items="${c}">
+														
+														<a href="/Account/AccountBoard?name=${e.customerComName}">${e.customerComName}</a>
+													
+													</c:forEach>
+											</div>
+										</div>
+									</th> --%>
 									<th>대표자명</th>
 									<th>휴대폰 번호</th>
 									<th>사무실 번호</th>

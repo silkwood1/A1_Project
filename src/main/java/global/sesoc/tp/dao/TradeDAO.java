@@ -83,4 +83,70 @@ public class TradeDAO {
 			return a;
 		}
 
+	// 거래구분으로 찾기
+	public ArrayList<TradeVO> searchTradeByTdiv(TradeVO trade) {
+	
+		TradeMapper mapper = sqlSession.getMapper(TradeMapper.class);
+		ArrayList<TradeVO> searchTradeByTdiv = new ArrayList<TradeVO>();
+		try {
+			searchTradeByTdiv = mapper.searchTradeByTdiv(trade);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return searchTradeByTdiv;	
+	}
+	// 고객명으로 찾기
+	public ArrayList<TradeVO> searchTradeByCustomer(TradeVO trade) {
+	
+		TradeMapper mapper = sqlSession.getMapper(TradeMapper.class);
+		ArrayList<TradeVO> searchTradeByCustomer = new ArrayList<TradeVO>();
+		try {
+			searchTradeByCustomer = mapper.searchTradeByCustomer(trade);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return searchTradeByCustomer;	
+	}
+	// 품목명으로 찾기
+	public ArrayList<TradeVO> searchTradeByItem(TradeVO trade) {
+		
+		TradeMapper mapper = sqlSession.getMapper(TradeMapper.class);
+		ArrayList<TradeVO> searchTradeByItem = new ArrayList<TradeVO>();
+		try {
+			searchTradeByItem = mapper.searchTradeByItem(trade);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return searchTradeByItem;	
+	}
+	// 결제수단으로 찾기
+	public ArrayList<TradeVO> searchTradeByPdiv(TradeVO trade) {
+		
+		TradeMapper mapper = sqlSession.getMapper(TradeMapper.class);
+		ArrayList<TradeVO> searchTradeByPdiv = new ArrayList<TradeVO>();
+		try {
+			searchTradeByPdiv = mapper.searchTradeByPdiv(trade);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return searchTradeByPdiv;
+	}
+	// 상태별로 찾기
+	public ArrayList<TradeVO> searchTradeByStatus(TradeVO trade) {
+		
+		TradeMapper mapper = sqlSession.getMapper(TradeMapper.class);
+		ArrayList<TradeVO> searchTradeByStatus = new ArrayList<TradeVO>();
+		try {
+			searchTradeByStatus = mapper.searchTradeByStatus(trade);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return searchTradeByStatus;	
+	}
+
 }

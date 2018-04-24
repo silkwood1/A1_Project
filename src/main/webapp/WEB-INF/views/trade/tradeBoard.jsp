@@ -224,6 +224,135 @@ $(document).ready(function() {
 	$('#tradeStatus').click(function() {
 		alert("야호!");
 	});
+	
+	// sort
+	$('#sortExp').keyup(function() {
+		var userBn = $('#hid_userBn').val();
+		var sortDiv = $('#sortDiv').find("option:selected").val();
+		var sortExp = $('#sortExp').val();
+		
+		if (sortExp == '' || sortExp == "" || sortExp == null) {
+//			location.href="/trade/tradeBoardPage";
+			$.ajax({
+				type: 'get',
+				url: '/trade/tradeBoardPage',
+				data: {userBn : userBn},
+				success: function(data) {
+						var currentLocation = window.location;
+						$("#refreshable").load(currentLocation + ' #refreshable').fadeIn("fast");
+				},
+				error: function(error) {
+					alert(error);
+				}
+			});
+		}
+		
+		if (sortDiv == '거래구분') {
+			//alert(sortDiv + ", " + sortExp);
+			$.ajax({
+				type: 'post',
+				url: '/trade/searchTradeByTdiv',
+				data: {
+					userBn : userBn,
+					tradeDiv : sortExp
+				}, success: function(data) {
+					if (data == 1) {
+						// 리스트 새로 고침
+						var currentLocation = window.location;
+						$("#refreshable").load(currentLocation + ' #refreshable').fadeIn("fast");
+					} 
+				},
+				error: function(error) {
+					alert(error);
+				}
+			});
+		}	// 거래구분 fin
+		
+		if (sortDiv == '거래처') {
+			//alert(sortDiv + ", " + sortExp);
+			$.ajax({
+				type: 'post',
+				url: '/trade/searchTradeByCustomer',
+				data: {
+					userBn : userBn,
+					customerNo : sortExp
+				}, success: function(data) {
+					if (data == 1) {
+						// 리스트 새로 고침
+						var currentLocation = window.location;
+						$("#refreshable").load(currentLocation + ' #refreshable').fadeIn("fast");
+					} 
+				},
+				error: function(error) {
+					alert(error);
+				}
+			});
+		}	// 거래처 fin
+		
+		if (sortDiv == '품목명') {
+			//alert(sortDiv + ", " + sortExp);
+			$.ajax({
+				type: 'post',
+				url: '/trade/searchTradeByItem',
+				data: {
+					userBn : userBn,
+					itemCode : sortExp
+				}, success: function(data) {
+					if (data == 1) {
+						// 리스트 새로 고침
+						var currentLocation = window.location;
+						$("#refreshable").load(currentLocation + ' #refreshable').fadeIn("fast");
+					} 
+				},
+				error: function(error) {
+					alert(error);
+				}
+			});
+		}	// 품목명 fin
+		
+		if (sortDiv == '결제수단') {
+			//alert(sortDiv + ", " + sortExp);
+			$.ajax({
+				type: 'post',
+				url: '/trade/searchTradeByPdiv',
+				data: {
+					userBn : userBn,
+					paymentDiv : sortExp
+				}, success: function(data) {
+					if (data == 1) {
+						// 리스트 새로 고침
+						var currentLocation = window.location;
+						$("#refreshable").load(currentLocation + ' #refreshable').fadeIn("fast");
+					} 
+				},
+				error: function(error) {
+					alert(error);
+				}
+			});
+		}	// 거래구분 fin
+		
+		if (sortDiv == '상태') {
+			//alert(sortDiv + ", " + sortExp);
+			$.ajax({
+				type: 'post',
+				url: '/trade/searchTradeByStatus',
+				data: {
+					userBn : userBn,
+					tradeStatus : sortExp
+				}, success: function(data) {
+					if (data == 1) {
+						// 리스트 새로 고침
+						var currentLocation = window.location;
+						$("#refreshable").load(currentLocation + ' #refreshable').fadeIn("fast");
+					} 
+				},
+				error: function(error) {
+					alert(error);
+				}
+			});
+		}	// 상태 fin
+		
+	});
 
 });
 	
@@ -252,14 +381,6 @@ $(document).ready(function() {
 					</h4>
 
 					<input type="hidden" id="hid_userBn" value="${bn }">
-					
-					<input type="button" value="autocomplete" onclick="location.href='/trade/NewFile'">
-					<!-- jQueryUI 연습 -->
-					<div class="ui-widget">
-  						<label for="tags">Tags: </label>
-  						<input id="tags">
-					</div>
-					<!-- /jQueryUI 연습 -->
 					
 					<!-- newtradeform 시작 -->
 					<div class="newtradeform" style="display: none;">
@@ -361,6 +482,27 @@ $(document).ready(function() {
 					</div>
 					<!-- newtradeform 끝 -->
 
+					<div>
+					<table>
+						<tr>
+							<td>
+								<select class="form-control" style="width: 150px;" id="sortDiv">
+									<option>검색 설정</option>
+									<option>거래구분</option>
+									<option>거래처</option>
+									<option>품목명</option>
+									<option>결제수단</option>
+									<option>상태</option>
+								</select>
+							</td>
+							<td>
+							<input type="text" class="form-control" style="width: 300px;" id="sortExp">
+							</td>
+						</tr>
+					</table>
+					</div>
+					<br>
+					<br>
 					<div align="center">
 						<button type="button" class="btn btn-success" id="newtrade">새 거래</button>
 					</div>

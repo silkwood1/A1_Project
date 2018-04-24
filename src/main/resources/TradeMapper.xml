@@ -111,4 +111,149 @@
   		where tradeNo = #{tradeNo}
   	</update>
   	
+  	<!-- 거래구분으로 찾기 -->
+  	<select id="searchTradeByTdiv" parameterType="Trade" resultType="Trade">
+  		select 
+  		t.userBn userBn
+  		, t.tradeNo tradeNo
+  		, td.tradeExp tradeDiv
+  		, c.customerName customerNo
+  		, i.itemName itemCode
+  		, pd.paymentExp paymentDiv
+  		, t.tradeNote tradeNote
+  		, t.tradeQuantity tradeQuantity
+  		, t.tradePayable tradePayable
+  		, t.tradeReceivable tradeReceivable
+  		, t.tradeTotal tradeTotal
+  		, TO_CHAR(t.tradeIndate, 'YYYY-MM-DD') tradeIndate
+  			from trade t, tb_tradeDiv td, customer c, items i, tb_paymentDiv pd
+  			where t.userBn = #{userBn}
+  			and
+  			td.tradeDiv = t.tradeDiv
+  			and
+  			c.customerNo = t.customerNo
+			and
+			i.itemCode = t.itemCode
+			and
+			pd.paymentDiv = t.paymentDiv
+			and
+  			td.tradeDiv = (SELECT tradeDiv FROM tb_tradeDiv WHERE tradeExp = '${tradeDiv}')
+  			order by tradeNo DESC
+  	</select>
+  	
+  	<!-- 고객명으로 찾기 -->
+  	<select id="searchTradeByCustomer" parameterType="Trade" resultType="Trade">
+  		select 
+  		t.userBn userBn
+  		, t.tradeNo tradeNo
+  		, td.tradeExp tradeDiv
+  		, c.customerName customerNo
+  		, i.itemName itemCode
+  		, pd.paymentExp paymentDiv
+  		, t.tradeNote tradeNote
+  		, t.tradeQuantity tradeQuantity
+  		, t.tradePayable tradePayable
+  		, t.tradeReceivable tradeReceivable
+  		, t.tradeTotal tradeTotal
+  		, TO_CHAR(t.tradeIndate, 'YYYY-MM-DD') tradeIndate
+  			from trade t, tb_tradeDiv td, customer c, items i, tb_paymentDiv pd
+  			where t.userBn = #{userBn}
+  			and
+  			td.tradeDiv = t.tradeDiv
+  			and
+  			c.customerNo = t.customerNo
+			and
+			i.itemCode = t.itemCode
+			and
+			pd.paymentDiv = t.paymentDiv
+			and
+  			c.customerNo = (SELECT customerNo FROM customer WHERE customerName = '${customerNo}')
+  			order by tradeNo DESC
+  	</select>
+  	<!-- 품목명으로 찾기 -->
+  	<select id="searchTradeByItem" parameterType="Trade" resultType="Trade">
+  		select 
+  		t.userBn userBn
+  		, t.tradeNo tradeNo
+  		, td.tradeExp tradeDiv
+  		, c.customerName customerNo
+  		, i.itemName itemCode
+  		, pd.paymentExp paymentDiv
+  		, t.tradeNote tradeNote
+  		, t.tradeQuantity tradeQuantity
+  		, t.tradePayable tradePayable
+  		, t.tradeReceivable tradeReceivable
+  		, t.tradeTotal tradeTotal
+  		, TO_CHAR(t.tradeIndate, 'YYYY-MM-DD') tradeIndate
+  			from trade t, tb_tradeDiv td, customer c, items i, tb_paymentDiv pd
+  			where t.userBn = #{userBn}
+  			and
+  			td.tradeDiv = t.tradeDiv
+  			and
+  			c.customerNo = t.customerNo
+			and
+			i.itemCode = t.itemCode
+			and
+			pd.paymentDiv = t.paymentDiv
+			and
+  			i.itemCode = (SELECT itemCode FROM items WHERE itemName = '${itemCode}')
+  			order by tradeNo DESC
+  	</select>
+  	<!-- 결제수단으로 찾기 -->
+  	<select id="searchTradeByPdiv" parameterType="Trade" resultType="Trade">
+  		select 
+  		t.userBn userBn
+  		, t.tradeNo tradeNo
+  		, td.tradeExp tradeDiv
+  		, c.customerName customerNo
+  		, i.itemName itemCode
+  		, pd.paymentExp paymentDiv
+  		, t.tradeNote tradeNote
+  		, t.tradeQuantity tradeQuantity
+  		, t.tradePayable tradePayable
+  		, t.tradeReceivable tradeReceivable
+  		, t.tradeTotal tradeTotal
+  		, TO_CHAR(t.tradeIndate, 'YYYY-MM-DD') tradeIndate
+  			from trade t, tb_tradeDiv td, customer c, items i, tb_paymentDiv pd
+  			where t.userBn = #{userBn}
+  			and
+  			td.tradeDiv = t.tradeDiv
+  			and
+  			c.customerNo = t.customerNo
+			and
+			i.itemCode = t.itemCode
+			and
+			pd.paymentDiv = t.paymentDiv
+			and
+  			pd.paymentDiv = (SELECT paymentDiv FROM tb_paymentDiv WHERE paymentExp = '${paymentDiv}')
+  			order by tradeNo DESC
+  	</select>
+  	<!-- 상태별로 찾기 -->
+  	<select id="searchTradeByStatus" parameterType="Trade" resultType="Trade">
+  		select 
+  		t.userBn userBn
+  		, t.tradeNo tradeNo
+  		, td.tradeExp tradeDiv
+  		, c.customerName customerNo
+  		, i.itemName itemCode
+  		, pd.paymentExp paymentDiv
+  		, t.tradeNote tradeNote
+  		, t.tradeQuantity tradeQuantity
+  		, t.tradePayable tradePayable
+  		, t.tradeReceivable tradeReceivable
+  		, t.tradeTotal tradeTotal
+  		, TO_CHAR(t.tradeIndate, 'YYYY-MM-DD') tradeIndate
+  			from trade t, tb_tradeDiv td, customer c, items i, tb_paymentDiv pd
+  			where t.userBn = #{userBn}
+  			and
+  			td.tradeDiv = t.tradeDiv
+  			and
+  			c.customerNo = t.customerNo
+			and
+			i.itemCode = t.itemCode
+			and
+			pd.paymentDiv = t.paymentDiv
+  			order by tradeNo DESC
+  	</select>
+  	
   </mapper>

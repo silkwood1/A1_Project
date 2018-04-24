@@ -136,7 +136,7 @@ $(document).ready(function() {
 			success: function(data) {
 				if (data == 1) {
 					alert("수정되었습니다.");
-					location.href="/trade/tradeBoard";
+					location.href="/trade/tradeBoardPage";
 				} else {
 					alert("수정 실패");
 				}

@@ -44,8 +44,11 @@
 	
 	function goSearch(){
 		var search_text = $("#myInput").val();
-		
-		location.href="items_list?val=" + search_text;
+		if(search_text == null || search_text == ""){
+			location.href="items_list"	
+		}else{
+			location.href="items_list?val=" + search_text;	
+		}
 	}
 </script>
 

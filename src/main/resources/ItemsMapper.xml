@@ -38,7 +38,7 @@
 		select itemCode from items where itemNum = #{itemNum}
 	</select>
 	
-	<select id="items_list3" parameterType="String" resultType="Item">
-		select * from items where itemCode like '%'||#{String}||'%' or itemName like '%'||#{String}||'%' order by itemindate desc
+	<select id="items_list3" parameterType="Map" resultType="Item">
+		select * from items where UserBn = #{bn} and (itemCode like '%'||#{val}||'%' or itemName like '%'||#{val}||'%') order by itemindate desc
 	</select>
 </mapper>

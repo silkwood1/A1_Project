@@ -26,6 +26,6 @@ public interface ItemsMapper {
 	//코드 중복처리2
 	public String code_search2(int itemNum);
 	//검색
-	public ArrayList<ItemsVO> items_list3(String val);
+	public ArrayList<ItemsVO> items_list3(HashMap<String, String> hm);
 
 }

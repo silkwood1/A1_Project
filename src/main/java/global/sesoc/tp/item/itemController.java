@@ -40,19 +40,21 @@ public class itemController {
 			val = "0";
 		}
 		
+		HashMap<String, String> hm = new HashMap<String, String>();
+		hm.put("bn", bn);
+		
 		if(div.equals("1") || div.equals("2")){
-			HashMap<String, String> hm = new HashMap<String, String>();
 			hm.put("div", div);
-			hm.put("bn", bn);
 			items = dao.items_list2(hm);
 		}else if(!(val.equals("0"))){
-			items = dao.items_list3(val);
+			hm.put("val", val);
+			items = dao.items_list3(hm);
 		}else{
 			items = dao.items_list(bn);		
 		}
 		m.addAttribute("items", items);
-		return "item/items_list";
 		
+		return "item/items_list";
 	}
 	
 	@RequestMapping(value = "items_insert", method = RequestMethod.GET)

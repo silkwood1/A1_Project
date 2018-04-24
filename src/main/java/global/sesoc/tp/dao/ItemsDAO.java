@@ -98,11 +98,11 @@ public class ItemsDAO {
 		}		return a;
 	}
 
-	public ArrayList<ItemsVO> items_list3(String val) {
+	public ArrayList<ItemsVO> items_list3(HashMap<String, String> hm) {
 		ArrayList<ItemsVO> items = new ArrayList<ItemsVO>();
 		ItemsMapper mapper = sqlSession.getMapper(ItemsMapper.class);
 		try{
-			items = mapper.items_list3(val);
+			items = mapper.items_list3(hm);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

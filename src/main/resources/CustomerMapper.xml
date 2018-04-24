@@ -106,7 +106,20 @@
   	
   	<!-- 거래처 정보 수정 -->
   	<update id="updateCustomer" parameterType="Customer">
-  	
+  	update Customer
+  	set
+  		customerDiv = (SELECT customerDiv FROM tb_customerDiv WHERE customerExp = '${customerDiv}')
+  		, customerBn = #{customerBn}
+  		, customerCname = #{customerCname}
+  		, customerName = #{customerName}
+  		, customerCellNo = #{customerCellNo}
+  		, customerFaxNo = #{customerFaxNo}
+  		, customerEmail = #{customerEmail}
+  		, customerZipcode = #{customerZipcode}
+  		, customerAddress = #{customerAddress}
+  		, rankDiv = (SELECT rankDiv FROM tb_rankDiv WHERE rankExp = '${rankDiv}')
+  		, customerNote = #{customerNote}
+  	where customerNo = #{customerNo}
   	</update>
   	
   	

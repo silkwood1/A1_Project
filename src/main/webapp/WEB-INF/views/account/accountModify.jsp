@@ -83,23 +83,19 @@ function setComma(inNum) {
 }
 
 $(document).ready(function() {
+	// alert("ready");
 	
-	// 등록하기 버튼
-	$('#submit').click(function(){
-		var userBn, customerDiv, customerBn, customerCname, customerName, customerCellNo, customerOfficeNo;
-		var customerFaxNo, customerEmail, customerZipcode, customerAddress, rankDiv, inCharge, customerNote;
+	
+	
+	
+	$('#editCustomer').click(function() {
+		var userBn, customerNo, customerDiv, customerBn, customerCname, customerName;
+		var customerCellNo, customerOfficeNo, customerFaxNo, customerEmail;
+		var customerZipcode, customerAddress, rankDiv, inCharge, customerNote;
 		
 		userBn = $('#hid_userBn').val();
-		
-		customerDiv = $('#select_cDiv option:selected').val();	// select된 값
-		if (customerDiv == '판매처') {
-			customerDiv = 1;
-		} else if (customerDiv == '구매처') {
-			customerDiv = 2;
-		} else if (customerDiv == '기타') {
-			customerDiv = 3;
-		}
-		
+		customerNo = $('#hid_customerNo').val();
+		customerDiv = $('#cDiv').find("option:selected").val();
 		customerBn = $('#input_customerBn').val();
 		customerCname = $('#input_customerCname').val();
 		customerName = $('#input_customerName').val();
@@ -109,38 +105,27 @@ $(document).ready(function() {
 		customerEmail = $('#input_customerEmail').val();
 		customerZipcode = $('#zipNo').val();
 		customerAddress = $('#roadFullAddr').val();
-		
-		rankDiv = $('#select_rDiv option:selected').val();	// select된 값
-		if (rankDiv == '브론즈') {
-			rankDiv = 1;
-		} else if (rankDiv == '실버') {
-			rankDiv = 2;
-		} else if (rankDiv == '골드') {
-			rankDiv = 3;
-		} else if (rankDiv == '플래티넘') {
-			rankDiv = 4;
-		}
-		
+		rankDiv = $('#rDiv').find("option:selected").val();
 		inCharge = $('#input_inCharge').val();
 		customerNote = $('#input_customerNote').val();
 		
-//		alert(customerDiv + ", " + rankDiv);
-		alert(userBn + ", " + customerDiv + ", " + customerBn + ", " + customerCname + ", " + customerName + ", " + 
-				customerCellNo + ", " + customerOfficeNo + ", " + customerFaxNo
-				 + ", " + customerEmail + ", " + customerZipcode
-				 + ", " + customerAddress + ", " + rankDiv + ", " + inCharge + ", " + customerNote);
-	
+//		alert(userBn + ", " + customerNo + ", " + customerDiv + ", " + customerBn + ", " + 
+//				customerCname + ", " + customerName + ", " + customerCellNo + ", " + 
+//				customerOfficeNo + ", " + customerFaxNo + ", " + customerEmail + ", " + 
+//				customerZipcode + ", " + customerAddress + ", " + rankDiv + ", " + 
+//				inCharge + ", " + customerNote);
+		
 		$.ajax({
 			type: 'post',
-			url: '/account/insertAccount',
+			url: '/account/updateCustomer',
 			data: {
 				userBn : userBn,
+				customerNo : customerNo,
 				customerDiv : customerDiv,
 				customerBn : customerBn,
 				customerCname : customerCname,
 				customerName : customerName,
 				customerCellNo : customerCellNo,
-				customerOfficeNo : customerOfficeNo,
 				customerFaxNo : customerFaxNo,
 				customerEmail : customerEmail,
 				customerZipcode : customerZipcode,
@@ -152,17 +137,19 @@ $(document).ready(function() {
 			datatype: 'text',
 			success: function(data) {
 				if (data == 1) {
-					alert("등록되었습니다.");
+					alert("수정되었습니다.");
 					location.href="/account/accountBoard";
 				} else {
-					alert("실패");
+					alert("수정 실패");
 				}
 			},
 			error: function(error) {
 				alert(error);
 			}
 		});
+		
 	});
+	
 	
 	
 });
@@ -191,6 +178,7 @@ $(document).ready(function() {
 					<form class="form-horizontal style-form"
 						enctype="multipart/form-data" name="form">
 						<input type="hidden" id="hid_userBn" value="${bn }">
+						<input type="hidden" id="hid_customerNo" value="${cu.customerNo }">
 						<table>
 							<tr>
 								<td>
@@ -198,10 +186,16 @@ $(document).ready(function() {
 										<label class="col-sm-2 col-sm-2 control-label"
 											style="width: 100px;">고객구분</label>
 										<div class="col-sm-6" style="width: 309px;">
-											<select class="form-control" id="select_cDiv">
-												<option selected="selected">판매처</option>
-												<option>구매처</option>
-												<option>기타</option>
+											<select class="form-control" id="cDiv">
+												<option id="cd1"
+												<c:if test="${cu.customerDiv == '판매처'}"> selected="selected"</c:if>
+												>판매처</option>
+												<option id="cd2"
+												<c:if test="${cu.customerDiv == '구매처'}"> selected="selected"</c:if>
+												>구매처</option>
+												<option id="cd3"
+												<c:if test="${cu.customerDiv == '기타'}"> selected="selected"</c:if>
+												>기타</option>
 											</select>
 										</div>
 									</div>
@@ -328,11 +322,19 @@ $(document).ready(function() {
 										<label class="col-sm-2 col-sm-2 control-label"
 											style="width: 100px;">회원등급</label>
 										<div class="col-sm-6" style="width: 309px;">
-											<select class="form-control" id="select_rDiv">
-												<option selected="selected">브론즈</option>
-												<option>실버</option>
-												<option>골드</option>
-												<option>플래티넘</option>
+											<select class="form-control" id="rDiv">
+												<option id="rd1"
+												<c:if test="${cu.rankDiv == '브론즈'}"> selected="selected"</c:if>
+												>브론즈</option>
+												<option id="rd2"
+												<c:if test="${cu.rankDiv == '실버'}"> selected="selected"</c:if>
+												>실버</option>
+												<option id="rd3"
+												<c:if test="${cu.rankDiv == '골드'}"> selected="selected"</c:if>
+												>골드</option>
+												<option id="rd4"
+												<c:if test="${cu.rankDiv == '플래티넘'}"> selected="selected"</c:if>
+												>플래티넘</option>
 											</select>
 										</div>
 									</div>
@@ -375,7 +377,7 @@ $(document).ready(function() {
 					</form>
 					<!-- line 8 -->
 						<div class="form-group" align="center">
-							<button id="goEdit" class="btn btn-default" onclick="redirect:/account/goInsertAccount">수정하기</button>&nbsp&nbsp
+							<button id="editCustomer" class="btn btn-default">수정하기</button>&nbsp&nbsp
 							<button type="button" class="btn btn-default"
 								onclick="location.href='/account/accountBoard'">목록으로</button>&nbsp&nbsp
 							<button type="button" class="btn btn-danger" onclick="location.href='/account/accountDelete?customerNo=${cu.customerNo}'">삭제하기</button>

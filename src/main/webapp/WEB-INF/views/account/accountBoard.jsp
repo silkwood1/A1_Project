@@ -13,7 +13,16 @@ $(document).ready(function(){
 	     window.open('data:application/vnd.ms-excel,' +encodeURIComponent($('#exceldown').html()));
 	    e.preventDefault();
 	  });
-	  });
+
+	  
+//	  $('#sort_rankDiv').click(function() {
+//		  
+//		  $.ajax({
+//			  
+//		  });
+//	  });
+	  
+});
 </script>
 
 <!-- **********************************************************************************************************************************************************
@@ -23,7 +32,7 @@ $(document).ready(function(){
 <section id="main-content">
 	<section class="wrapper">
 		<h3>
-			<i class="fa fa-angle-right"></i>거래처 관리
+			<i class="fa fa-angle-right"></i> Account Management Board
 		</h3>
 
 		<!-- BASIC FORM ELELEMNTS -->
@@ -32,16 +41,45 @@ $(document).ready(function(){
 			<div class="col-md-12">
 				<div class="content-panel">
 					<h4>
-						<i class="fa fa-angle-right"></i>거래처 리스트
+						<i class="fa fa-angle-right"></i>거래처 관리
 		
 					</h4>
+					<div align="center">
+						<input type="button" class="btn btn-success"
+							onclick="location.href='/account/goInsertAccount'" value="새 거래처">
+					</div>
+					<br>
 					<section id="unseen">
 						<div id="exceldown">
 						<table class="table table-bordered table-striped table-condensed">
 							<thead>
 								<tr>
-									<th>고객분류</th>
+									
+									<th colspan="13" style="text-align: right;"><a id="btnExport" href="#" download="">Export&nbsp&nbsp</a></th>
+									
+								</tr>
+
+								<tr>
+									<c:if test="${sessionScope.Member.id == 'admin'}">
+										<th></th>
+									</c:if>
+									<!--<th>고객분류(Customer division)</th>-->
+									
+									<!-- <th>
+										<div class="dropdown">
+											<button onclick="myFunction()" class="dropbtn">고객분류</button>
+											<div id="myDropdown" class="dropdown-content">
+												이 부분은 DB에서 값을 가져와서 Drop list에서 선택값을 출력해준다.
+											
+													<a href="/Account/AccountBoard?div=1">판매처</a>
+													<a href="/Account/AccountBoard?div=2">매입처</a>
+													<a href="/Account/AccountBoard">전체리스트</a>
+											
+											</div>
+										</div>
+									</th> -->
 									<th>번호</th>
+									<th>고객분류</th>
 									<th>등록날짜</th>
 									<th>사업자 번호</th>
 									<th>상호명</th>
@@ -50,18 +88,17 @@ $(document).ready(function(){
 									<th>사무실 번호</th>
 									<th>주소</th>
 									<th>담당직원</th>
-									<th>회원등급</th>
-									<th><a id="btnExport" href="#" download="">Export</a></th>
-									<th><input type="button" class="btn btn-info"
-										onclick="location.href='/account/goInsertAccount'" value="새 거래처"></th>
+									<th id="sort_rankDiv">회원등급</th>
+									<th></th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
 							
-								<c:forEach var="c" items="${c}">
+								<c:forEach var="c" items="${c}" varStatus="status">
 									<tr>
-										<td>${c.customerDiv}</td>
 										<td>${c.customerNo}</td>
+										<td>${c.customerDiv}</td>
 										<td>${c.customerIndate}</td>
 										<td>${c.customerBn}</td>
 										<td>${c.customerCname}</td>
@@ -71,10 +108,10 @@ $(document).ready(function(){
 										<td>${c.customerAddress}</td>
 										<td>${c.inCharge}</td>
 										<td>${c.rankDiv }</td>
-										<td><a class="btn btn-info btn-sm" href="/account/accountModify?customerNo=${c.customerNo}">수정</a>
+										<td><a class="btn btn-info btn-xs" href="/account/accountModify?customerNo=${c.customerNo}">수정</a>
 										</td>
 										
-										<td><a class="btn btn-danger btn-sm"  href="/account/accountDelete?customerNo=${c.customerNo}">삭제</a>
+										<td><a class="btn btn-danger btn-xs"  href="/account/accountDelete?customerNo=${c.customerNo}">삭제</a>
 										</td>
 									</tr>
 								</c:forEach>

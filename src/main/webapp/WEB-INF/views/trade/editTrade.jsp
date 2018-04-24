@@ -66,6 +66,9 @@ function chkword(obj, maxlength) {
 
 $(document).ready(function() {
 	//alert('ready');
+
+/* 
+	// 이 방법은 쓰지 말도록 하자
 	var td = $('#hid_tradeDiv').val();
 	var pd = $('#hid_paymentDiv').val();
 	
@@ -91,20 +94,58 @@ $(document).ready(function() {
 		$('#pd3').attr('selected', 'selected');
 	} else if (pd == '수표') {
 		$('#pd4').attr('selected', 'selected');
-	}
-	
-	var tradeDiv, customerNo, itemCode, paymentDiv, tradeNote;
-	var tradeQuantity, tradePayable, tradeReceivable, tradeTotal;
+	} 
+ */	
+	$('#editTrade').click(function() {
+		
+		var tradeNo, tradeDiv, customerNo, itemCode, paymentDiv, tradeNote;
+		var userBn, tradeQuantity, tradePayable, tradeReceivable, tradeTotal;
 
-	$('#edit').click(function(){
+		userBn = $('#hid_userBn').val();
+		tradeNo = $('#tNo').val();
+		tradeDiv = $('#tDiv').find("option:selected").val();
 		customerNo = $('#input_customer').val();
 		itemCode = $('#input_item').val();
-		tradeQuantity = $('#input_quantity').val();
-		tradePayable = $('#input_payable').val();
-		tradeReceivable = $('#input_receivable').val();
-		tradeTotal = $('#input_total').val();
+		tradeQuantity = $('#input_quantity').val().replace(/[^0-9]/g, "");
+		tradePayable = $('#input_payable').val().replace(/[^0-9]/g, "");
+		tradeReceivable = $('#input_receivable').val().replace(/[^0-9]/g, "");
+		tradeTotal = $('#input_total').val().replace(/[^0-9]/g, "");
+		paymentDiv = $('#pDiv').find("option:selected").val();
+		tradeNote = $('#input_note').val();
 		
-		alert(customerNo + ", " + itemCode + ", " + tradeQuantity + ", " + tradePayable + ", " + tradeReceivable + ", " + tradeTotal);
+//		alert(tradeDiv + ", " + customerNo + ", " + itemCode + ", " + tradeQuantity + ", " 
+//				+ tradePayable + ", " + tradeReceivable + ", " + tradeTotal + ", " + paymentDiv + ", " + tradeNote);
+
+		$.ajax({
+			type: 'post',
+			url: '/trade/updateTrade',
+			data: {
+				userBn : userBn,
+				tradeNo : tradeNo,
+				tradeDiv : tradeDiv,
+				customerNo : customerNo,
+				itemCode : itemCode,
+				tradeQuantity : tradeQuantity,
+				tradePayable : tradePayable,
+				tradeReceivable : tradeReceivable,
+				tradeTotal : tradeTotal,
+				paymentDiv : paymentDiv,
+				tradeNote : tradeNote
+			},
+			datatype: 'text',
+			success: function(data) {
+				if (data == 1) {
+					alert("수정되었습니다.");
+					location.href="/trade/tradeBoard";
+				} else {
+					alert("수정 실패");
+				}
+			},
+			error: function(error) {
+				alert(error);
+			}
+		});
+		
 	});
 		
 });
@@ -121,6 +162,7 @@ $(document).ready(function() {
 			<i class="fa fa-angle-right"></i>거래 정보 페이지
 		</h3>
 		<input type="hidden" id="hid_userBn" value="${bn }">
+		<input type="hidden" id="hid_tradeNo" value="${t.tradeNo }">
 		<input type="hidden" id="hid_tradeDiv" value="${t.tradeDiv }">
 		<input type="hidden" id="hid_paymentDiv" value="${t.paymentDiv }">
 		<!-- BASIC FORM ELELEMNTS -->
@@ -197,10 +239,18 @@ $(document).ready(function() {
 											style="width: 100px;">거래구분</label>
 										<div class="col-sm-6" style="width: 309px;">
 											<select class="form-control" id="tDiv">
-												<option id="td1" name="1">판매</option>
-												<option id="td2" name="2">구매</option>
-												<option id="td3" name="3">판매취소</option>
-												<option id="td4" name="4">구매취소</option>
+												<option id="td1"
+												<c:if test="${t.tradeDiv == '판매'}"> selected="selected"</c:if>
+												>판매</option>
+												<option id="td2"
+												<c:if test="${t.tradeDiv == '구매'}"> selected="selected"</c:if>
+												>구매</option>
+												<option id="td3"
+												<c:if test="${t.tradeDiv == '판매취소'}"> selected="selected"</c:if>
+												>판매취소</option>
+												<option id="td4"
+												<c:if test="${t.tradeDiv == '구매취소'}"> selected="selected"</c:if>
+												>구매취소</option>
 											</select>
 										</div>
 									</div>
@@ -211,7 +261,7 @@ $(document).ready(function() {
 											style="width: 110px;">&emsp;거래처</label>
 										<div class="col-sm-6" style="width: 309px;">
 											<input type="text" class="form-control" id="input_customer"
-											value="${t.customerNo }" readonly="readonly" onclick=""/>
+											value="${t.customerNo }" />
 										</div>
 									</div>
 								</td>
@@ -296,10 +346,18 @@ $(document).ready(function() {
 											style="width: 110px;">&emsp;결제수단</label>
 										<div class="col-sm-6" style="width: 309px;">
 											<select class="form-control" id="pDiv">
-												<option id="pd1">카드</option>
-												<option id="pd2">현금</option>
-												<option id="pd3">계좌이체</option>
-												<option id="pd4">수표</option>
+												<option id="pd1"
+												<c:if test="${t.paymentDiv == '카드'}"> selected="selected"</c:if>
+												>카드</option>
+												<option id="pd2"
+												<c:if test="${t.paymentDiv == '현금'}"> selected="selected"</c:if>
+												>현금</option>
+												<option id="pd3"
+												<c:if test="${t.paymentDiv == '계좌이체'}"> selected="selected"</c:if>
+												>계좌이체</option>
+												<option id="pd4"
+												<c:if test="${t.paymentDiv == '수표'}"> selected="selected"</c:if>
+												>수표</option>
 											</select>
 										</div>
 									</div>
@@ -331,7 +389,7 @@ $(document).ready(function() {
 					</form>
 					<!-- line 8 -->
 						<div class="form-group" align="center">
-							<button id="edit" class="btn btn-default">수정하기</button>&nbsp&nbsp
+							<button id="editTrade" class="btn btn-default">수정하기</button>&nbsp&nbsp
 							<button type="button" class="btn btn-default"
 								onclick="location.href='/trade/tradeBoard'">목록으로</button>&nbsp&nbsp
 							<button type="button" class="btn btn-danger" onclick="location.href='/trade/deleteTrade?tradeNo=${t.tradeNo }'">삭제하기</button>

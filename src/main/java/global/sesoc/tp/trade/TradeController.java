@@ -26,21 +26,21 @@ public class TradeController {
 	@ResponseBody
 	@RequestMapping(value = "insertTrade", method = RequestMethod.POST)
 	public String insertTrade(Model model, TradeVO trade) {
-		System.out.println(trade.toString());
+		// System.out.println(trade.toString());
 		int res = 0;
 		ArrayList<TradeVO> boardList = new ArrayList<TradeVO>();
-
 		try {
+
 			res = dao.insertTrade(trade);
-			boardList = dao.tradeList("11-111-111");
-			
+			// String userBn = (String) session.getAttribute("bn");
+			// boardList = dao.tradeList(userBn);
+
 			System.out.println(res);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		String result = String.valueOf(res);
 		model.addAttribute("b", boardList);
-
 		return result;
 	}
 
@@ -53,10 +53,8 @@ public class TradeController {
 		try {
 			String userBn = (String) session.getAttribute("bn");
 			boardList = dao.tradeList(userBn);
-			System.out.println(0);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println(1);
 		}
 
 		model.addAttribute("b", boardList);
@@ -65,24 +63,24 @@ public class TradeController {
 	}
 
 	// 거래 정보 페이지
-	@RequestMapping(value = "editTrade", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "editTrade", method = { RequestMethod.GET, RequestMethod.POST })
 	public String goEditTrade(Model model, @RequestParam int tradeNo) {
-		System.out.println(tradeNo);
+		// System.out.println(tradeNo);
 		TradeVO t = null;
-		
+
 		try {
 			t = dao.selectTrade(tradeNo);
-			System.out.println(0);
+			// System.out.println(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(1);
 		}
 		model.addAttribute("tradeNo", tradeNo);
 		model.addAttribute("t", t);
-		
+
 		return "/trade/editTrade";
 	}
-	
+
 	// 거래 삭제
 	@RequestMapping(value = "deleteTrade", method = RequestMethod.GET)
 	public String deleteTrade(Model model, @RequestParam int tradeNo) {
@@ -99,12 +97,30 @@ public class TradeController {
 		
 		return result;
 	}
-	
-	
-	@RequestMapping(value = "table", method = RequestMethod.GET)
-	public String table(Model model) {
+
+	// 거래 수정
+		@ResponseBody
+		@RequestMapping(value = "updateTrade", method = RequestMethod.POST)
+		public String updateTrade(TradeVO trade) {
+			System.out.println(trade.toString());
+			int res = 0;
+			String result = null;
+			
+			try {
+				res = dao.updateTrade(trade);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			result = String.valueOf(res);
+			
+			return result;
+		}
 		
-		return "/trade/table";
-	}
+		@RequestMapping(value = "NewFile", method = RequestMethod.GET)
+		public String NewFile() {
+			
+			return "/trade/NewFile";
+		}
 
 }

@@ -125,10 +125,10 @@ $(document).ready(function() {
 		customerNote = $('#input_customerNote').val();
 		
 //		alert(customerDiv + ", " + rankDiv);
-		alert(userBn + ", " + customerDiv + ", " + customerBn + ", " + customerCname + ", " + customerName + ", " + 
-				customerCellNo + ", " + customerOfficeNo + ", " + customerFaxNo
-				 + ", " + customerEmail + ", " + customerZipcode
-				 + ", " + customerAddress + ", " + rankDiv + ", " + inCharge + ", " + customerNote);
+//		alert(userBn + ", " + customerDiv + ", " + customerBn + ", " + customerCname + ", " + customerName + ", " + 
+//				customerCellNo + ", " + customerOfficeNo + ", " + customerFaxNo
+//				 + ", " + customerEmail + ", " + customerZipcode
+//				 + ", " + customerAddress + ", " + rankDiv + ", " + inCharge + ", " + customerNote);
 	
 		$.ajax({
 			type: 'post',
@@ -196,7 +196,7 @@ $(document).ready(function() {
 								<td>
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label"
-											style="width: 100px;">고객구분</label>
+											style="width: 110px;">고객구분 *</label>
 										<div class="col-sm-6" style="width: 309px;">
 											<select class="form-control" id="select_cDiv">
 												<option selected="selected">판매처</option>
@@ -225,7 +225,7 @@ $(document).ready(function() {
 								<td>
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label"
-											style="width: 100px;">상호명</label>
+											style="width: 110px;">상호명</label>
 										<div class="col-sm-6" style="width: 309px;">
 											<input type="text" class="form-control" id="input_customerCname" />
 										</div>
@@ -235,7 +235,7 @@ $(document).ready(function() {
 								<td>
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label"
-											style="width: 150px;">&emsp;대표자명</label>
+											style="width: 150px;">&emsp;대표자명 *</label>
 										<div class="col-sm-6" style="width: 309px;">
 											<input type="text" class="form-control" id="input_customerName"/>
 										</div>
@@ -250,7 +250,7 @@ $(document).ready(function() {
 								<td>
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label"
-											style="width: 100px;">휴대전화</label>
+											style="width: 110px;">휴대전화 *</label>
 										<div class="col-sm-6" style="width: 309px;">
 											<input type="text" class="form-control" id="input_customerCellNo"
 											onkeyup="autoHypenPhone(this)" />
@@ -276,7 +276,7 @@ $(document).ready(function() {
 								<td>
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label"
-											style="width: 100px;">팩스번호</label>
+											style="width: 110px;">팩스번호</label>
 										<div class="col-sm-6" style="width: 309px;">
 											<input type="text" class="form-control" id="input_customerFaxNo" />
 										</div>
@@ -301,7 +301,7 @@ $(document).ready(function() {
 								<td>
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label"
-											style="width: 100px;">우편번호</label>
+											style="width: 110px;">우편번호 *</label>
 										<div class="col-sm-6" style="width: 309px;">
 											<input type="text" onclick="goPopup()" class="form-control" id="zipNo" placeholder="클릭하여 주소 입력" readonly="readonly"/>
 										</div>
@@ -311,7 +311,7 @@ $(document).ready(function() {
 								<td>
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label"
-											style="width: 150px;">&emsp;상세주소</label>
+											style="width: 150px;">&emsp;상세주소 *</label>
 										<div class="col-sm-6" style="width: 309px;">
 											<input type="text" class="form-control" id="roadFullAddr" name="CN" readonly="readonly"/>
 										</div>
@@ -326,7 +326,7 @@ $(document).ready(function() {
 								<td>
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label"
-											style="width: 100px;">회원등급</label>
+											style="width: 110px;">회원등급</label>
 										<div class="col-sm-6" style="width: 309px;">
 											<select class="form-control" id="select_rDiv">
 												<option selected="selected">브론즈</option>
@@ -354,7 +354,7 @@ $(document).ready(function() {
 						<!-- line 6 -->
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 100px;">비고</label>
+								style="width: 110px;">비고</label>
 							<div class="col-sm-6" style="width: 320px;">
 								<textarea class="form-control" id="input_customerNote"
 									style="width: 705px; height: 85px;" ></textarea>

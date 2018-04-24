@@ -23,8 +23,8 @@
   			#{userBn}
   			, tradeNo_seq.nextval
   			, #{tradeDiv}
-  			, #{customerNo}
-  			, #{itemCode}
+  			, (SELECT customerNo FROM customer WHERE customerName = '${customerNo}')
+  			, (SELECT itemCode FROM items WHERE itemName = '${itemCode}')
   			, #{tradeQuantity}
   			, #{tradePayable}
   			, #{tradeReceivable}
@@ -97,23 +97,18 @@
   	
   	<!-- 거래 정보 수정 -->
   	<update id="updateTrade" parameterType="Trade">
-  		update trade
+  		update Trade
   		set
-  			tradeDiv = #{tradeDiv}
-  			, customerNo = #{customerNo}
-  			, itemCode = #{itemCode}
+  			tradeDiv = (SELECT tradeDiv FROM tb_tradeDiv WHERE tradeExp = '${tradeDiv}')
+  			, customerNo = (SELECT customerNo FROM customer WHERE customerName = '${customerNo}')
+  			, itemCode = (SELECT itemCode FROM items WHERE itemName = '${itemCode}')
   			, tradeQuantity = #{tradeQuantity}
-  			<if test="tradePayable != null">
   			, tradePayable = #{tradePayable}
-  			</if>
-  			<if test="tradeReceivable != null">
   			, tradeReceivable = #{tradeReceivable}
-  			</if>
   			, tradeTotal = #{tradeTotal}
-  			, paymentDiv = #{paymentDiv}
-  			<if test="tradeNote != null">
+  			, paymentDiv = (SELECT paymentDiv FROM tb_paymentDiv WHERE paymentExp = '${paymentDiv}')
   			, tradeNote = #{tradeNote}
-  			</if>
+  		where tradeNo = #{tradeNo}
   	</update>
   	
   </mapper>

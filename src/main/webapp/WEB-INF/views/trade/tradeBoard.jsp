@@ -1,9 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
 
 <!-- jQuery 연결 -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- jQuery UI -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script>
 //숫자 받기, ',' 찍기
 //[] <--문자 범위 [^] <--부정 [0-9] <-- 숫자  
@@ -63,9 +72,12 @@ function chkword(obj, maxlength) {
 // ready 함수
 $(document).ready(function() {
 	//alert('ready');
-
+	var userBn, tradeDiv, customerNo, itemCode, tradeQuantity;
+	var tradePayable, tradeReceivable, tradeTotal, paymentDiv, tradeNote;
+	
 	// 안에 있던 값들 날리기
 	var blowup;
+	
 	blowup = function() {
 		$('#tradeDiv').html('&emsp;판매&emsp; <span class="caret"></span>');
 		$('#customerNo').val('');
@@ -138,9 +150,7 @@ $(document).ready(function() {
 
 	// 새 거래 등록
 	$('#insertTrade').click(function() {
-		var userBn, tradeDiv, customerNo, itemCode, tradeQuantity;
-		var tradePayable, tradeReceivable, tradeTotal, paymentDiv, tradeNote;
-			
+
 		//alert($('#tradeDiv').html());
 			
 		if ($('#tradeDiv').attr('name') == '1') {
@@ -218,7 +228,8 @@ $(document).ready(function() {
 });
 	
 </script>
-
+</head>
+<body>
 <%@include file="../include/header.jsp"%>
 
 <!-- **********************************************************************************************************************************************************
@@ -228,7 +239,7 @@ $(document).ready(function() {
 <section id="main-content">
 	<section class="wrapper">
 		<h3>
-			<i class="fa fa-angle-right"></i>거래 관리
+			<i class="fa fa-angle-right"></i> Trade Management
 		</h3>
 
 		<!-- BASIC FORM ELELEMNTS -->
@@ -237,10 +248,19 @@ $(document).ready(function() {
 			<div class="col-md-12">
 				<div class="content-panel">
 					<h4>
-						<i class="fa fa-angle-right"></i>거래 내역
+						<i class="fa fa-angle-right"></i>거래 관리
 					</h4>
 
 					<input type="hidden" id="hid_userBn" value="${bn }">
+					
+					<input type="button" value="autocomplete" onclick="location.href='/trade/NewFile'">
+					<!-- jQueryUI 연습 -->
+					<div class="ui-widget">
+  						<label for="tags">Tags: </label>
+  						<input id="tags">
+					</div>
+					<!-- /jQueryUI 연습 -->
+					
 					<!-- newtradeform 시작 -->
 					<div class="newtradeform" style="display: none;">
 						<table class="table table-bordered table-striped table-condensed">
@@ -343,7 +363,6 @@ $(document).ready(function() {
 
 					<div align="center">
 						<button type="button" class="btn btn-success" id="newtrade">새 거래</button>
-						<button type="button" onclick="location.href='/trade/table'">연습</button>
 					</div>
 					<br>
 
@@ -353,17 +372,17 @@ $(document).ready(function() {
 							<table class="table table-bordered table-striped table-condensed">
 								<thead>
 									<tr>
-										<th align="center" class="resizable">번호</th>
-										<th align="center" class="resizable">거래구분</th>
-										<th align="center" class="resizable">거래처</th>
-										<th align="center" class="resizable">품목</th>
-										<th align="center" class="resizable">수량</th>
-										<th align="center" class="resizable">미지급금</th>
-										<th align="center" class="resizable">미수금</th>
-										<th align="center" class="resizable">총액</th>
-										<th align="center" class="resizable">결제수단</th>
-										<th align="center" class="resizable">등록일자</th>
-										<th align="center" class="resizable">상태</th>
+										<th align="center">번호</th>
+										<th align="center">거래구분</th>
+										<th align="center">거래처</th>
+										<th align="center">품목</th>
+										<th align="center">수량</th>
+										<th align="center">미지급금</th>
+										<th align="center">미수금</th>
+										<th align="center">총액</th>
+										<th align="center">결제수단</th>
+										<th align="center">등록일자</th>
+										<th align="center">상태</th>
 									</tr>
 								</thead>
 								
@@ -380,7 +399,7 @@ $(document).ready(function() {
 											<td align="right" style="cursor: pointer; text-overflow:ellipsis; overflow:hidden" onclick="location.href='/trade/editTrade?tradeNo=${b.tradeNo}'"><fmt:formatNumber value="${b.tradeTotal}" pattern="###,###,###,###" /></td>
 											<td align="center" style="cursor: pointer; text-overflow:ellipsis; overflow:hidden" onclick="location.href='/trade/editTrade?tradeNo=${b.tradeNo}'">${b.paymentDiv}</td>
 											<td align="center" style="cursor: pointer; text-overflow:ellipsis; overflow:hidden" onclick="location.href='/trade/editTrade?tradeNo=${b.tradeNo}'">${b.tradeIndate}</td>
-											<td align="center"><input type="button" class="btn btn-warning btn-sm" value="대기" style="height: 5%;" id="tradeStatus"></td>
+											<td align="center"><input type="button" class="btn btn-warning btn-xs" value="대기" style="height: 5%;" id="tradeStatus"></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -395,4 +414,8 @@ $(document).ready(function() {
 		</div>
 		<!-- /row -->
 
+	</section>
+	</section>
 	<%@include file="../include/footer.jsp"%>
+	</body>
+</html>

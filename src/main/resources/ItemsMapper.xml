@@ -41,4 +41,8 @@
 	<select id="items_list3" parameterType="Map" resultType="Item">
 		select * from items where UserBn = #{bn} and (itemCode like '%'||#{val}||'%' or itemName like '%'||#{val}||'%') order by itemindate desc
 	</select>
+	
+	<select id="getPrice" parameterType="String" resultType="String">
+		select itemprice2 from items where itemName = #{String}
+	</select>
 </mapper>

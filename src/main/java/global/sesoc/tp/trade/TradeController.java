@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import global.sesoc.tp.dao.ItemsDAO;
 import global.sesoc.tp.dao.TradeDAO;
+import global.sesoc.tp.vo.CustomerVO;
+import global.sesoc.tp.vo.ItemsVO;
 import global.sesoc.tp.vo.TradeVO;
 
 @Controller
@@ -21,6 +24,9 @@ public class TradeController {
 
 	@Autowired
 	TradeDAO dao;
+	
+	@Autowired
+	ItemsDAO dao2;
 
 	// 새 거래 등록
 	@ResponseBody
@@ -56,6 +62,15 @@ public class TradeController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		ArrayList<CustomerVO> list = new ArrayList<CustomerVO>();
+		ArrayList<ItemsVO> list2 = new ArrayList<ItemsVO>();
+
+		list = dao.load_account(userBn);
+		list2 = dao.load_items(userBn);
+
+		session.setAttribute("account", list);
+		session.setAttribute("items", list2);
 
 		session.setAttribute("b", boardList);
 		
@@ -63,14 +78,14 @@ public class TradeController {
 	}
 	
 	@RequestMapping(value = "tradeBoard", method = RequestMethod.GET)
-	public String mainBoard(HttpSession session, Model model) {
+	public String mainBoard() {
 		
 		return "/trade/tradeBoard";
 	}
 	
 	// 거래 정보 페이지
 	@RequestMapping(value = "editTrade", method = { RequestMethod.GET, RequestMethod.POST })
-	public String goEditTrade(Model model, @RequestParam int tradeNo) {
+	public String goEditTrade(HttpSession s, Model model, @RequestParam int tradeNo) {
 		// System.out.println(tradeNo);
 		TradeVO t = null;
 
@@ -83,6 +98,17 @@ public class TradeController {
 		}
 		model.addAttribute("tradeNo", tradeNo);
 		model.addAttribute("t", t);
+		
+		ArrayList<CustomerVO> list = new ArrayList<CustomerVO>();
+		ArrayList<ItemsVO> list2 = new ArrayList<ItemsVO>();
+		
+		String bn = (String) s.getAttribute("bn");
+		
+		list = dao.load_account(bn);
+		list2 = dao.load_items(bn);
+
+		model.addAttribute("account", list);
+		model.addAttribute("items", list2);
 
 		return "/trade/editTrade";
 	}
@@ -238,6 +264,18 @@ public class TradeController {
 			System.out.println(result);
 			
 			return result;
+		}
+		
+		@ResponseBody
+		@RequestMapping(value = "setPrice", method = RequestMethod.POST)
+		public String setPrice(HttpSession session, String itemCode) {
+			System.out.println(itemCode);
+			
+			String a = "";
+			
+			a = dao2.getPrice(itemCode);
+			
+			return a;
 		}
 
 }

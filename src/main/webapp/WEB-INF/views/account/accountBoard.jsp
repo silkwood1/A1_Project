@@ -32,7 +32,7 @@ $(document).ready(function(){
 <section id="main-content">
 	<section class="wrapper">
 		<h3>
-			<i class="fa fa-angle-right"></i> Account Management Board
+			<i class="fa fa-angle-right"></i>거래처 관리
 		</h3>
 
 		<!-- BASIC FORM ELELEMNTS -->
@@ -41,8 +41,7 @@ $(document).ready(function(){
 			<div class="col-md-12">
 				<div class="content-panel">
 					<h4>
-						<i class="fa fa-angle-right"></i>거래처 관리
-		
+						<i class="fa fa-angle-right"></i>거래처 목록		
 					</h4>
 					<div align="center">
 						<input type="button" class="btn btn-success"

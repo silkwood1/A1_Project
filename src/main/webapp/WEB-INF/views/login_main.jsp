@@ -348,7 +348,6 @@
 	</video>
 	
 	<div id="main_div"><p>로그인하려면 엔터를 입력하세요.</p></div>
-	<input type="button" value="만든 사람들" id="main_button">
 	<div id="dialog" title="로그인">
 		<form action="login" method="post" id="login_form">
 			<table>

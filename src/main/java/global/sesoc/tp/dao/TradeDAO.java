@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import global.sesoc.tp.vo.CustomerVO;
+import global.sesoc.tp.vo.ItemsVO;
 import global.sesoc.tp.vo.TradeVO;
 
 @Repository
@@ -147,6 +149,28 @@ public class TradeDAO {
 		}
 		
 		return searchTradeByStatus;	
+	}
+
+	public ArrayList<CustomerVO> load_account(String bn) {
+		TradeMapper mapper = sqlSession.getMapper(TradeMapper.class);
+		ArrayList<CustomerVO> list = new ArrayList<CustomerVO>();
+		try {
+			list = mapper.load_account(bn);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public ArrayList<ItemsVO> load_items(String bn) {
+		TradeMapper mapper = sqlSession.getMapper(TradeMapper.class);
+		ArrayList<ItemsVO> list = new ArrayList<ItemsVO>();
+		try {
+			list = mapper.load_items(bn);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 }

@@ -2,6 +2,8 @@ package global.sesoc.tp.dao;
 
 import java.util.ArrayList;
 
+import global.sesoc.tp.vo.CustomerVO;
+import global.sesoc.tp.vo.ItemsVO;
 import global.sesoc.tp.vo.TradeVO;
 
 public interface TradeMapper {
@@ -25,5 +27,9 @@ public interface TradeMapper {
 	public ArrayList<TradeVO> searchTradeByPdiv(TradeVO trade);
 	// 상태별로 찾기
 	public ArrayList<TradeVO> searchTradeByStatus(TradeVO trade);
+	// 거래처 긁어오기
+	public ArrayList<CustomerVO> load_account(String bn);
+	// 아이템 긁어오기
+	public ArrayList<ItemsVO> load_items(String bn);
 	
 }

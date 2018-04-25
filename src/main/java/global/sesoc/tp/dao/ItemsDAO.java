@@ -109,5 +109,16 @@ public class ItemsDAO {
 		return items;
 	}
 
+	public String getPrice(String itemCode) {
+		String a = "";
+		ItemsMapper mapper = sqlSession.getMapper(ItemsMapper.class);
+		try{
+			a = mapper.getPrice(itemCode);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return a;
+	}
+
 	
 }

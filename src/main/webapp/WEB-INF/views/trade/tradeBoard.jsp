@@ -353,7 +353,25 @@ $(document).ready(function() {
 		}	// 상태 fin
 		
 	});
-
+	
+	$('#tradeQuantity').keyup(function(){
+		var tradeQuantity = $('#tradeQuantity').val().replace(/[^0-9]/g, "");
+		var itemCode = $('#itemCode').val();
+		
+		$.ajax({
+			type: 'post',
+			url: '/trade/setPrice',
+			data: {
+				itemCode : itemCode
+			}, success: function(data) {
+				$('#tradeTotal').val(data * tradeQuantity);
+			},
+			error: function(error) {
+				alert(error);
+			}
+		});
+	});
+	
 });
 	
 </script>
@@ -368,7 +386,7 @@ $(document).ready(function() {
 <section id="main-content">
 	<section class="wrapper">
 		<h3>
-			<i class="fa fa-angle-right"></i> Trade Management
+			<i class="fa fa-angle-right"></i>거래 관리
 		</h3>
 
 		<!-- BASIC FORM ELELEMNTS -->
@@ -377,7 +395,7 @@ $(document).ready(function() {
 			<div class="col-md-12">
 				<div class="content-panel">
 					<h4>
-						<i class="fa fa-angle-right"></i>거래 관리
+						<i class="fa fa-angle-right"></i>거래(매입/매출) 리스트
 					</h4>
 
 					<input type="hidden" id="hid_userBn" value="${bn }">
@@ -418,12 +436,20 @@ $(document).ready(function() {
 									</td>
 									<td class="numeric">
 										<div class="col-sm-10">
-											<input type="text" class="form-control" style="width: 200px;" id="customerNo">
+											<select class="form-control" id="customerNo" style="width: 200px;">
+												<c:forEach var="acc" items="${account}">
+													<option value="${acc.customerName }">${acc.customerCname }</option>
+												</c:forEach>
+											</select>
 										</div>
 									</td>
 									<td class="numeric">
 										<div class="col-sm-10">
-											<input type="text" class="form-control" style="width: 120px;" id="itemCode">
+											<select class="form-control" id="itemCode" style="width: 120px;">
+												<c:forEach var="item" items="${items}">
+													<option value="${item.itemName }">${item.itemName }</option>
+												</c:forEach>
+											</select>
 										</div>
 									</td>
 									<td class="numeric">

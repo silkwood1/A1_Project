@@ -256,4 +256,12 @@
   			order by tradeNo DESC
   	</select>
   	
+  	<select id="load_account" parameterType="String" resultType="Customer">
+  		select * from customer where userBn = #{String}
+  	</select>
+  	
+  	<select id="load_items" parameterType="String" resultType="Item">
+  		select * from items where userBn = #{String}
+  	</select>
+  	
   </mapper>

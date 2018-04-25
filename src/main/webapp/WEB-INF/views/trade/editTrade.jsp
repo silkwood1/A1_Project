@@ -147,7 +147,24 @@ $(document).ready(function() {
 		});
 		
 	});
+	
+	$('#input_quantity').keyup(function(){
+		var tradeQuantity = $('#input_quantity').val().replace(/[^0-9]/g, "");
+		var itemCode = $('#input_item').val();
 		
+		$.ajax({
+			type: 'post',
+			url: '/trade/setPrice',
+			data: {
+				itemCode : itemCode
+			}, success: function(data) {
+				$('#input_total').val(data * tradeQuantity);
+			},
+			error: function(error) {
+				alert(error);
+			}
+		});
+	});
 });
 </script>
 <%@ include file="../include/header.jsp"%>
@@ -260,8 +277,15 @@ $(document).ready(function() {
 										<label class="col-sm-2 col-sm-2 control-label"
 											style="width: 110px;">&emsp;거래처</label>
 										<div class="col-sm-6" style="width: 309px;">
-											<input type="text" class="form-control" id="input_customer"
-											value="${t.customerNo }" />
+											<select class="form-control" id="input_customer">
+												<c:forEach var="acc" items="${account}">
+													<option value="${acc.customerName }" 
+														<c:if test="${t.customerNo == acc.customerName}"> selected="selected"</c:if>
+													>${acc.customerCname }</option>
+												</c:forEach>
+											</select>
+											<%-- <input type="text" class="form-control" id="input_customer"
+											value="${t.customerNo }" /> --%>
 										</div>
 									</div>
 								</td>
@@ -276,8 +300,15 @@ $(document).ready(function() {
 										<label class="col-sm-2 col-sm-2 control-label"
 											style="width: 100px;">품목</label>
 										<div class="col-sm-6" style="width: 309px;">
-											<input type="text" class="form-control" id="input_item" 
-												value="${t.itemCode }" />
+											<select class="form-control" id="input_item">
+												<c:forEach var="item" items="${items}">
+													<option value="${item.itemName }" 
+														<c:if test="${t.itemCode == item.itemName}" >selected="selected"</c:if>
+														> ${item.itemName }</option>
+												</c:forEach>
+											</select>
+											<%-- <input type="text" class="form-control" id="input_item" 
+												value="${t.itemCode }" /> --%>
 										</div>
 									</div>
 								</td>

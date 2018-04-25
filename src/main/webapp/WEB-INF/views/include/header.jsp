@@ -223,7 +223,7 @@
                   </li>
 
                 <!-- 거래 관리 -->
-               <li class="sub-menu"><a href="/trade/tradeBoard"> <i
+               <li class="sub-menu"><a href="/trade/tradeBoardPage"> <i
                      class="fa fa-cogs"></i> <span>거래 관리</span>
                </a></li>
                <!-- /거래 관리 -->

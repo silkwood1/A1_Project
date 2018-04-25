@@ -27,5 +27,7 @@ public interface ItemsMapper {
 	public String code_search2(int itemNum);
 	//검색
 	public ArrayList<ItemsVO> items_list3(HashMap<String, String> hm);
+	//가격 가져오기
+	public String getPrice(String itemCode);
 
 }

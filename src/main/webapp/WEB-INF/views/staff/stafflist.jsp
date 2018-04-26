@@ -4,6 +4,29 @@
 
 <%@include file="../include/header.jsp"%>
 
+<style>
+.card{
+	width: 33.3%;
+	float: left;
+	overflow: hidden;
+
+}
+.card img{
+	margin: 7%;
+	width: 33.3%;
+	float: left;
+	
+}
+.card-body{
+	text-align: left;
+	margin: 7%;
+	width: 33.3%;
+	float: left;
+	margin-top: 10%;
+}
+</style>
+
+
 <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
@@ -23,86 +46,38 @@
 						<i class="fa fa-angle-right"></i>직원 관리(Staff Management)
 					</h4>
 					<section id="unseen">
-						<form action="###" method="post">
-							<table class="table table-bordered table-striped table-condensed">
-								<thead>
-									<tr>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th><input type="button" class="btn btn-info"
-											onclick="location.href='InsertStaff'" value="글쓰기2"></th>
-										<th><input type="button" class="btn btn-info"
-											onclick="location.href='EditStaff'" value="글쓰기"></th>
-									</tr>
+						<div align="right">
+							<input type="button" class="btn btn-info"
+								onclick="location.href='EditStaff'" value="Staff등록">
+						</div>
 
-									<tr>
-										<%-- <c:if test="${sessionScope.Member.id == 'admin'}"> --%>
-										<th></th>
-										<%-- </c:if> --%>
-										<th>사원번호(StaffNo)</th>
-										<th>부서구분(Staff deptDiv)</th>
-										<th>직급(Staff PostionDiv)</th>
-										<th>이름(Staff Name)</th>
-										<th>주민번호(Staff Idno)</th>
-										<th>휴대전화번호(Staff CellNo)</th>
-										<th>집전화번호(Staff TellNo)</th>
-										<th>이메일주소(Staff Email)</th>
-										<th>우편번호(Staff Zipcode)</th>
-										<th>상세주소(Staff Address)</th>
-										<th>급여(Staff Salary)</th>
-										<th>은행구분(Staff BankDiv)</th>
-										<th>계좌번호(Staff AccountNo)</th>
-										<th>입사일(Staff Indate)</th>
-										<th>비고(Staff Note)</th>
-									</tr>
-								</thead>
-								<tbody>
-
-									<c:forEach var="staff" items="${s}">
-										<tr>
-											<%-- <c:if test="${sessionScope.Member.id == 'admin'}"> --%>
-											<td><input type="checkbox" name="listCheck"
-												value="${staff.staffNo}"></td>
-											<%-- </c:if> --%>
-
-											<%--  <td><a href="/staff/read?boardnum=${b.boardnum}">${b.title}</a></td> --%>
-											<td>${staff.staffNo}</td>
-											<td>${staff.deptDiv}</td>
-											<td>${staff.positionDiv}</td>
-											<td>${staff.staffName}</td>
-											<td>${staff.staffIdno}</td>
-											<td>${staff.staffCellNo }</td>
-											<td>${staff.staffTellNo}</td>
-											<td>${staff.staffEmail }</td>
-											<td>${staff.staffZipcode}</td>
-											<td>${staff.staffAddress}</td>
-											<td>${staff.staffSalary }</td>
-											<td>${staff.bankDiv }</td>
-											<td>${staff.staffAcountNo}</td>
-											<td>${staff.staffIndate }</td>
-											<td>${staff.staffNote }</td>
-										</tr>
-									</c:forEach>
-
-								</tbody>
-							</table>
-							<!--  
-                          <c:if test="${sessionScope.Member.id == 'admin'}">
-                          	<div class="form-group" align="center">
-                             	 <button type="submit" class="btn btn-danger">Delete</button>
-                          	</div>
-                          </c:if>
-                          -->
-						</form>
+						<c:forEach var="s" items="${slist }">
+						<div class="card">
+						<!--이미지가 없을 경우 기본이미지  -->
+							<c:if test="${s.originalfile != null }">
+							<img class="cardimg" class="card-img-top" src="./memberimg?strurl=${s.savedfile }" alt="Card image"
+								>
+							</c:if>
+							<c:if test="${s.originalfile == null }">
+							<img class="cardimg" class="card-img-top" src="../resources/images/m_img.jpg" alt="기본이미지">
+							</c:if>
+							<div class="card-body">
+								<h4 class="card-title">${s.staffName }</h4>
+								<h4 class="card-title">
+								<c:if test="${s.positionDiv == 1}">사원</c:if>
+								<c:if test="${s.positionDiv == 2}">매니저</c:if>
+								<c:if test="${s.positionDiv == 3}">사장</c:if>
+								</h4>
+								<p class="card-text">No:${s.staffNo }<br> 
+								Tel:${s.staffCellNo }
+								</p>
+								<a href="updateStaff?staffNo=${s.staffNo }" class="btn btn-info">See Profile</a>
+							</div>
+						</div>
+						
+						
+						</c:forEach>
+						
 					</section>
 
 				</div>

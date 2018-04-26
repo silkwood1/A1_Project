@@ -3,6 +3,106 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ include file="../include/header.jsp"%>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="http://malsup.github.com/jquery.cycle2.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
+<script type="text/javascript">
+
+	function goPopup() {
+		// 주소검색을 수행할 팝업 페이지를 호출합니다.
+		// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+		var pop = window.open("../addr_insert", "pop",
+				"width=570,height=420, scrollbars=yes, resizable=yes");
+
+		// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+		//var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+	}
+
+	function jusoCallBack(roadFullAddr, zipNo) {
+		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+		document.form.roadFullAddr.value = roadFullAddr;
+		document.form.zipNo.value = zipNo;
+	}
+
+
+function formCheck() {
+		//유효성검사
+		var staffId = document.getElementById('staffId').value;		//ID
+		var staffPassword = document.getElementById('staffPassword').value; //PW
+		var staffName = document.getElementById('staffName').value;	//name
+		var staffIdno = document.getElementById('staffIdno').value;	//idno
+		var positionDiv = document.getElementById('positionDiv').value;	//position
+		var staffIndate = document.getElementById('staffIndate').value;	//inputdate
+		var staffTellNo = document.getElementById('staffTellNo').value;	//tel
+		var roadFullAddr = document.getElementById('roadFullAddr').value;	//address
+		var zipNo = document.getElementById('zipNo').value;	//zip
+		var staffSalary = document.getElementById('staffSalary').value;	//sal
+		var bankDiv = document.getElementById('bankDiv').value;	//bank
+		var staffAccountNo = document.getElementById('staffAccountNo').value;	//account
+		
+
+		if(staffName == ""){
+			alert("이름를 입력해주세요.");
+			return false;
+		}
+		if(staffIdno == ""){
+			alert("주민번호를 입력해주세요.");
+			return false;
+		}
+		//문자 유효성체크하기
+		if(staffIdno.length > 13){
+			alert("주민번호를 확인해주세요.");
+			return false;
+		}
+		
+		if(positionDiv == ""){
+			alert("직급을 정해주세요.");
+			return false;
+		} 
+
+		if(staffIndate == ""){
+			alert("입사일을 선택해주세요.");
+			return false;
+		}
+		//문자 유효성체크하기 
+		if(staffTellNo == ""){
+			alert("휴대전화번호를 입력해주세요.");
+			return false;
+		}
+		
+		if(roadFullAddr == "" || zipNo == ""){
+			alert("주소를 입력해주세요.");
+			return false;
+		}
+		if(staffSalary == ""){
+			alert("급여을 입력해주세요.");
+			return false;
+		} 
+		if(bankDiv == ""){
+			alert("은행을 정해주세요.");
+			return false;
+		}
+		if(staffAccountNo == ""){
+			alert("계좌번호를 입력해주세요.");
+			return false;
+		} 
+		if(staffId == ""){
+			alert("아이디를입력해주세요.");
+			return false;
+		}
+		if(staffPassword == ""){
+			alert("비밀번호을 입력해주세요.");
+			return false;
+		}
+		return true;
+}
+function idcheckOpen() {
+	window.open("idcheck","newwin","top=200,left=400,width=400,height=300,resizable=no");
+}
+</script>
 
 <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
@@ -18,181 +118,170 @@
 		<div class="row mt">
 			<div class="col-lg-12">
 				<div class="form-panel">
-					<h4 class="mb" align="center">
-						<i class="fa fa-angle-right"></i>직원  정보 페이지 (Staff Information Page)
-					</h4>
-					<form action="/Staff/update" method="post"
+					<!--사원정보 글쓰기  -->
+					<br>
+					
+					<form name="form" action="join_staff" method="post" onsubmit="return formCheck();"
 						class="form-horizontal style-form" enctype="multipart/form-data">
 						<!---->
-						<input type="hidden" id="staffno" name="staffno"
-							value="${staff.staffno}">
+					
 
-						<!-- line 1 -->
-						<table>
-							<tr>
-								<td>
-									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label">거래구분</label>
-										<div class="col-sm-6" style="width: 309px;">
-											<select class="form-control" id="field" name="field">
-												<option selected="selected">판매</option>
-												<option>구매</option>
-												<option>판매취소</option>
-												<option>구매취소</option>
-											</select>
-										</div>
-									</div>
-								</td>
-								
-								<td>
-									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label">거래처</label>
-										<div class="col-sm-6" style="width: 309px;">
-											<input type="text" class="form-control" id="CN" name="CN" />
-										</div>
-									</div>
-								</td>
-							</tr>
-						</table>
-
-						<!-- line 2 -->
-						<table>
-							<tr>
-								<td>
-									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label">품목</label>
-										<div class="col-sm-6" style="width: 309px;">
-											<input type="text" class="form-control" id="RegDate"
-												name="RegDate" value="###" />
-										</div>
-									</div>
-								</td>
-
-								<td>
-									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label">거래량</label>
-										<div class="col-sm-6" style="width: 309px;">
-											<input type="text" class="form-control" id="BsnNum"
-												name="BsnNum" value="###" />
-										</div>
-									</div>
-								</td>
-							</tr>
-						</table>
-
-						<!-- line 3 -->
-						<table>
-							<tr>
-								<td>
-									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label">미지급금</label>
-										<div class="col-sm-6" style="width: 309px;">
-											<input type="text" class="form-control" id="CName"
-												name="CName" value="###" />
-										</div>
-									</div>
-								</td>
-
-								<td>
-									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label">미수금</label>
-										<div class="col-sm-6" style="width: 309px;">
-											<input type="text" class="form-control" id="RepreName"
-												name="RepreName" value="###" />
-										</div>
-									</div>
-								</td>
-							</tr>
-						</table>
-
-						<!-- line 4 -->
-						<table>
-							<tr>
-								<td>
-									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label">총액</label>
-										<div class="col-sm-6" style="width: 309px;">
-											<input type="text" class="form-control" id="BsnNum"
-												name="BsnNum" value="###" readonly />
-										</div>
-									</div>
-								</td>
-
-								<td>
-									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label">결제수단</label>
-										<div class="col-sm-6" style="width: 309px;">
-											<select class="form-control" id="field" name="field">
-												<option selected="selected">카드</option>
-												<option>현금</option>
-												<option>계좌이체</option>
-												<option>수표</option>
-											</select>
-										</div>
-									</div>
-								</td>
-							</tr>
-						</table>
-
-						<!-- line 5 -->
-						<table>
-							<tr>
-								<td>
-									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label">담당직원(Staff)</label>
-										<div class="col-sm-6" style="width: 309px;">
-											<input type="text" class="form-control" id="Staff"
-												name="Staff" value="###" />
-										</div>
-									</div>
-								</td>
-
-								<td>
-									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label">회원등급(Membership)</label>
-										<div class="col-sm-6" style="width: 309px;">
-											<select class="form-control" id="field" name="field">
-												<option selected="selected">해당없음</option>
-												<option>브론즈</option>
-												<option>실버</option>
-												<option>골드</option>
-												<option>플레티넘</option>
-											</select>
-										</div>
-									</div>
-								</td>
-							</tr>
-						</table>
-
-						<!-- line 6 -->
 						<div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label">비고(Remark)
-							</label>
-							<div class="col-sm-6" style="width: 309px;">
-								<textarea class="form-control" id="Remark" name="Remark"
-									style="width: 668px; height: 85px;">${Board.title}</textarea>
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 85px;">이름*</label>
+							<div class="col-sm-6" style="width: 200px;">
+								<input type="text" class="form-control" id="staffName"
+									name="staffName"/>
 							</div>
-							<br><br>
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 110px;">주민번호*</label>
+							<div class="col-sm-6" style="width: 250px;">
+								<input type="text" class="form-control" id="staffIdno"
+									name="staffIdno" placeholder="-는 빼고 숫자만 기입"/>
+							</div>
+						</div>
+						<!-- line 2 -->
+						<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 125px;">사업자등록번호</label>
+							<div class="col-sm-6" style="width: 250px;">
+								<input type="text" class="form-control" id="userBn"
+									name="userBn" value="${bn}" readonly="readonly"/>
+							</div>
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 90px;">직급구분*</label>
+							<div class="col-sm-6" style="width: 150px;">
+								<select class="form-control" id="positionDiv" name="positionDiv">
+									<option selected="selected" value="1">사원</option>
+									<option value="2">매니저</option>
+									<option value="3">사장</option>
+								</select>
+							</div>
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 70px;">입사일</label>
+							<div class="col-sm-6" style="width: 250px;">
+								<input type="date" class="form-control" min="2017-09-01" max="2030-09-01" id="staffIndate"
+									name="staffIndate" />
+							</div>
+
+						</div>
+
+						<!--line 3  -->
+
+						<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 90px;">휴대전화*</label>
+							<div class="col-sm-6" style="width: 250px;">
+								<input type="text" class="form-control" id="staffCellNo"
+									name="staffCellNo" placeholder="-는 빼고 숫자만 기입"/>
+							</div>
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 30px;">집</label>
+							<div class="col-sm-6" style="width: 250px;">
+								<input type="text" class="form-control" id="staffTellNo"
+									name="staffTellNo" />
+							</div>
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 70px;">이메일</label>
+							<div class="col-sm-6" style="width: 250px;">
+								<input type="text" class="form-control" id="staffEmail"
+									name="staffEmail" placeholder="@을 포함해서 적어주세요"/>
+							</div>
+						</div>
+
+						<!--line 4  -->
+						<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 85px;">주소*</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" id="roadFullAddr"
+									name="staffAddress" onclick="goPopup()"/>
+							
+							</div>
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 100px;">우편번호*</label>
+							<div class="col-sm-6" style="width: 220px;">
+								<input type="text" class="form-control" id="zipNo"
+									 name="staffZipcode"/>
+							</div>
+						</div>
+						<!--line 5  -->
+						<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 85px;">급여*</label>
+							<div class="col-sm-6" style="width: 250px;">
+								<input type="text" class="form-control" id="staffSalary"
+									name="staffSalary" placeholder="원" style="text-align: right;" 
+									/>
+							</div>
+
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 90px;">은행</label>
+							<div class="col-sm-6" style="width: 185px;">
+								<select class="form-control" id="bankDiv" name="bankDiv">
+									<option selected="selected" value="1">신한은행</option>
+									<option value="2">국민은행</option>
+									<option value="3">우리은행</option>
+								</select>
+							</div>
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 100px;">계좌번호*</label>
+							<div class="col-sm-6" style="width: 220px;">
+								<input type="text" class="form-control" id="staffAccountNo"
+									name="staffAccountNo"/>
+							</div>
+						</div>
+						<!--line 6 -->
+						<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 85px;">ID*</label>
+							<div class="col-sm-3">
+								<input type="text" class="form-control" id="staffId"
+									name="staffId" placeholder="중복확인 이용" onclick="idcheckOpen()"/>
+							</div>
+					
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 120px;">Password*</label>
+							<div class="col-sm-3">
+								<input type="text" class="form-control" id="staffPassword"
+									name="staffPassword"/>
+							</div>
 						</div>
 
 						<!-- line 7 -->
+
+
 						<div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label">파일첨부</label>
-							<div class="col-sm-6" style="width: 309px;"></div>
-							<input type="file" class="form-control" name="upload"
-								style="width: 666px;">
+							<label class="col-sm-2 col-sm-2 control-label">비고 </label>
+							<div class="col-sm-6">
+								<textarea class="form-control" id="staffNote" name="staffNote"></textarea>
+							</div>
 						</div>
 
 						<!-- line 8 -->
-						<div class="form-group" align="center">
-							<button type="submit" class="btn btn-theme">수정</button>
-							<button type="button" class="btn btn-theme" onclick="location.href='TradeBoard'">목록으로</button>
+						<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label">사진첨부</label>
+
+							<div class="col-sm-5">
+								<input type="file" class="form-control" id="upload" name="upload" size="50">
+							</div>
+							
+							
 						</div>
+
+						<!-- line 9 -->
+						<div class="form-group" align="center">
+							<input type="submit" class="btn btn-theme" id="savebtn" name="savebtn" value="저장">
+							<button type="button" class="btn btn-theme"
+								onclick="location.href='stafflist'">목록으로</button>
+						</div>
+
 					</form>
 				</div>
 			</div>
 			<!-- col-lg-12-->
 		</div>
-		
+</section>
+</section>
 		<!-- /row -->
 		<%@ include file="../include/footer.jsp"%>

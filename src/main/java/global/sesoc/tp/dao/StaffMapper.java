@@ -3,25 +3,22 @@ package global.sesoc.tp.dao;
 import java.util.ArrayList;
 
 import global.sesoc.tp.vo.StaffVO;
+import global.sesoc.tp.vo.UserVO;
 
 /**
  * 직원
  */
 public interface StaffMapper {
-	int staff_profile(StaffVO vo);		//staff_profile 테이블
-	int staff_list(StaffVO vo);			//staff_list 테이블
+	int staff_profile(StaffVO staff);		//staff_profile 테이블
+	StaffVO getInfo(int staffNo);			//정보
+	UserVO getId(String staffId);			//id 중복검사
+	String login(StaffVO staff);			//로그인
 
-	String login(StaffVO vo);			//로그인
+	int update_staff_profile(StaffVO staff);	//수정
 	
-	int update_staff(StaffVO vo);		//스텝 정보수정
-	int update_staff_profile(StaffVO vo);	//수정
+	public ArrayList<StaffVO> staffList(String userBn);	//staff리스트
 	
-	
-	
-	public ArrayList<StaffVO> staffList(StaffVO svo);	//staff리스트
-	
-	int delete_staff(String staffno);				//스탭정보 삭제
-	int delete_staff_profile(String staffno); 		//삭제
+	int delete_staff_profile(StaffVO staff); 		//삭제
 	
 	
 

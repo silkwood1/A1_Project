@@ -4,70 +4,111 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="global.sesoc.tp.dao.StaffMapper">
-	<insert id="join_list" parameterType="User">
-		insert into user_list
+	<insert id="staff_profile" parameterType="Staff">
+		insert into staff_profile(
+		userBn
+		,staffNo
+		,positionDiv
+		,staffName
+		,staffIdno
+		,staffCellNo
+		,staffTellNo
+		,staffEmail
+		,staffZipcode
+		,staffAddress
+		,staffSalary
+		,bankDiv
+		,staffAccountNo
+		,staffNote
+		,staffId
+		,staffPassword
+		<if test="originalfile != null and savedfile != null">
+			,originalfile
+			,savedfile
+		</if>
+		)
 		values (
-		#{userId}, #{userPassword}, #{userBn}, sysdate
+		#{userBn}
+		,staffNo_seq.nextval
+		,#{positionDiv}
+		,#{staffName}
+		,#{staffIdno}
+		,#{staffCellNo}
+		,#{staffTellNo}
+		,#{staffEmail}
+		,#{staffZipcode}
+		,#{staffAddress}
+		,#{staffSalary}
+		,#{bankDiv}
+		,#{staffAccountNo}
+		,#{staffNote}
+		,#{staffId}
+		,#{staffPassword}
+		<if test="originalfile != null and savedfile != null">
+			 ,#{originalfile}
+			 ,#{savedfile}
+		</if>
 		)
 	</insert>
 
-	<insert id="join_profile" parameterType="User">
-		insert into user_profile
-		values (
-		#{userBn}, #{userCname}, #{userName}, #{userCellNo},
-		#{userOfficeNo},
-		#{userFaxNo}, #{userEmail}, #{userZipcode},
-		#{userAddress}
-		)
-	</insert>
 
-	<select id="id_chk" parameterType="String" resultType="int">
-		select
-		count(*) from user_list where userId = #{String}
+	<select id="staffList" resultType="Staff">
+		select 
+		*
+		from staff_profile
+		where userBn = #{userBn}
+	</select>
+	
+	<select id="getInfo" resultType="Staff">
+		select 
+		*
+		from staff_profile
+		where staffNo = #{staffNo}
+	</select>
+	
+	<select id="getId" resultType="Staff">
+		select staffId
+		from staff_profile
+		where userBn = #{userBn}
+	</select>
+	
+	
+	<select id="login" parameterType="Staff" resultType="String">
+		select staffNo
+		from staff_profile where staffId = #{staffId} and staffPassword =
+		#{staffPassword}
 	</select>
 
-	<select id="get_bn" parameterType="User" resultType="String">
-		select
-		userBn from user_profile where userName = #{userName} and userEmail =
-		#{userEmail}
-	</select>
-
-	<select id="get_id" parameterType="String" resultType="String">
-		select
-		userId from user_list where userBn = #{String}
-	</select>
-	
-	<select id="get_user" parameterType="String" resultType="User">
-		select * from user_list where userBn = #{String}
-	</select>
-	
-	<select id="login" parameterType="User" resultType="String">
-		select userBn from user_list where userId = #{userId} and userPassword = #{userPassword}
-	</select>
-	
-	<select id="get_name" parameterType="String" resultType="User">
-		select userName, userBn from user_profile where userBn = 
-		(select userBn from user_list where userId = #{String})
-	</select>
-	
-	<select id="get_user_profile" parameterType="String" resultType="User">
-		select * from user_profile where userBn = #{String}
-	</select>
-	
-	<update id="update_user" parameterType="User">
-		update user_list set userPassword = #{userPassword} where userBn = #{userBn}
+	<update id="update_staff_profile" parameterType="Staff">
+		update
+		staff_profile 
+		set 
+		positionDiv = #{positionDiv}
+		,staffCellNo = #{staffCellNo}
+		,staffTellNo = #{staffTellNo}
+		,staffEmail = #{staffEmail}
+		,staffZipcode = #{staffZipcode}
+		,staffAddress = #{staffAddress}
+		,staffSalary = #{staffSalary}
+		,bankDiv = #{bankDiv}
+		,staffAccountNo = #{staffAccountNo}
+		,staffNote = #{staffNote}
+		<if test="originalfile != null and savedfile != null">
+			, originalfile = #{originalfile}
+			, savedfile = #{savedfile}
+		</if>
+		where staffNo = #{staffNo}
+		
 	</update>
-	
-	<update id="update_user_profile" parameterType="User">
-		update user_profile set userCname = #{userCname}, userName = #{userName}, userCellNo = #{userCellNo}, userOfficeNo = #{userOfficeNo}, userFaxNo = #{userFaxNo}, userEmail = #{userEmail}, userZipcode = #{userZipcode}, userAddress = #{userAddress} where userBn = #{userBn}
-	</update>
-	
-	<delete id="goodbye" parameterType="String">
-		delete from user_list where userBn = #{String} 
+
+
+	<delete id="delete_staff_profile" parameterType="Staff">
+		delete from
+		staff_profile 
+		where 
+		staffNo = #{staffNo} 
+		and 
+		userBn = #{userBn}
 	</delete>
-	
-	<delete id="sayonara" parameterType="String">
-		delete from user_profile where userBn = #{String} 
-	</delete>
-	
+
 </mapper>

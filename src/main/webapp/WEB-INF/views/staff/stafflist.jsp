@@ -34,7 +34,7 @@
 <section id="main-content">
 	<section class="wrapper">
 		<h3>
-			<i class="fa fa-angle-right"></i>StaffBoard
+			<i class="fa fa-angle-right"></i>직원 관리
 		</h3>
 
 		<!-- BASIC FORM ELELEMNTS -->
@@ -43,12 +43,12 @@
 			<div class="col-md-12">
 				<div class="content-panel">
 					<h4>
-						<i class="fa fa-angle-right"></i>직원 관리(Staff Management)
+						<i class="fa fa-angle-right"></i>직원 리스트
 					</h4>
 					<section id="unseen">
 						<div align="right">
 							<input type="button" class="btn btn-info"
-								onclick="location.href='EditStaff'" value="Staff등록">
+								onclick="location.href='EditStaff'" value="직원 등록">
 						</div>
 
 						<c:forEach var="s" items="${slist }">
@@ -63,15 +63,13 @@
 							</c:if>
 							<div class="card-body">
 								<h4 class="card-title">${s.staffName }</h4>
-								<h4 class="card-title">
-								<c:if test="${s.positionDiv == 1}">사원</c:if>
-								<c:if test="${s.positionDiv == 2}">매니저</c:if>
-								<c:if test="${s.positionDiv == 3}">사장</c:if>
-								</h4>
-								<p class="card-text">No:${s.staffNo }<br> 
-								Tel:${s.staffCellNo }
-								</p>
-								<a href="updateStaff?staffNo=${s.staffNo }" class="btn btn-info">See Profile</a>
+								<h5 class="card-title">
+									<c:if test="${s.positionDiv == 1}">사원</c:if>
+									<c:if test="${s.positionDiv == 2}">매니저</c:if>
+									<c:if test="${s.positionDiv == 3}">사장</c:if>
+								</h5>
+								<p class="card-text">${s.staffCellNo }</p>
+								<a href="updateStaff?staffNo=${s.staffNo }" class="btn btn-info">상세보기</a>
 							</div>
 						</div>
 						

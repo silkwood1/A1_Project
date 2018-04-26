@@ -17,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import global.sesoc.tp.dao.StaffDAO;
@@ -110,36 +112,6 @@ public class StaffController {
 		model.addAttribute("search", false);
 		return "staff/idcheck";
 	}
-	/* ID 중복 검사
-	 */
-	/*@RequestMapping(value="idcheck", method=RequestMethod.POST)
-	public String idcheck(String staffId,Model model, HttpSession session) {
-		System.out.println("111");
-		String bn = (String) session.getAttribute("bn");
-		
-		//ID 검색
-		
-		//String id = dao.getId(bn);
-		
-		System.out.println(s);
-		System.out.println(s.getStaffId());
-		//검색ID와 검색 결과, 검색전후 확인용 값 저장
-		if(bn != null) // 사용 가능
-		{
-			model.addAttribute("search", true);
-			model.addAttribute("searchResult",id);
-			model.addAttribute("searchId",staffId);
-		}
-		else // 사용 불가
-		{
-			model.addAttribute("search", true);
-			model.addAttribute("searchResult",null);
-			model.addAttribute("searchId",staffId);
-		}
-			
-		
-		return "staff/idcheck";
-	}*/
 	
 	@RequestMapping(value = "memberimg", method = RequestMethod.GET)
 	public String memberimg(String strurl,HttpServletResponse response) {
@@ -213,6 +185,20 @@ public class StaffController {
 		}
 		
 		return "redirect:stafflist";
+	}
+	
+	
+	// 아이디 중복검사
+	@ResponseBody
+	@RequestMapping(value = "staff_id_chk", method = RequestMethod.POST)
+	public String id_chk(@RequestParam(value = "text") String id) {
+		String a = "1";
+		int b = 0;
+		b = dao.staff_id_chk(id);
+		if (b > 0) {
+			a = "0";
+		}
+		return a;
 	}
 
 }

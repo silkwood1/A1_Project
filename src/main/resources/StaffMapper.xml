@@ -110,5 +110,10 @@
 		and 
 		userBn = #{userBn}
 	</delete>
+	
+	<select id="staff_id_chk" parameterType="String" resultType="int">
+		select
+		count(*) from staff_profile where staffId = #{String}
+	</select>
 
 </mapper>

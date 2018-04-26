@@ -36,13 +36,18 @@ function formCheck() {
 		var staffIdno = document.getElementById('staffIdno').value;	//idno
 		var positionDiv = document.getElementById('positionDiv').value;	//position
 		var staffIndate = document.getElementById('staffIndate').value;	//inputdate
-		var staffTellNo = document.getElementById('staffTellNo').value;	//tel
+		var staffCellNo = document.getElementById('staffCellNo').value;	//tel
 		var roadFullAddr = document.getElementById('roadFullAddr').value;	//address
 		var zipNo = document.getElementById('zipNo').value;	//zip
 		var staffSalary = document.getElementById('staffSalary').value;	//sal
 		var bankDiv = document.getElementById('bankDiv').value;	//bank
 		var staffAccountNo = document.getElementById('staffAccountNo').value;	//account
+		var chk_num = $('#chk_num').val();
 		
+		if(chk_num != '1'){
+			alert('아이디를 제대로 입력해주세요.');
+			return false;
+		}
 
 		if(staffName == ""){
 			alert("이름를 입력해주세요.");
@@ -68,7 +73,7 @@ function formCheck() {
 			return false;
 		}
 		//문자 유효성체크하기 
-		if(staffTellNo == ""){
+		if(staffCellNo == ""){
 			alert("휴대전화번호를 입력해주세요.");
 			return false;
 		}
@@ -99,9 +104,45 @@ function formCheck() {
 		}
 		return true;
 }
-function idcheckOpen() {
-	window.open("idcheck","newwin","top=200,left=400,width=400,height=300,resizable=no");
-}
+
+	function keyup() {
+		var id_text = $('#staffId').val();
+		var special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+		var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+		
+		if(id_text.search(/\s/) != -1){
+			$('#id_chk').text('아이디에 공백을 입력할 수 없습니다.');
+			$('#chk_num').val('0');
+		}else if(special_pattern.test(id_text) == true){
+			$('#id_chk').text('아이디에 특수문자를 입력할 수 없습니다.');
+			$('#chk_num').val('0');
+		}else if(check.test(id_text)){
+			$('#id_chk').text('아이디에 한글은 입력할 수 없습니다.');
+			$('#chk_num').val('0');
+		}else if(id_text == "" || id_text == null){
+			$('#id_chk').text('아이디에 공백만 입력할 수 없습니다.');
+			$('#chk_num').val('0');			
+		}else{
+			$.ajax({
+				type : 'POST',
+				url : 'staff_id_chk',
+				data : {'text':id_text},
+				dataType : 'text',
+				success : function(data){
+					if(data == '1'){
+						$('#id_chk').text("가입 가능한 아이디입니다.");
+						$('#chk_num').val('1');
+					}else{
+						$('#id_chk').text("가입 불가능한 아이디입니다.");
+						$('#chk_num').val('0');
+					}
+				},
+				error : function(error){
+					console.log(error);
+				}
+			});
+		}
+	}
 </script>
 
 <!-- **********************************************************************************************************************************************************
@@ -128,16 +169,16 @@ function idcheckOpen() {
 
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 85px;">이름*</label>
-							<div class="col-sm-6" style="width: 200px;">
+								style="width: 125px;">이름*</label>
+							<div class="col-sm-6" style="width: 250px;">
 								<input type="text" class="form-control" id="staffName"
 									name="staffName"/>
 							</div>
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 110px;">주민번호*</label>
+								style="width: 100px;">주민번호*</label>
 							<div class="col-sm-6" style="width: 250px;">
-								<input type="text" class="form-control" id="staffIdno"
-									name="staffIdno" placeholder="-는 빼고 숫자만 기입"/>
+								<input type="text" class="form-control" id="staffIdno" style="width: 10cm;"
+									name="staffIdno" placeholder="-를 뺀 숫자 13자리를 입력해주세요."/>
 							</div>
 						</div>
 						<!-- line 2 -->
@@ -149,7 +190,7 @@ function idcheckOpen() {
 									name="userBn" value="${bn}" readonly="readonly"/>
 							</div>
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 90px;">직급구분*</label>
+								style="width: 100px;">직급구분*</label>
 							<div class="col-sm-6" style="width: 150px;">
 								<select class="form-control" id="positionDiv" name="positionDiv">
 									<option selected="selected" value="1">사원</option>
@@ -170,13 +211,13 @@ function idcheckOpen() {
 
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 90px;">휴대전화*</label>
+								style="width: 125px;">휴대전화*</label>
 							<div class="col-sm-6" style="width: 250px;">
 								<input type="text" class="form-control" id="staffCellNo"
-									name="staffCellNo" placeholder="-는 빼고 숫자만 기입"/>
+									name="staffCellNo" placeholder="-를 빼고 입력해주세요."/>
 							</div>
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 30px;">집</label>
+								style="width: 100px;">집 전화번호</label>
 							<div class="col-sm-6" style="width: 250px;">
 								<input type="text" class="form-control" id="staffTellNo"
 									name="staffTellNo" />
@@ -192,23 +233,23 @@ function idcheckOpen() {
 						<!--line 4  -->
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 85px;">주소*</label>
+								style="width: 125px;">주소*</label>
 							<div class="col-sm-5">
 								<input type="text" class="form-control" id="roadFullAddr"
-									name="staffAddress" onclick="goPopup()"/>
+									name="staffAddress" onclick="goPopup()" readonly="readonly"/>
 							
 							</div>
 							<label class="col-sm-2 col-sm-2 control-label"
 								style="width: 100px;">우편번호*</label>
 							<div class="col-sm-6" style="width: 220px;">
 								<input type="text" class="form-control" id="zipNo"
-									 name="staffZipcode"/>
+									 name="staffZipcode" readonly="readonly" />
 							</div>
 						</div>
 						<!--line 5  -->
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 85px;">급여*</label>
+								style="width: 125px;">급여*</label>
 							<div class="col-sm-6" style="width: 250px;">
 								<input type="text" class="form-control" id="staffSalary"
 									name="staffSalary" placeholder="원" style="text-align: right;" 
@@ -216,7 +257,7 @@ function idcheckOpen() {
 							</div>
 
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 90px;">은행</label>
+								style="width: 100px;">은행</label>
 							<div class="col-sm-6" style="width: 185px;">
 								<select class="form-control" id="bankDiv" name="bankDiv">
 									<option selected="selected" value="1">신한은행</option>
@@ -234,25 +275,29 @@ function idcheckOpen() {
 						<!--line 6 -->
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 85px;">ID*</label>
-							<div class="col-sm-3">
+								style="width: 125px;">아이디*</label>
+							<div class="col-sm-3" style="width: 250px;">
 								<input type="text" class="form-control" id="staffId"
-									name="staffId" placeholder="중복확인 이용" onclick="idcheckOpen()"/>
+									name="staffId" onkeyup="keyup()"/>
+									<span id="id_chk"></span>
+									<input type="hidden" id="chk_num" value="0">
 							</div>
-					
+						</div>
+						
+						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 120px;">Password*</label>
-							<div class="col-sm-3">
+								style="width: 125px;">비밀번호*</label>
+							<div class="col-sm-3" style="width: 250px;">
 								<input type="text" class="form-control" id="staffPassword"
 									name="staffPassword"/>
 							</div>
 						</div>
-
+						
 						<!-- line 7 -->
 
 
 						<div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label">비고 </label>
+							<label class="col-sm-2 col-sm-2 control-label" style="width: 125px;">비고 </label>
 							<div class="col-sm-6">
 								<textarea class="form-control" id="staffNote" name="staffNote"></textarea>
 							</div>
@@ -260,7 +305,7 @@ function idcheckOpen() {
 
 						<!-- line 8 -->
 						<div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label">사진첨부</label>
+							<label class="col-sm-2 col-sm-2 control-label" style="width: 125px;">사진첨부</label>
 
 							<div class="col-sm-5">
 								<input type="file" class="form-control" id="upload" name="upload" size="50">

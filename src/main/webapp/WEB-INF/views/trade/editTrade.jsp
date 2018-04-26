@@ -65,37 +65,6 @@ function chkword(obj, maxlength) {
 }
 
 $(document).ready(function() {
-	//alert('ready');
-
-/* 
-	// 이 방법은 쓰지 말도록 하자
-	var td = $('#hid_tradeDiv').val();
-	var pd = $('#hid_paymentDiv').val();
-	
-	//alert(td + ", " + pd);
-	
-	// 거래구분 select
-	if (td == '판매') {
-		$('#td1').attr('selected', 'selected');
-	} else if (td == '구매') {
-		$('#td2').attr('selected', 'selected');
-	} else if (td == '판매취소') {
-		$('#td3').attr('selected', 'selected');
-	} else if (td == '구매취소') {
-		$('#td4').attr('selected', 'selected');
-	}
-	
-	// 결제수단 select
-	if (pd == '카드') {
-		$('#pd1').attr('selected', 'selected');
-	} else if (pd == '현금') {
-		$('#pd2').attr('selected', 'selected');
-	} else if (pd == '계좌이체') {
-		$('#pd3').attr('selected', 'selected');
-	} else if (pd == '수표') {
-		$('#pd4').attr('selected', 'selected');
-	} 
- */	
 	$('#editTrade').click(function() {
 		
 		var tradeNo, tradeDiv, customerNo, itemCode, paymentDiv, tradeNote;

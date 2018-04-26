@@ -242,7 +242,7 @@
 	}
 	
 	//아이디 중복검사
-	function keyup(){
+	function keyup() {
 		var id_text = $('#userId').val();
 		var special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
 		var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;

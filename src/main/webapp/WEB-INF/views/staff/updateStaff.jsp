@@ -69,13 +69,13 @@ function formCheck() {
 
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 85px;">이름*</label>
+								style="width: 125px;">이름*</label>
 							<div class="col-sm-6" style="width: 200px;">
 								<input type="text" class="form-control" id="staffName"
 									name="staffName" value="${staff.staffName }"/>
 							</div>
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 110px;">주민번호*</label>
+								style="width: 100px;">주민번호*</label>
 							<div class="col-sm-6" style="width: 250px;">
 								<input type="text" class="form-control" id="staffIdno"
 									name="staffIdno" value="${staff.staffIdno}" />
@@ -90,7 +90,7 @@ function formCheck() {
 									name="userBn" value="${bn}" readonly="readonly"/>
 							</div>
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 90px;">직급구분*</label>
+								style="width: 100px;">직급구분*</label>
 							<div class="col-sm-6" style="width: 150px;">
 								<select class="form-control" id="positionDiv" name="positionDiv">
 									<option selected="selected" value="1">사원</option>
@@ -101,8 +101,8 @@ function formCheck() {
 							<label class="col-sm-2 col-sm-2 control-label"
 								style="width: 70px;">입사일</label>
 							<div class="col-sm-6" style="width: 250px;">
-								<input type="date" class="form-control" min="2017-09-01" max="2030-09-01" id="staffIndate"
-									name="staffIndate" value="${staff.staffIndate}"/>
+								<input type="text" class="form-control" id="staffIndate"
+									name="staffIndate" value="${staff.staffIndate}" disabled="disabled" />
 							</div>
 
 						</div>
@@ -111,13 +111,13 @@ function formCheck() {
 
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 90px;">휴대전화*</label>
+								style="width: 125px;">휴대전화*</label>
 							<div class="col-sm-6" style="width: 250px;">
 								<input type="text" class="form-control" id="staffCellNo"
 									name="staffCellNo" value="${staff.staffCellNo }"/>
 							</div>
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 30px;">집</label>
+								style="width: 100px;">집 전화번호</label>
 							<div class="col-sm-6" style="width: 250px;">
 								<input type="text" class="form-control" id="staffTellNo"
 									name="staffTellNo" value="${staff.staffTellNo }"/>
@@ -133,23 +133,23 @@ function formCheck() {
 						<!--line 4  -->
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 85px;">주소*</label>
+								style="width: 125px;">주소*</label>
 							<div class="col-sm-5">
 								<input type="text" class="form-control" id="roadFullAddr"
-									name="staffAddress" onclick="goPopup()" value="${staff.staffAddress }"/>
+									name="staffAddress" onclick="goPopup()" value="${staff.staffAddress }" readonly="readonly"/>
 							
 							</div>
 							<label class="col-sm-2 col-sm-2 control-label"
 								style="width: 100px;">우편번호*</label>
 							<div class="col-sm-6" style="width: 220px;">
 								<input type="text" class="form-control" id="zipNo"
-									 name="staffZipcode" value="${staff.staffZipcode }"/>
+									 name="staffZipcode" value="${staff.staffZipcode }" readonly="readonly"/>
 							</div>
 						</div>
 						<!--line 5  -->
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 85px;">급여*</label>
+								style="width: 125px;">급여*</label>
 							<div class="col-sm-6" style="width: 250px;">
 								<input type="text" class="form-control" id="staffSalary"
 									name="staffSalary" placeholder="원" style="text-align: right;" 
@@ -157,7 +157,7 @@ function formCheck() {
 							</div>
 
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 90px;">은행</label>
+								style="width: 100px;">은행</label>
 							<div class="col-sm-6" style="width: 185px;">
 								<select class="form-control" id="bankDiv" name="bankDiv">
 									<option selected="selected" value="1">신한은행</option>
@@ -172,16 +172,17 @@ function formCheck() {
 									name="staffAccountNo" value="${staff.staffAccountNo }"/>
 							</div>
 						</div>
+						
 						<!--line 6 -->
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 85px;">ID*</label>
+								style="width: 125px;">아이디*</label>
 							<div class="col-sm-3">
 								<input type="text" class="form-control" id="staffId"
 									name="staffId" value="${staff.staffId }" readonly="readonly"/>
 							</div>
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 120px;">Password*</label>
+								style="width: 100px;">비밀번호*</label>
 							<div class="col-sm-3">
 								<input type="text" class="form-control" id="staffPassword"
 									name="staffPassword" value="${staff.staffPassword }" readonly="readonly"/>
@@ -189,10 +190,8 @@ function formCheck() {
 						</div>
 
 						<!-- line 7 -->
-
-
 						<div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label">비고 </label>
+							<label class="col-sm-2 col-sm-2 control-label" style="width: 125px;">비고 </label>
 							<div class="col-sm-6">
 								<textarea class="form-control" id="staffNote" name="staffNote">${staff.staffNote}</textarea>
 							</div>
@@ -200,7 +199,7 @@ function formCheck() {
 
 						<!-- line 8 -->
 						<div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label">사진첨부</label>
+							<label class="col-sm-2 col-sm-2 control-label" style="width: 125px;">사진첨부</label>
 
 							<div class="col-sm-5">
 								<input type="file" class="form-control" id="upload" name="upload" size="50"> ${staff.originalfile}

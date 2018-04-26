@@ -20,6 +20,8 @@ public interface StaffMapper {
 	
 	int delete_staff_profile(StaffVO staff); 		//삭제
 	
+	int staff_id_chk(String id); //아이디 검색
+	
 	
 
 }

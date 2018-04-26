@@ -97,4 +97,16 @@ public class StaffDAO {
 		}
 		return staffList;
 	}
+
+
+	public int staff_id_chk(String id) {
+		int a = 0;
+		StaffMapper mapper = sqlSession.getMapper(StaffMapper.class);
+		try{
+			a = mapper.staff_id_chk(id);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return a;
+	}
 }

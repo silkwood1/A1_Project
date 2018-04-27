@@ -173,4 +173,15 @@ public class TradeDAO {
 		return list;
 	}
 
+	public String get_cusno(int tradeNo) {
+		TradeMapper mapper = sqlSession.getMapper(TradeMapper.class);
+		String a = "";
+		try {
+			a = mapper.get_cusno(tradeNo);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return a;
+	}
+
 }

@@ -22,6 +22,8 @@ public interface StaffMapper {
 	
 	int staff_id_chk(String id); //아이디 검색
 	
+	ArrayList<StaffVO> get_staff(String a); // 직원 가져오기
+	
 	
 
 }

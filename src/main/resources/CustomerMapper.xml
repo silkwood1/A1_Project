@@ -113,14 +113,20 @@
   		, customerCname = #{customerCname}
   		, customerName = #{customerName}
   		, customerCellNo = #{customerCellNo}
+  		, customerOfficeNo = #{customerOfficeNo}
   		, customerFaxNo = #{customerFaxNo}
   		, customerEmail = #{customerEmail}
   		, customerZipcode = #{customerZipcode}
   		, customerAddress = #{customerAddress}
+  		, inCharge = #{inCharge}
   		, rankDiv = (SELECT rankDiv FROM tb_rankDiv WHERE rankExp = '${rankDiv}')
   		, customerNote = #{customerNote}
   	where customerNo = #{customerNo}
   	</update>
+  	
+  	<select id="get_user" parameterType="String" resultType="Customer">
+  		select * from customer where customerNo = #{String}
+  	</select>
   	
   	
   </mapper>

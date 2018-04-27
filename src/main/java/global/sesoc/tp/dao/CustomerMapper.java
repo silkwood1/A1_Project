@@ -3,6 +3,7 @@ package global.sesoc.tp.dao;
 import java.util.ArrayList;
 
 import global.sesoc.tp.vo.CustomerVO;
+import global.sesoc.tp.vo.UserVO;
 
 public interface CustomerMapper {
 
@@ -15,5 +16,7 @@ public interface CustomerMapper {
 	public int updateCustomer(CustomerVO customer);
 	// 거래서 삭제
 	public int deleteCustomer(int customerNo);
+	//거래처 정보 가져가기
+	public CustomerVO get_user(String cusno);
 	
 }

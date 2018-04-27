@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import global.sesoc.tp.dao.CustomerDAO;
+import global.sesoc.tp.dao.StaffDAO;
 import global.sesoc.tp.vo.CustomerVO;
+import global.sesoc.tp.vo.StaffVO;
 
 @Controller
 @RequestMapping("account")
@@ -22,6 +24,9 @@ public class AccountController {
 
 	@Autowired
 	CustomerDAO dao;
+
+	@Autowired
+	StaffDAO dao2;
 
 	// 주소 검색
 	@RequestMapping(value = "addr_insert", method = RequestMethod.POST)
@@ -50,8 +55,17 @@ public class AccountController {
 
 	// 새 거래처 등록 페이지
 	@RequestMapping(value = "goInsertAccount", method = RequestMethod.GET)
-	public String goInsertAccount(Model model) {
-
+	public String goInsertAccount(Model model, HttpSession s) {
+		String a = "";
+		
+		a = (String) s.getAttribute("bn");
+		
+		ArrayList<StaffVO> stf = new ArrayList<StaffVO>();
+		
+		stf = dao2.get_staff(a);
+		
+		model.addAttribute("staff", stf);
+		
 		return "/account/insertAccount";
 	}
 
@@ -87,11 +101,14 @@ public class AccountController {
 
 	// 거래처 수정 페이지
 	@RequestMapping(value = "accountModify", method = RequestMethod.GET)
-	public String accountModify(Model model, @RequestParam int customerNo) {
+	public String accountModify(Model model, @RequestParam int customerNo, HttpSession s) {
 		System.out.println(customerNo);
 		CustomerVO customer = null;
-
+		String a = (String) s.getAttribute("bn");
+		ArrayList<StaffVO> stf = new ArrayList<StaffVO>();
+		
 		try {
+			stf = dao2.get_staff(a);
 			customer = dao.selectCustomer(customerNo);
 			System.out.println(customer.toString());
 		} catch (Exception e) {
@@ -99,7 +116,8 @@ public class AccountController {
 		}
 
 		model.addAttribute("cu", customer);
-
+		model.addAttribute("staff", stf);
+		
 		return "/account/accountModify";
 	}
 

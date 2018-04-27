@@ -11,7 +11,7 @@
 <!-- 네이버 지도 -->
 <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=m1DGWBeNqTfbtHfCToIo&submodules=geocoder"></script>
-<script>
+
 <script>
 
 //주소 입력
@@ -112,7 +112,7 @@ $(document).ready(function() {
 		rankDiv = $('#rDiv').find("option:selected").val();
 		inCharge = $('#input_inCharge').val();
 		customerNote = $('#input_customerNote').val();
-		
+
 //		alert(userBn + ", " + customerNo + ", " + customerDiv + ", " + customerBn + ", " + 
 //				customerCname + ", " + customerName + ", " + customerCellNo + ", " + 
 //				customerOfficeNo + ", " + customerFaxNo + ", " + customerEmail + ", " + 
@@ -130,6 +130,7 @@ $(document).ready(function() {
 				customerCname : customerCname,
 				customerName : customerName,
 				customerCellNo : customerCellNo,
+				customerOfficeNo : customerOfficeNo,
 				customerFaxNo : customerFaxNo,
 				customerEmail : customerEmail,
 				customerZipcode : customerZipcode,
@@ -154,7 +155,9 @@ $(document).ready(function() {
 		
 	});
 	
-	
+	$('#input_inCharge').click(function(){
+		$('#input_inCharge_div').html('<select class="form-control" id="input_inCharge" name="Staff"><c:forEach var="stf" items="${staff}"><option value="${stf.staffName }">${stf.staffName }</option></c:forEach></select>')
+	});
 	
 });
 
@@ -276,7 +279,7 @@ $(document).ready(function() {
 										<label class="col-sm-2 col-sm-2 control-label"
 											style="width: 100px;">팩스번호</label>
 										<div class="col-sm-6" style="width: 309px;">
-											<input type="text" class="form-control" id="input_customerFaxNo" />
+											<input type="text" class="form-control" id="input_customerFaxNo" value="${cu.customerFaxNo }" />
 										</div>
 									</div>
 								</td>
@@ -348,7 +351,7 @@ $(document).ready(function() {
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label"
 											style="width: 150px;">&emsp;담당직원</label>
-										<div class="col-sm-6" style="width: 309px;">
+										<div class="col-sm-6" style="width: 309px;"  id="input_inCharge_div">
 											<input type="text" class="form-control" id="input_inCharge" value="${cu.inCharge }"
 												name="Staff" readonly="readonly"/>
 										</div>
@@ -362,8 +365,8 @@ $(document).ready(function() {
 							<label class="col-sm-2 col-sm-2 control-label"
 								style="width: 100px;">비고</label>
 							<div class="col-sm-6" style="width: 320px;">
-								<textarea class="form-control" id="input_customerNote" value="${cu.customerNote }"
-									style="width: 705px; height: 85px;" ></textarea>
+								<textarea class="form-control" id="input_customerNote"	style="width: 705px; height: 85px;" >
+								${cu.customerNote }</textarea>
 							</div>
 							<br> <br>
 						</div>

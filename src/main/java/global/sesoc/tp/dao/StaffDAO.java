@@ -109,4 +109,16 @@ public class StaffDAO {
 		}
 		return a;
 	}
+
+
+	public ArrayList<StaffVO> get_staff(String a) {
+		StaffMapper mapper = sqlSession.getMapper(StaffMapper.class);
+		ArrayList<StaffVO> staffList = new ArrayList<StaffVO>();
+		try {
+			staffList = mapper.get_staff(a);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return staffList;
+	}
 }

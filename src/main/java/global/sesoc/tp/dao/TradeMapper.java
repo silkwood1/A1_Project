@@ -31,5 +31,7 @@ public interface TradeMapper {
 	public ArrayList<CustomerVO> load_account(String bn);
 	// 아이템 긁어오기
 	public ArrayList<ItemsVO> load_items(String bn);
+	//수정
+	public String get_cusno(int tradeNo);
 	
 }

@@ -198,7 +198,7 @@ $(document).ready(function() {
 											style="width: 100px;">담당직원</label>
 										<div class="col-sm-6" style="width: 309px;">
 											<input type="text" class="form-control" id="incharge"
-												value="###" readonly="readonly"/>
+												value="${customer.inCharge }" readonly="readonly"/>
 										</div>
 									</div>
 								</td>
@@ -209,7 +209,13 @@ $(document).ready(function() {
 											style="width: 110px;">&emsp;회원등급</label>
 										<div class="col-sm-6" style="width: 309px;">
 											<input type="text" class="form-control" id="crk"
-												value="###" readonly="readonly"/>
+												<c:choose>
+													<c:when test="${customer.rankDiv == 1 }">value = '브론즈'</c:when>
+													<c:when test="${customer.rankDiv == 2 }">value = '실버'</c:when>
+													<c:when test="${customer.rankDiv == 3 }">value = '골드'</c:when>
+													<c:otherwise>value = '플래티넘'</c:otherwise>
+												</c:choose>
+											readonly="readonly"/>
 										</div>
 									</div>
 								</td>

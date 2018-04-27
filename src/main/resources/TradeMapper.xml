@@ -264,4 +264,8 @@
   		select * from items where userBn = #{String}
   	</select>
   	
+  	<select id="get_cusno" parameterType="int" resultType="String">
+  		select customerNo from trade where tradeNo = #{int}
+  	</select>
+  	
   </mapper>

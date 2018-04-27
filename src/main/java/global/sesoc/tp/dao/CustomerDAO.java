@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import global.sesoc.tp.vo.CustomerVO;
+import global.sesoc.tp.vo.UserVO;
 
 
 
@@ -83,6 +84,19 @@ public class CustomerDAO {
 		}
 		
 		return result;
+	}
+
+	public CustomerVO get_user(String cusno) {
+		CustomerMapper mapper = sqlSession.getMapper(CustomerMapper.class);
+		CustomerVO user = new CustomerVO();
+		
+		try {
+			user = mapper.get_user(cusno);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return user;
 	}
 	
 	

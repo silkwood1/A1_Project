@@ -164,6 +164,9 @@ $(document).ready(function() {
 		});
 	});
 	
+	$('#input_inCharge').click(function(){
+		$('#input_inCharge_div').html('<select class="form-control" id="input_inCharge" name="Staff"><c:forEach var="stf" items="${staff}"><option value="${stf.staffName }">${stf.staffName }</option></c:forEach></select>')
+	});
 	
 });
 
@@ -342,9 +345,9 @@ $(document).ready(function() {
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label"
 											style="width: 150px;">&emsp;담당직원</label>
-										<div class="col-sm-6" style="width: 309px;">
+										<div class="col-sm-6" style="width: 309px;" id="input_inCharge_div">
 											<input type="text" class="form-control" id="input_inCharge"
-												name="Staff" readonly="readonly"/>
+												name="Staff" readonly="readonly" placeholder="추가하려면 클릭하세요"/>
 										</div>
 									</div>
 								</td>
@@ -361,21 +364,9 @@ $(document).ready(function() {
 							</div>
 							<br> <br>
 						</div>
-
-						<!-- line 7 -->
-						<!-- <div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 100px;">파일첨부</label>
-							<div class="col-sm-6" style="width: 309px;">
-								<input type="file" class="form-control" name="upload"
-									style="width: 666px;">
-							</div>
-						</div> -->
-						
-
+					
 						<!-- line 8 -->
 						<div class="form-group" align="center">
-							<button id="goEdit" class="btn btn-default" onclick="redirect:/account/goInsertAccount">수정하기</button>&nbsp&nbsp
 							<button type="button" class="btn btn-success" id="submit">등록하기</button>&nbsp&nbsp
 							<button type="button" class="btn btn-default"
 								onclick="location.href='/account/accountBoard'">목록으로</button>

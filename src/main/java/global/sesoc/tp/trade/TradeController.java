@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import global.sesoc.tp.dao.CustomerDAO;
 import global.sesoc.tp.dao.ItemsDAO;
 import global.sesoc.tp.dao.TradeDAO;
 import global.sesoc.tp.vo.CustomerVO;
 import global.sesoc.tp.vo.ItemsVO;
 import global.sesoc.tp.vo.TradeVO;
+import global.sesoc.tp.vo.UserVO;
 
 @Controller
 @RequestMapping("trade")
@@ -27,6 +29,9 @@ public class TradeController {
 	
 	@Autowired
 	ItemsDAO dao2;
+	
+	@Autowired
+	CustomerDAO dao3;
 
 	// 새 거래 등록
 	@ResponseBody
@@ -106,7 +111,18 @@ public class TradeController {
 		
 		list = dao.load_account(bn);
 		list2 = dao.load_items(bn);
+		
+		String cusno = "";
+		cusno = dao.get_cusno(tradeNo);
 
+		CustomerVO customer = new CustomerVO();
+		customer = dao3.get_user(cusno);
+		
+		if(customer.getInCharge() == null){
+			customer.setInCharge("없음");
+		}
+		
+		model.addAttribute("customer", customer);
 		model.addAttribute("account", list);
 		model.addAttribute("items", list2);
 

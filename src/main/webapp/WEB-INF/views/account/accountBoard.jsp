@@ -117,7 +117,7 @@ $(document).ready(function(){
 										<td>${c.customerCname}</td>
 										<td>${c.customerName}</td>
 										<td>${c.customerCellNo}</td>
-										<td>${c.customerFaxNo}</td>
+										<td>${c.customerOfficeNo}</td>
 										<td>${c.customerAddress}</td>
 										<td>${c.inCharge}</td>
 										<td>${c.rankDiv }</td>

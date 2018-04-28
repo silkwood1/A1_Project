@@ -38,7 +38,17 @@
   
   
   <script>
-
+  	function content_print(){
+	     
+      var initBody = document.body.innerHTML;
+      window.onbeforeprint = function(){
+          document.body.innerHTML = document.getElementById('printArea').innerHTML;
+      }
+      window.onafterprint = function(){
+          document.body.innerHTML = initBody;
+      }
+      window.print();    
+ 	 }             
 	/*
 	버튼에 Drop-List Filter 적용.
 	
@@ -258,9 +268,9 @@
                   </li>
                   
                   <li class="sub-menu">
-                      <a href="qrcode" >
+                      <a href="/qrcode" >
                           <i class="fa fa-tasks"></i>
-                          <span>QR code 생성기</span>
+                          <span>QR code 생성</span>
                       </a>
                   </li>
               </ul>

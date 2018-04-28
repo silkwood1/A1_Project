@@ -1,5 +1,8 @@
 package global.sesoc.tp.dao;
 
+import java.util.ArrayList;
+
+import global.sesoc.tp.vo.CustomerVO;
 import global.sesoc.tp.vo.UserVO;
 
 public interface UserMapper {
@@ -32,4 +35,7 @@ public interface UserMapper {
 
 	String get_cname(String userBn);	//회사명 가져오기
 
+	
+	CustomerVO selectUser(String userBn);
+	ArrayList<CustomerVO> selectAll(String userBn);
 }

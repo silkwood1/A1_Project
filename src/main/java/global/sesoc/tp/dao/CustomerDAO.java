@@ -99,6 +99,4 @@ public class CustomerDAO {
 		return user;
 	}
 	
-	
-	
 }

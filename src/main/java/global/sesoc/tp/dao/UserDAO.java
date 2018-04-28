@@ -1,9 +1,12 @@
 package global.sesoc.tp.dao;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import global.sesoc.tp.vo.CustomerVO;
 import global.sesoc.tp.vo.UserVO;
 
 
@@ -161,4 +164,26 @@ public class UserDAO {
 		}
 		return a;
 	}
+	
+	public CustomerVO selectUser(String userBn) {
+		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+		CustomerVO j = new CustomerVO();
+		try{
+			j = mapper.selectUser(userBn);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return j;
+	}	
+	
+	public ArrayList<CustomerVO> selectAll(String a) {
+		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+		ArrayList<CustomerVO> j = new ArrayList<CustomerVO>();
+		try{
+			j = mapper.selectAll(a);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return j;
+	}	
 }

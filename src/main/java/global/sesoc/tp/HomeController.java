@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import global.sesoc.tp.dao.UserDAO;
+import global.sesoc.tp.view.QRCodeView;
+import global.sesoc.tp.vo.CustomerVO;
 import global.sesoc.tp.vo.ScheduleVO;
 import global.sesoc.tp.vo.UserVO;
 
@@ -173,6 +176,45 @@ public class HomeController {
 		dao.sayonara(bn);
 		
 		response.sendRedirect("logout");
+	}
+	
+	@RequestMapping(value = "qrcode", method = RequestMethod.GET)
+	public String qrcode(Model model, HttpSession s) {
+		String a = (String) s.getAttribute("bn");
+		ArrayList<CustomerVO> customer = new ArrayList<CustomerVO>();
+		
+		customer = dao.selectAll(a);
+		
+		model.addAttribute("A", customer);
+		
+		return "QRcodeGenerate/generator";
+	}
+	
+	@RequestMapping(value = "qrPage", method = RequestMethod.POST)
+	@ResponseBody	
+	public CustomerVO qrcode(String bsnNum) {
+		
+		
+		System.out.println(bsnNum);
+		
+		
+		CustomerVO user = new CustomerVO();
+		
+		user = dao.selectUser(bsnNum);
+		
+		System.out.println("Customer ��ü "+user);
+		
+		return user;
+	}
+	
+	@RequestMapping(value = "createQRcode", method = RequestMethod.GET) 
+	public ModelAndView createCode(@RequestParam String content, Model model, String customerCName){
+				
+			model.addAttribute("company",customerCName);
+			
+			System.out.println("createQRcode class"+content);
+			
+			return new ModelAndView("qrcodeview", "content", content); 
 	}
 	
 	@RequestMapping(value = "calendar", method = RequestMethod.GET)

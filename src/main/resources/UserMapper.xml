@@ -74,4 +74,12 @@
 		select userCname from user_profile where userBn = #{String}
 	</select>
 	
+	<select id="selectUser" parameterType="String" resultType="Customer">
+  		select * from customer where customerBn = #{String}
+  	</select>
+  	
+  	<select id="selectAll" parameterType="String" resultType="Customer">
+  		select * from customer where userBn = #{String}
+  	</select>
+	
 </mapper>

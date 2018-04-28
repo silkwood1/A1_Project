@@ -1,6 +1,7 @@
 package global.sesoc.tp.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -182,6 +183,18 @@ public class TradeDAO {
 			e.printStackTrace();
 		}
 		return a;
+	}
+
+	//월별 판매량
+	public int get_uriage(HashMap<String, String> hm) {
+		TradeMapper mapper = sqlSession.getMapper(TradeMapper.class);
+		int uri = 0;
+		try {
+			uri = mapper.get_uri(hm);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return uri;
 	}
 
 }

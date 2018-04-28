@@ -2,6 +2,7 @@ package global.sesoc.tp;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import global.sesoc.tp.dao.TradeDAO;
 import global.sesoc.tp.dao.UserDAO;
 import global.sesoc.tp.view.QRCodeView;
 import global.sesoc.tp.vo.CustomerVO;
@@ -30,6 +32,9 @@ public class HomeController {
 
 	@Autowired
 	private UserDAO dao;
+	
+	@Autowired
+	private TradeDAO dao2;
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
@@ -51,13 +56,26 @@ public class HomeController {
 		session.setAttribute("id", login_id);
 		session.setAttribute("bn", user.getUserBn());
 		session.setAttribute("cname", user.getUserCname());
-		
+
 		response.sendRedirect("home");
 	}
 	
 	@RequestMapping(value = "home", method = RequestMethod.GET)
-	public String home() {
-
+	public String home(HttpSession s, Model m) {
+		String bn = (String) s.getAttribute("bn");
+		//월별 추이
+		ArrayList<Integer> uriage = new ArrayList<Integer>();
+		String month[] = {"02", "03", "04", "05","06","07","08","09","10","11","12"};
+		HashMap<String, String> hm = new HashMap<String,String>();
+		hm.put("a", bn);
+		hm.put("b", "01");
+		uriage.add(dao2.get_uriage(hm));
+		for (int i = 0; i < month.length; i++) {
+			hm.replace("b", month[i]);
+			uriage.add(dao2.get_uriage(hm));
+		}
+		
+		m.addAttribute("uriage", uriage);
 		return "home";
 	}
 

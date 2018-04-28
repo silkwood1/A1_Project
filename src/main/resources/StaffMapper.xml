@@ -19,6 +19,7 @@
 		,staffSalary
 		,bankDiv
 		,staffAccountNo
+		,staffIndate
 		,staffNote
 		,staffId
 		,staffPassword
@@ -41,6 +42,7 @@
 		,#{staffSalary}
 		,#{bankDiv}
 		,#{staffAccountNo}
+		,#{staffIndate}
 		,#{staffNote}
 		,#{staffId}
 		,#{staffPassword}

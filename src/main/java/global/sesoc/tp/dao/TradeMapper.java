@@ -1,6 +1,7 @@
 package global.sesoc.tp.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import global.sesoc.tp.vo.CustomerVO;
 import global.sesoc.tp.vo.ItemsVO;
@@ -33,5 +34,7 @@ public interface TradeMapper {
 	public ArrayList<ItemsVO> load_items(String bn);
 	//수정
 	public String get_cusno(int tradeNo);
+	//월별 판매량
+	public int get_uri(HashMap<String, String> hm);
 	
 }

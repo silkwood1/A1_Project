@@ -152,7 +152,7 @@ function formCheck() {
 <section id="main-content">
 	<section class="wrapper">
 		<h3>
-			<i class="fa fa-angle-right"></i>직원 정보 페이지
+			<i class="fa fa-angle-right"></i>직원 등록
 		</h3>
 
 		<!-- BASIC FORM ELELEMNTS -->

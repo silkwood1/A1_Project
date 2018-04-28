@@ -268,4 +268,7 @@
   		select customerNo from trade where tradeNo = #{int}
   	</select>
   	
+  	<select id="get_uri" parameterType="Map" resultType="int">
+		select count(*) from trade where userBn = #{a} and to_char(tradeIndate, 'MM') = #{b} 
+	</select>
   </mapper>

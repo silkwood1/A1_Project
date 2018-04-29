@@ -125,18 +125,17 @@ public class AccountController {
 	@RequestMapping(value = "accountDelete", method = RequestMethod.GET)
 	public String accountDelete(Model model, @RequestParam int customerNo) {
 		int res = 0;
-		String result = null;
 		try {
 			res = dao.deleteCustomer(customerNo);
-
+			
 			if (res == 1) {
-				result = "redirect:accountBoard";
+				return "redirect:accountBoard";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return result;
+		return "/account/delete_fail";
 	}
 
 	// 거래처 수정

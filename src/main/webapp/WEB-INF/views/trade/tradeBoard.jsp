@@ -14,6 +14,27 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
+// 결제완료하기
+function status(obj) {
+	//alert(obj);
+	$.ajax({
+		type: 'post',
+		url: '/trade/editStat',
+		data: {
+			tradeNo : obj
+		}, success: function(data) {
+			if (data == 1) {
+				var currentLocation = window.location;
+				$("#refreshable").fadeOut('fast').load(currentLocation + ' #refreshable').fadeIn("fast");
+			}
+		},
+		error: function(error) {
+			alert(error);
+		}
+	});
+	
+}
+
 //숫자 받기, ',' 찍기
 //[] <--문자 범위 [^] <--부정 [0-9] <-- 숫자  
 //[0-9] => \d , [^0-9] => \D
@@ -152,15 +173,20 @@ $(document).ready(function() {
 	$('#insertTrade').click(function() {
 
 		//alert($('#tradeDiv').html());
-			
+		var tradeStatus;
+		
 		if ($('#tradeDiv').attr('name') == '1') {
 			tradeDiv = 1;
+			tradeStatus = 0;
 		} else if ($('#tradeDiv').attr('name') == '2') {
 			tradeDiv = 2;
+			tradeStatus = 1;
 		} else if ($('#tradeDiv').attr('name') == '3') {
 			tradeDiv = 3;
+			tradeStatus = 2;
 		} else if ($('#tradeDiv').attr('name') == '4') {
 			tradeDiv = 4;
+			tradeStatus = 3;
 		}
 			
 		if ($('#paymentDiv').attr('name') == '1') {
@@ -200,7 +226,8 @@ $(document).ready(function() {
 				tradeReceivable : tradeReceivable,
 				tradeTotal : tradeTotal,
 				paymentDiv : paymentDiv,
-				tradeNote : tradeNote
+				tradeNote : tradeNote,
+				tradeStatus : tradeStatus
 			},
 			datatype: 'text',
 			success: function(data) {
@@ -220,10 +247,7 @@ $(document).ready(function() {
 			}
 		});
 	});
-	 
-	$('#tradeStatus').click(function() {
-		alert("야호!");
-	});
+	
 	
 	// sort
 	$('#sortExp').keyup(function() {
@@ -364,6 +388,13 @@ $(document).ready(function() {
 			data: {
 				itemCode : itemCode
 			}, success: function(data) {
+				// 여기
+				//var a = data * tradeQuantity;
+				//var b = getNumber(a);
+				//alert(b);
+				
+				//$('#tradeTotal').val(getNumber(data * tradeQuantity));
+			
 				$('#tradeTotal').val(data * tradeQuantity);
 			},
 			error: function(error) {
@@ -372,26 +403,14 @@ $(document).ready(function() {
 		});
 	});
 	
+/* 	function status(obj) {
+		alert(obj);
+	}
+ */	
+	
 });
 	
 </script>
-<style type="text/css">
-#center{
-	text-align: center;
-}
-#tight{
-	text-align: right;
-	margin-right: 10px;
-}
-#sortDiv{
-	display: inline;
-}
-#sortExp{
-	display: inline;
-}
-
-
-</style>
 </head>
 <body>
 <%@include file="../include/header.jsp"%>
@@ -526,8 +545,10 @@ $(document).ready(function() {
 					<!-- newtradeform 끝 -->
 
 					<div>
-					
-					<select class="form-control" style="width: 150px;" id="sortDiv">
+					<table>
+						<tr>
+							<td>
+								<select class="form-control" style="width: 150px;" id="sortDiv">
 									<option>검색 설정</option>
 									<option>거래구분</option>
 									<option>거래처</option>
@@ -535,11 +556,19 @@ $(document).ready(function() {
 									<option>결제수단</option>
 									<option>상태</option>
 								</select>
-					<input type="text" class="form-control" style="width: 300px;" id="sortExp">
-					<button type="button" class="btn btn-success" id="newtrade">새 거래</button>	
+							</td>
+							<td>
+							<input type="text" class="form-control" style="width: 300px;" id="sortExp">
+							</td>
+						</tr>
+					</table>
 					</div>
-				
-					<br><br>
+					<br>
+					<br>
+					<div align="center">
+						<button type="button" class="btn btn-success" id="newtrade">새 거래</button>
+					</div>
+					<br>
 
 					<!-- trade list -->
 					<div id="refreshable">
@@ -547,17 +576,17 @@ $(document).ready(function() {
 							<table class="table table-bordered table-striped table-condensed">
 								<thead>
 									<tr>
-										<th id="center">번호</th>
-										<th id="center">거래구분</th>
-										<th id="center">거래처</th>
-										<th id="center">품목</th>
-										<th id="center">수량</th>
-										<th id="center">미지급금</th>
-										<th id="center">미수금</th>
-										<th id="center">총액</th>
-										<th id="center">결제수단</th>
-										<th id="center">등록일자</th>
-										<th id="center">상태</th>
+										<th align="center">번호</th>
+										<th align="center">거래구분</th>
+										<th align="center">거래처</th>
+										<th align="center">품목</th>
+										<th align="center">수량</th>
+										<th align="center">미지급금</th>
+										<th align="center">미수금</th>
+										<th align="center">총액</th>
+										<th align="center">결제수단</th>
+										<th align="center">등록일자</th>
+										<th align="center">상태</th>
 									</tr>
 								</thead>
 								
@@ -574,7 +603,20 @@ $(document).ready(function() {
 											<td align="right" style="cursor: pointer; text-overflow:ellipsis; overflow:hidden" onclick="location.href='/trade/editTrade?tradeNo=${b.tradeNo}'"><fmt:formatNumber value="${b.tradeTotal}" pattern="###,###,###,###" /></td>
 											<td align="center" style="cursor: pointer; text-overflow:ellipsis; overflow:hidden" onclick="location.href='/trade/editTrade?tradeNo=${b.tradeNo}'">${b.paymentDiv}</td>
 											<td align="center" style="cursor: pointer; text-overflow:ellipsis; overflow:hidden" onclick="location.href='/trade/editTrade?tradeNo=${b.tradeNo}'">${b.tradeIndate}</td>
-											<td align="center"><input type="button" class="btn btn-warning btn-xs" value="대기" style="height: 5%;" id="tradeStatus"></td>
+											<td align="center">
+											<c:if test="${b.tradeStatus == 0}">
+												<input type="button" class="btn btn-warning btn-xs" value="대기" style="height: 5%;" onclick="status(${b.tradeNo});">
+											</c:if>
+											<c:if test="${b.tradeStatus == 1}">
+												결제완료
+											</c:if>
+											<c:if test="${b.tradeStatus == 2}">
+												<span style="color:red">판매취소</span>
+											</c:if>
+											<c:if test="${b.tradeStatus == 3}">
+												<span style="color:blue">구매취소</span>
+											</c:if>
+											</td>
 										</tr>
 									</c:forEach>
 								</tbody>

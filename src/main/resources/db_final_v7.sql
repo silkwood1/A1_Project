@@ -1,15 +1,17 @@
--- (0) 시퀀스
-create sequence customerNo_seq 	start with 1 increment by 1;	-- 고객번호
-create sequence tradeNo_seq 	start with 1 increment by 1;	-- 거래번호
-create sequence itemsNo_seq 	start with 1 increment by 1;	-- 품목번호
-create SEQUENCE staffNo_seq     start with 1 INCREMENT by 1;    -- 스태프
-create sequence schedules_seq    start with 1 increment by 1;   -- 스케쥴 
+﻿-- (0) 시퀀스
+create sequence customerNo_seq 	start with 1 increment by 1;	
+create sequence tradeNo_seq 	start with 1 increment by 1;	
+create sequence itemsNo_seq 	start with 1 increment by 1;	
+create SEQUENCE staffNo_seq     start with 1 INCREMENT by 1;    
+create sequence schedules_seq    start with 1 increment by 1;   
 
 -- (1) 고객 분류
 CREATE TABLE tb_customerDiv (
 customerDiv 	number(1) 		constraint tb_customerDiv_customerDiv_pk 	primary key,	-- 고객 분류
 customerExp 	varchar2(20) 	constraint tb_ustomerDiv_customerExp_nn 	not null		-- 설명
 );
+insert into tb_customerDiv values (1, '일반고객');
+insert into tb_customerDiv values (2, '거래사');
 
 -- (2) 회원 등급
 CREATE TABLE tb_rankDiv (
@@ -85,7 +87,7 @@ userOfficeNo 	varchar2(20),																-- 사무실 전화번호
 userFaxNo 		varchar2(20),																-- 팩스번호
 userEmail 		varchar2(30) 	constraint user_profile_userEmail_nn 	not null,			-- 이메일 주소
 userZipcode 	char(5) 		constraint user_profile_userZipcode_nn 	not null,			-- 우편번호
-userAddress 	varchar2(100) 	constraint user_profile_userAddress_nn 	not null,			-- 상세 주소
+userAddress 	varchar2(100) 	constraint user_profile_userAddress_nn 	not null			-- 상세 주소
 );
 
 -- (10) 유저 아이디 정보
@@ -109,31 +111,55 @@ itemName 		varchar2(100) 	constraint items_itemName_nn 				not null,		-- 품목�
 itemPrice1 		varchar2(20),																-- 원가
 itemPrice2 		varchar2(20),																-- 판매가
 itemQuantity 	varchar2(20) 	default 0,													-- 보유 수량
-itemIndate 		date			default sysdate												-- 품목 등록일자
+itemIndate 		date			 default sysdate												  -- 품목 등록일자
 );
-
+-- (12) 사원 정보
+CREATE TABLE staff_profile (
+userBn 			varchar2(30) 	constraint fk_staff_profile_userBn 
+									REFERENCES user_profile(userBn) 	not null, 			-- ?쑀?? ?궗?뾽?옄踰덊샇
+staffNo 		number(5) 		constraint staff_profile_staffNo_pk 	primary key,		-- ?궗?썝 踰덊샇
+positionDiv 	number(2) 		constraint fk_staff_profile_positionDiv 					-- 吏곴툒
+									REFERENCES tb_positionDiv(positionDiv),
+staffName 		varchar2(20) 	constraint staff_profile_staffName_nn 	not null,			-- ?씠由?
+staffIdno 		char(14)		constraint staff_profile_staffIdno_nn 	not null,			-- 二쇰?쇰벑濡앸쾲?샇
+staffCellNo 	varchar2(20) 	constraint staff_profile_staffCellNo_nn not null,			-- ?쑕???쟾?솕踰덊샇
+staffTellNo 	varchar2(20),																-- 吏묒쟾?솕踰덊샇
+staffEmail 		varchar2(30),																-- ?씠硫붿씪二쇱냼
+staffZipcode 	char(5),																	-- ?슦?렪踰덊샇
+staffAddress 	varchar2(1000),																-- ?긽?꽭二쇱냼
+staffSalary 	number(10),																	-- 湲됱뿬
+bankDiv 		number(2) 		constraint fk_staff_profile_bankDiv 
+									REFERENCES tb_bankDiv(bankDiv),							-- ???뻾援щ텇
+staffAccountNo 	varchar2(30),																-- 怨꾩쥖踰덊샇
+staffIndate 	date 			default sysdate,											-- ?엯?궗?씪
+staffNote 		clob,	
+staffId 		varchar2(20) 	unique,
+staffPassword 	varchar2(20) 	not null
+,originalfile  varchar2(200)                                                 --첨부파일명(원래 이름)
+,savedfile varchar2(200)                                                     --첨부파일명 (실제 저장된 이름)
+);
 -- (14) 고객
 CREATE TABLE customer (
 userBn 				varchar2(30) 		constraint fk_customer_userBn 
 											REFERENCES user_profile(userBn) 	not null, 	-- 유저 사업자번호
 customerNo 			number(5) 			primary key, 										-- 고객 번호
-customerDiv 		number(1) 			constraint fk_customer_customerDiv 					-- 고객 분류
-											REFERENCES tb_customerDiv(customerDiv),
-customerBn 			varchar2(30) 		unique,												-- 사업자번호
-customerCname 		varchar2(100),															-- 상호명
-customerName 		varchar2(20) 		constraint customer_customerName_nn 	not null,	-- 대표자명
-customerCellNo 		varchar2(20) 		constraint customer_customerCellNo_nn 	not null,	-- 휴대전화번호
-customerOfficeNo 	varchar2(20),															-- 사무실 전화번호
-customerFaxNo 		varchar2(20),															-- 팩스번호
-customerEmail 		varchar2(30),															-- 이메일 주소
-customerZipcode 	char(5) 			constraint customer_customerZipcode_nn 	not null,	-- 우편번호
-customerAddress 	varchar2(100) 		constraint customer_customerAddress_nn 	not null,	-- 상세주소
-customerIndate 		date 				default sysdate, 									-- 등록 일자
-rankDiv 			number(1) 			constraint tb_customerRank_rankDiv					-- 고객 등급
-											REFERENCES tb_rankDiv(rankDiv),
-incharge 			number(5) 			constraint fk_customer_incharge 					-- 담당자
-											REFERENCES staff_profile(staffNo),
-customerNote 		clob																	-- 비고
+customerDiv 		number(1) 			constraint fk_customer_customerDiv 					
+											REFERENCES tb_customerDiv(customerDiv), 		 -- 고객 분류
+customerBn 			varchar2(30) 	 	unique,											 	 -- 사업자번호
+customerCname 		varchar2(100),															 -- 상호명
+customerName 		varchar2(20) 		constraint customer_customerName_nn 	not null,	 -- 대표자명
+customerCellNo 		varchar2(20) 		constraint customer_customerCellNo_nn 	not null,	 -- 휴대전화번호
+customerOfficeNo 	varchar2(20),															 -- 사무실 전화번호
+customerFaxNo 		varchar2(20),															 -- 팩스번호
+customerEmail 		varchar2(30),															 -- 이메일 주소
+customerZipcode 	char(5) 			constraint customer_customerZipcode_nn 	not null,	 -- 우편번호
+customerAddress 	varchar2(100) 		constraint customer_customerAddress_nn 	not null,	 -- 상세주소
+customerIndate 		date 				default sysdate, 									 -- 등록 일자
+rankDiv 			number(1) 			constraint tb_customerRank_rankDiv					 
+											REFERENCES tb_rankDiv(rankDiv),					 -- 고객 등급
+incharge 			number(5) 			constraint fk_customer_incharge 					
+											REFERENCES staff_profile(staffNo), 				 -- 담당자
+customerNote 		clob																 	 -- 비고
 );
 
 -- (15) 거래
@@ -154,34 +180,11 @@ tradeTotal          number(10)          constraint trade_tradeTotal_nn          
 paymentDiv          number(1)          constraint fk_trade_paymentDiv       
                                  REFERENCES tb_paymentDiv(paymentDiv),               -- 결제수단 분류 
 tradeIndate       date             default sysdate,                                  -- 거래 일자
-tradeNote          clob                                                         -- 비고
+tradeNote          clob,                                                         -- 비고
+tradeStatus	 number(1) 	default 0			--상태
 );
 
--- (12) 사원 정보
-CREATE TABLE staff_profile (
-userBn 			varchar2(30) 	constraint fk_staff_profile_userBn 
-									REFERENCES user_profile(userBn) 	not null, 			-- ?쑀?? ?궗?뾽?옄踰덊샇
-staffNo 		number(5) 		constraint staff_profile_staffNo_pk 	primary key,		-- ?궗?썝 踰덊샇
-positionDiv 	number(2) 		constraint fk_staff_profile_positionDiv 					-- 吏곴툒
-									REFERENCES tb_positionDiv(positionDiv),
-staffName 		varchar2(20) 	constraint staff_profile_staffName_nn 	not null,			-- ?씠由?
-staffIdno 		char(14)		constraint staff_profile_staffIdno_nn 	not null,			-- 二쇰?쇰벑濡앸쾲?샇
-staffCellNo 	varchar2(20) 	constraint staff_profile_staffCellNo_nn not null,			-- ?쑕???쟾?솕踰덊샇
-staffTellNo 	varchar2(20),																-- 吏묒쟾?솕踰덊샇
-staffEmail 		varchar2(30),																-- ?씠硫붿씪二쇱냼
-staffZipcode 	char(5),																	-- ?슦?렪踰덊샇
-staffAddress 	varchar2(100),																-- ?긽?꽭二쇱냼
-staffSalary 	number(10),																	-- 湲됱뿬
-bankDiv 		number(2) 		constraint fk_staff_profile_bankDiv 
-									REFERENCES tb_bankDiv(bankDiv),							-- ???뻾援щ텇
-staffAccountNo 	varchar2(30),																-- 怨꾩쥖踰덊샇
-staffIndate 	date 			default sysdate,											-- ?엯?궗?씪
-staffNote 		clob,	
-staffId 		varchar2(20) 	unique,
-staffPassword 	varchar2(20) 	not null
-,originalfile  varchar2(200)                                                 --첨부파일명(원래 이름)
-,savedfile varchar2(200)                                                     --첨부파일명 (실제 저장된 이름)
-);
+
 
 -- 스케쥴
 CREATE TABLE schedules(
@@ -191,9 +194,66 @@ CREATE TABLE schedules(
    coordinates    VARCHAR2(50),                                                   -- 방문할 장소의 좌표
    staffId       VARCHAR2(20)    constraint schedules_staffId   REFERENCES staff_profile(staffId),   -- 담당 현장사원 id
    title          VARCHAR2(100)    NOT NULL,                                          -- 스케쥴 이름(작업이름)
-   startTime       VARCHAR2(10)    NOT NULL,                                           -- 현장사원이 도착해서 일을 시작할 시간
+   startTime       VARCHAR2(30)    NOT NULL,                                           -- 현장사원이 도착해서 일을 시작할 시간
    schedulesNum    NUMBER          PRIMARY KEY,                                       -- 스케쥴 시퀀스
    tradeStatus     number(1),                                                      -- 거래 처리 유무
    color          VARCHAR2(10)
 ); 
+--select
+select * from tb_customerDiv;
+select * from tb_rankDiv;
+select * from tb_bankDiv;
+select * from tb_positionDiv;
+select * from tb_itemDiv;
+select * from tb_tradeDiv;
+select * from tb_paymentDiv;
+select * from user_profile;
+select * from user_list;
+select * from items;
+select * from staff_profile;
+select * from customer;
+select * from trade;
+select * from schedules;
+
+---------insert
+-- (9) 유저 정보
+insert into user_profile(userBn,userCname,userName,userCellNo,userOfficeNo,userFaxNo,userEmail,userZipcode,userAddress) 
+values ('1','usercompany','username','00000000000,','0000000000','0000000000','dydwns8471@naver.com','00000','detailaddress');
+
+-- (10) 유저 아이디 정보
+insert into user_list(userId,userPassword,userBn,userIndate) 
+values ('dydwns8471','q1w2e3r4','1',sysdate);
+
+-- (11) 품목
+insert into items(itemNum,userBn,itemDiv,itemCode,itemName,itemPrice1,itemPrice2,itemQuantity,itemIndate) 
+values ('1','1','1','00001','itemname1','2000','3000','200',sysdate);
+
+
+-- (12) 사원 정보
+insert into staff_profile(userBn,staffNo,positionDiv,staffName,staffIdno,staffCellNo,staffTellNo,staffEmail,staffZipcode,staffAddress,staffSalary,bankDiv
+,staffAccountNo,staffIndate,staffNote,staffId,staffPassword,originalfile,savedfile) 
+values ('1','1','1','staffName','000000','000000000','000000000','dydwns8471@naver.com','1','staffAddress',9000,1
+,'staffAccountNo',sysdate,'staffNote','dydwns8471','q1w2e3r4','originalfile','savedfile') ;
+
+
+
+-- (14) 고객
+insert into customer(userBn,customerNo,customerDiv,customerBn,customerCname,customerName,customerCellNo,customerOfficeNo,
+customerFaxNo,customerEmail,customerZipcode,customerAddress,customerIndate,rankDiv,incharge,customerNote) 
+values ('1','1','1','1','customerCname','customerName','00000000','000000000',
+'000000000','dydwns8471@naver.com','12345','detailaddr',sysdate,'1','1','customerNote') ;
+
+
+-- (15) 거래
+insert into trade(userBn,tradeNo,tradeDiv,customerNo,itemCode,tradeQuantity,tradePayable,tradeReceivable,tradeTotal,paymentDiv,tradeIndate,tradeNote) 
+values ('1',1,'1','1','00001','2','0','0','6000',1,sysdate,'tradeNote') ;
+
+
+-- 스케쥴
+insert into schedules(userBn,tradeNo,schedulesaddress,coordinates,staffId,title,startTime,schedulesNum,tradeStatus,color) 
+values ('1','1','paranas mall','37.509682, 127.060756','dydwns8471','work1','2018-04-28 14:30:00',0,0,'');
+insert into schedules(userBn,tradeNo,schedulesaddress,coordinates,staffId,title,startTime,schedulesNum,tradeStatus,color) 
+values ('1','1','Seolleung station','37.504515, 127.048899','dydwns8471','work2','2018-04-29 10:30:00',1,0,'');
+insert into schedules(userBn,tradeNo,schedulesaddress,coordinates,staffId,title,startTime,schedulesNum,tradeStatus,color) 
+values ('1','1','Seolleung station','37.504515, 127.048899','dydwns8471','work3','2018-04-29 10:30:00',2,1,'');
 

@@ -184,17 +184,68 @@ public class TradeDAO {
 		}
 		return a;
 	}
-
-	//월별 판매량
-	public int get_uriage(HashMap<String, String> hm) {
+	
+	// 거래 완료 버튼
+	public int editStat(int tradeNo) {
 		TradeMapper mapper = sqlSession.getMapper(TradeMapper.class);
-		int uri = 0;
+		int a = 0;
 		try {
-			uri = mapper.get_uri(hm);
-		}catch(Exception e) {
+			a = mapper.editStat(tradeNo);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return uri;
+		
+		return a;
+	}
+	
+	// 재고 더하기
+	public int pQty(TradeVO trade) {
+		TradeMapper mapper = sqlSession.getMapper(TradeMapper.class);
+		int a = 0;
+		try {
+			a = mapper.pQty(trade);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return a;
+	}
+	// 재고 빼기
+	public int mQty(TradeVO trade) {
+		TradeMapper mapper = sqlSession.getMapper(TradeMapper.class);
+		int a = 0;
+		try {
+			a = mapper.mQty(trade);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return a;
 	}
 
+	public int get_uriage(HashMap<String, String> hm) {
+		TradeMapper mapper = sqlSession.getMapper(TradeMapper.class);
+		int a = 0;
+		try {
+			a = mapper.get_uriage(hm);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return a;
+	}
+	
+	public ArrayList<TradeVO> readTrades(String userBn){
+		
+		ArrayList<TradeVO> result = new ArrayList<TradeVO>();
+		
+		try {
+			TradeMapper mapper = sqlSession.getMapper(TradeMapper.class);
+			result = mapper.readTrades(userBn);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 }

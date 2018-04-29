@@ -14,12 +14,13 @@ public class TradeVO {
 	private String 	paymentDiv;		// 결제수단 분휴 
 	private String 	tradeIndate;	// 거래 일자
 	private String 	tradeNote;		// 구분코
+	private int tradeStatus;		// 거래상태 (0, 1)
 	
 	public TradeVO() {}
 
 	public TradeVO(String userBn, int tradeNo, String tradeDiv, String customerNo, String itemCode, String tradeQuantity,
 			String tradePayable, String tradeReceivable, String tradeTotal, String paymentDiv, String tradeIndate,
-			String tradeNote) {
+			String tradeNote, int tradeStatus) {
 		super();
 		this.userBn = userBn;
 		this.tradeNo = tradeNo;
@@ -33,6 +34,7 @@ public class TradeVO {
 		this.paymentDiv = paymentDiv;
 		this.tradeIndate = tradeIndate;
 		this.tradeNote = tradeNote;
+		this.tradeStatus = tradeStatus;
 	}
 	
 	public String getUserBn() {
@@ -108,12 +110,19 @@ public class TradeVO {
 		this.tradeNote = tradeNote;
 	}
 	
+	public int getTradeStatus() {
+		return tradeStatus;
+	}
+	public void setTradeStatus(int tradeStatus) {
+		this.tradeStatus = tradeStatus;
+	}
+	
 	@Override
 	public String toString() {
 		return "TradeVO [userBn=" + userBn + ", tradeNo=" + tradeNo + ", tradeDiv=" + tradeDiv + ", customerNo="
 				+ customerNo + ", itemCode=" + itemCode + ", tradeQuantity=" + tradeQuantity + ", tradePayable="
 				+ tradePayable + ", tradeReceivable=" + tradeReceivable + ", tradeTotal=" + tradeTotal + ", paymentDiv="
-				+ paymentDiv + ", tradeIndate=" + tradeIndate + ", tradeNote=" + tradeNote + "]";
+				+ paymentDiv + ", tradeIndate=" + tradeIndate + ", tradeNote=" + tradeNote + ", tradeStatus = " + tradeStatus + "]";
 	}
 	
 	

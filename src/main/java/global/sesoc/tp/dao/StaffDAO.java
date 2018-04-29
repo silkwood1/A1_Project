@@ -121,4 +121,16 @@ public class StaffDAO {
 		}
 		return staffList;
 	}
+	
+	public StaffVO readOneAccount(String id){
+		StaffVO account = null;
+		try {
+			StaffMapper mapper = sqlSession.getMapper(StaffMapper.class);
+			System.out.println(id);
+			account = mapper.readOneAccount(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return account;
+	}
 }

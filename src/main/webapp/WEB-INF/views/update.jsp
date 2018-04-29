@@ -123,10 +123,9 @@
 	}
 </script>
 <style>
-	table {
-		margin-left: 1cm;
-		margin-bottom: 10px;
-	}
+#update_form{
+	margin: 20px;
+}
 </style>
 <section id="main-content">
 	<section class="wrapper">
@@ -140,73 +139,103 @@
 					<h4>
 						<i class="fa fa-angle-right"></i>개인정보수정
 					</h4>
-				<form name="form" action="update_user" id="update_form" method="post" onsubmit="return update_chk()">
-					<table class="update_table">
-						<tr>
-							<th>아이디*</th>
-							<td><input type="text" name="userId" id="userId" value="${user.userId }"
-								readonly="readonly" ></td>
-						</tr>
-						<tr>
-							<th>비밀번호*</th>
-							<td><input type="password" name="userPassword" id="userPw"></td>
-						</tr>
-						<tr>
-							<th>비밀번호 확인*</th>
-							<td><input type="password" id="userPw2"></td>
-						</tr>
-					</table>
-					<hr>
-					<table class="join_table">
-						<tr>
-							<th>사업자 등록번호</th>
-							<td><input type="text" name="userBn" id="userBsn" value="${user.userBn }"
-								readonly="readonly" ></td>
-						</tr>
-						<tr>
-							<th>회사명*</th>
-							<td><input type="text" name="userCname" id="userCname"
-								value="${user.userCname }"></td>
-						</tr>
-						<tr>
-							<th>대표자명*</th>
-							<td><input type="text" name="userName" id="userName"
-								value="${user.userName }"></td>
-						</tr>
-						<tr>
-							<th>핸드폰 번호*</th>
-							<td><input type="text" id="userPhone" name="userCellNo"
-								value="${user.userCellNo }"></td>
-						</tr>
-						<tr>
-							<th>사무실 번호</th>
-							<td><input type="text" id="userOfficeNum" name="userOfficeNo"
-								value="${user.userOfficeNo }"></td>
-						</tr>
-						<tr>
-							<th>팩스 번호</th>
-							<td><input type="text" id="userFaxNum" name="userFaxNo"
-								value="${user.userFaxNo }"></td>
-						</tr>
-						<tr>
-							<th>이메일*</th>
-							<td><input type="email" id="email" name="userEmail"
-								value="${user.userEmail }" style="width: 8cm;"></td>
-						</tr>
-						<tr>
-							<th>우편번호*</th>
-							<td><input type="text" id="zipNo" readonly="readonly" name="userZipcode"
-								style="width: 3cm;" value="${user.userZipcode }"></td>
-						</tr>
-						<tr>
-							<th>주소*</th>
-							<td><input type="text" id="roadFullAddr" readonly="readonly" name="userAddress"
-								style="width: 15cm;" value="${user.userAddress }"> <input
-								type="button" value="주소 검색" onclick="goPopup()"></td>
-						</tr>
-					</table>
-					<input type="submit" value="수정">
-					<input type="button" value="계정 탈퇴" onclick="goodbye()">
+				<form name="form" action="update_user" class="form-horizontal style-form"  id="update_form" method="post" onsubmit="return update_chk()">
+					
+					<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 125px;">아이디*</label>
+							<div class="col-sm-6" style="width: 250px;">
+								<input type="text" name="userId" id="userId" class="form-control" value="${user.userId }"
+								readonly="readonly" >
+							</div>
+							
+					</div>
+					<div class="form-group">
+					<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 125px;">비밀번호*</label>
+							<div class="col-sm-6" style="width: 250px;">
+								<input type="password" name="userPassword" class="form-control" id="userPw">
+							</div>
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 125px;">비밀번호 확인*</label>
+							<div class="col-sm-6" style="width: 250px;">
+								<input type="password" class="form-control" id="userPw2">
+							</div>
+					</div>
+					<div class="form-group">
+					<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 125px;">사업자 등록번호</label>
+							<div class="col-sm-6" style="width: 250px;">
+								<input type="text" name="userBn" id="userBsn" value="${user.userBn }" class="form-control"
+								readonly="readonly" >
+							</div>
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 125px;">회사명*</label>
+							<div class="col-sm-6" style="width: 250px;">
+								<input type="text" name="userCname" id="userCname" class="form-control"
+								value="${user.userCname }">
+							</div>
+					</div>
+					<div class="form-group">
+					<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 125px;">대표자명*</label>
+							<div class="col-sm-6" style="width: 250px;">
+								<input type="text" name="userName" id="userName" class="form-control"
+								value="${user.userName }">
+							</div>
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 125px;">핸드폰 번호*</label>
+							<div class="col-sm-6" style="width: 250px;">
+								<input type="text" id="userPhone" name="userCellNo" class="form-control"
+								value="${user.userCellNo }">
+							</div>
+					</div>
+				
+					<div class="form-group">
+					<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 125px;">사무실 번호</label>
+							<div class="col-sm-6" style="width: 250px;">
+								<input type="text" id="userOfficeNum" name="userOfficeNo" class="form-control"
+								value="${user.userOfficeNo }">
+							</div>
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 125px;">팩스 번호</label>
+							<div class="col-sm-6" style="width: 250px;">
+								<input type="text" id="userFaxNum" name="userFaxNo" class="form-control"
+								value="${user.userFaxNo }">
+							</div>
+					</div>
+					<div class="form-group">
+					<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 125px;">이메일*</label>
+							<div class="col-sm-6" style="width: 250px;">
+								<input type="email" id="email" name="userEmail" class="form-control"
+								value="${user.userEmail }" style="width: 350px;">
+							</div>
+							
+					</div>
+					
+					<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 125px;">주소*</label>
+							<div class="col-sm-5" style="width: 380px;">
+							<input type="text" id="roadFullAddr" readonly="readonly" name="userAddress" class="form-control"
+								 value="${user.userAddress }"  onclick="goPopup()"> 
+								
+							</div>
+							<label class="col-sm-2 col-sm-2 control-label"
+								style="width: 95px;">우편번호*</label>
+							<div class="col-sm-6" style="width: 150px;">
+								<input type="text" id="zipNo" readonly="readonly" name="userZipcode" class="form-control"
+								 value="${user.userZipcode }">
+							</div>
+					</div>
+					<div class="form-group" align="center">
+									
+							<input type="submit" value="수정" class="btn btn-warning">
+							<input type="button" value="계정 탈퇴" onclick="goodbye()" class="btn btn-danger">
+					</div>
+					
 				</form>
 				</div>
 			</div>

@@ -9,6 +9,7 @@
 		<typeAlias type="global.sesoc.tp.vo.StaffVO" alias="Staff"/>
 		<typeAlias type="global.sesoc.tp.vo.ItemsVO" alias="Item" />
 		<typeAlias type="global.sesoc.tp.vo.TradeVO" alias="Trade" />
+		<typeAlias type="global.sesoc.tp.vo.SchedulesVO" alias="schedules" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="UserMapper.xml" />
@@ -16,5 +17,6 @@
 		<mapper resource="StaffMapper.xml"/>
 		<mapper resource="ItemsMapper.xml"/>
 		<mapper resource="TradeMapper.xml"/>
+		<mapper resource="schedulesMapper.xml"/>
 	</mappers>
 </configuration>

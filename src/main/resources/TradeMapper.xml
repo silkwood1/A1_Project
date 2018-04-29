@@ -19,6 +19,7 @@
   			, tradeTotal
   			, paymentDiv
   			, tradeNote
+  			, tradeStatus
   		) values (
   			#{userBn}
   			, tradeNo_seq.nextval
@@ -31,6 +32,7 @@
   			, #{tradeTotal}
   			, #{paymentDiv}
   			, #{tradeNote}
+  			, #{tradeStatus}
   		)
   	</insert>
   	
@@ -49,6 +51,7 @@
   		, t.tradeReceivable tradeReceivable
   		, t.tradeTotal tradeTotal
   		, TO_CHAR(t.tradeIndate, 'YYYY-MM-DD') tradeIndate
+  		, t.tradeStatus tradeStatus
   			from trade t, tb_tradeDiv td, customer c, items i, tb_paymentDiv pd
   			where t.userBn = #{userBn}
   			and
@@ -108,6 +111,7 @@
   			, tradeTotal = #{tradeTotal}
   			, paymentDiv = (SELECT paymentDiv FROM tb_paymentDiv WHERE paymentExp = '${paymentDiv}')
   			, tradeNote = #{tradeNote}
+  			, tradeStatus = #{tradeStatus}
   		where tradeNo = #{tradeNo}
   	</update>
   	
@@ -268,7 +272,42 @@
   		select customerNo from trade where tradeNo = #{int}
   	</select>
   	
-  	<select id="get_uri" parameterType="Map" resultType="int">
-		select count(*) from trade where userBn = #{a} and to_char(tradeIndate, 'MM') = #{b} 
+  	<!-- 결제 완료 버튼 -->
+  	<update id="editStat" parameterType="int">
+  	update Trade
+  		set tradeStatus = 1
+  		where tradeNo = #{tradeNo}
+  	</update>
+  	
+  	<!-- 재고 더하기 -->
+  	<update id="pQty" parameterType="Trade">
+		update Items
+			set itemQuantity = itemQuantity + #{tradeQuantity}
+			where itemCode = (SELECT itemCode from items where itemName = '${itemCode}')
+			
+  	</update>
+  	
+  	<!-- 재고 빼기 -->
+  	<update id="mQty" parameterType="Trade">
+  		update Items
+			set itemQuantity = itemQuantity - #{tradeQuantity}			
+  			where itemCode = (SELECT itemCode from items where itemName = '${itemCode}')
+  			
+  			
+  	</update>
+  	
+  	<!-- 판매량 -->
+  	<select id="get_uriage" parameterType="Map" resultType="int">
+  		select count(*) from trade where userBn = #{a} and to_char(tradeIndate, 'MM') = #{b}
+  	</select>
+  	
+  	<!--  -->
+  	<select id="readTrades" parameterType="String" resultType="Trade">
+		select * from trade
+		where 
+		userBn=#{String}
+		and
+		tradeStatus = 0
 	</select>
+  	
   </mapper>

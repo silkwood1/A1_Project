@@ -121,5 +121,10 @@
 	<select id="get_staff" parameterType="String" resultType="Staff">
 		select * from staff_profile where userBn = #{String}
 	</select>
+	
+	<select id="readOneAccount" resultType="Staff" parameterType="String">
+		select * from staff_profile
+		where staffId=#{String}
+	</select>
 
 </mapper>

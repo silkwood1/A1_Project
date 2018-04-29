@@ -18,5 +18,7 @@ public interface CustomerMapper {
 	public int deleteCustomer(int customerNo);
 	//거래처 정보 가져가기
 	public CustomerVO get_user(String cusno);
-	
+	//
+	CustomerVO readCustomer(int customerNo);
+
 }

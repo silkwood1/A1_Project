@@ -41,8 +41,19 @@ public class TradeController {
 		int res = 0;
 		ArrayList<TradeVO> boardList = new ArrayList<TradeVO>();
 		try {
-
 			res = dao.insertTrade(trade);
+	/*		System.out.println("=========================");
+			System.out.println(trade.toString());
+			System.out.println("=========================");
+			System.out.println(trade.getTradeDiv());
+			System.out.println("=========================");*/
+			
+			if (trade.getTradeDiv().equals("3")) {
+				dao.pQty(trade);
+			} else if (trade.getTradeDiv().equals("4")) {
+				dao.mQty(trade);
+			} 
+			
 			String userBn = (String) session.getAttribute("bn");
 			boardList = dao.tradeList(userBn);
 
@@ -293,5 +304,42 @@ public class TradeController {
 			
 			return a;
 		}
+		
+		@ResponseBody
+		@RequestMapping(value = "editStat", method = RequestMethod.POST)
+		public String editStat(HttpSession session, int tradeNo) {
+			//System.out.println(tradeNo);
+			int res = 0;
 
+			String userBn = (String) session.getAttribute("bn");
+			ArrayList<TradeVO> tradeList = new ArrayList<TradeVO>();
+			
+			try {
+				TradeVO trade = dao.selectTrade(tradeNo);
+				
+				res = dao.editStat(tradeNo);
+				System.out.println(trade.toString());
+				
+				//System.out.println(trade.getTradeDiv());
+				if (trade.getTradeDiv().equals("판매")) {
+					dao.mQty(trade);
+				} else if (trade.getTradeDiv().equals("구매")) {
+					dao.pQty(trade);
+				} 
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			String result = String.valueOf(res);
+			
+			tradeList = dao.tradeList(userBn);
+			
+			session.setAttribute("b", tradeList);
+			
+			System.out.println(result);
+			
+			return result;
+		}
 }

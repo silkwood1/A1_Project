@@ -61,8 +61,8 @@ $(document).ready(function(){
 					
 					<br>
 					<div class="rightmove">
-					<button class="btn btn-warning  btn-sm" id="btnExport" download="">Export</button>
-					<input type="button" class="btn btn-success btn-sm"
+					<button class="btn btn-warning" id="btnExport" download="">Export</button>
+					<input type="button" class="btn btn-success "
 							onclick="location.href='/account/goInsertAccount'" value="새 거래처">
 					</div>
 					
@@ -76,40 +76,11 @@ $(document).ready(function(){
 									<c:if test="${sessionScope.Member.id == 'admin'}">
 										<th></th>
 									</c:if>
-									<!--<th>고객분류(Customer division)</th>-->
-									
-									<!-- <th>
-										<div class="dropdown">
-											<button onclick="myFunction()" class="dropbtn">고객분류</button>
-											<div id="myDropdown" class="dropdown-content">
-												이 부분은 DB에서 값을 가져와서 Drop list에서 선택값을 출력해준다.
-											
-													<a href="/Account/AccountBoard?div=1">판매처</a>
-													<a href="/Account/AccountBoard?div=2">매입처</a>
-													<a href="/Account/AccountBoard">전체리스트</a>
-											
-											</div>
-										</div>
-									</th> -->
 									<th id="centere">번호</th>
 									<th id="centere">고객분류</th>
 									<th id="centere">등록날짜</th>
 									<th id="centere">사업자 번호</th>
 									<th id="centere">상호명</th>
-									<%-- <th>
-										<div class="dropdown">
-											<button onclick="myFunction1()" class="dropbtn">상호명</button>
-											<div id="myDropdown1" class="dropdown-content">
-												<!--이 부분은 DB에서 값을 가져와서 Drop list에서 선택값을 출력해준다. -->
-												<input type="text" placeholder="Search.." id="myInput1" onkeyup="filterFunction()"> 
-													<c:forEach var="c" items="${c}">
-														
-														<a href="/Account/AccountBoard?name=${e.customerComName}">${e.customerComName}</a>
-													
-													</c:forEach>
-											</div>
-										</div>
-									</th> --%>
 									<th id="centere">대표자명</th>
 									<th id="centere">휴대폰 번호</th>
 									<th id="centere">사무실 번호</th>

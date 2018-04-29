@@ -55,11 +55,16 @@ $(document).ready(function() {
 	});
 });
 </script>
+<style>
+table{
+	margin-left: 20px;
+}
 
+</style>
 <section id="main-content">
 	<section class="wrapper">
 		<h3>
-			<i class="fa fa-angle-right"></i>품목 관리
+			<i class="fa fa-angle-right" ></i>품목 관리
 		</h3>
 
 		<!-- BASIC FORM ELELEMNTS -->
@@ -67,8 +72,10 @@ $(document).ready(function() {
 			<div class="col-md-12">
 				<div class="content-panel">
 					<h4>
-						<i class="fa fa-angle-right"></i>품목 수정
+						<i class="fa fa-angle-right" id="itemm"></i>품목 수정
+						
 					</h4>
+					<br>
 					<form action="/item/update" method="post"
 						class="form-horizontal style-form" id="item_update_form">
 						<input type="hidden" id="itemNum" name="itemNum" value="${item.itemNum }">
@@ -77,8 +84,8 @@ $(document).ready(function() {
 							<tr>
 								<td>
 									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label">품목구분*</label>
-										<div class="col-sm-6" style="width: 309px;">
+										<label class="col-sm-2 col-sm-2 control-label" style="width: 90px;">품목구분*</label>
+										<div class="col-sm-6" style="width: 115px;">
 											<select class="form-control" id="itemDiv" name="itemDiv">
 											<c:choose>
 												<c:when test="${item.itemDiv == 1 }">
@@ -97,8 +104,8 @@ $(document).ready(function() {
 								
 								<td>
 									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label">품목코드*</label>
-										<div class="col-sm-6" style="width: 309px;">
+										<label class="col-sm-2 col-sm-2 control-label" style="margin-left: 125px; width: 95px;">품목코드*</label>
+										<div class="col-sm-6"style="width: 250px;">
 											<input type="text" class="form-control" id="itemCode" name="itemCode" value="${item.itemCode }"/>
 										</div>
 									</div>
@@ -111,8 +118,8 @@ $(document).ready(function() {
 							<tr>
 								<td>
 									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label">품목명*</label>
-										<div class="col-sm-6" style="width: 309px;">
+										<label class="col-sm-2 col-sm-2 control-label" style="width: 90px;">품목명*</label>
+										<div class="col-sm-6" style="width: 220px;">
 											<input type="text" class="form-control" id="itemName"
 												name="itemName" value="${item.itemName } " />
 										</div>
@@ -121,8 +128,8 @@ $(document).ready(function() {
 
 								<td>
 									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label">수량/재고</label>
-										<div class="col-sm-6" style="width: 309px;">
+										<label class="col-sm-2 col-sm-2 control-label" style="margin-left: 21px; width: 95px;">수량/재고</label>
+										<div class="col-sm-6" style="width: 250px;">
 											<input type="text" class="form-control" id="itemQuantity"
 												name="itemQuantity" value="${item.itemQuantity }" />
 										</div>
@@ -136,8 +143,8 @@ $(document).ready(function() {
 							<tr>
 								<td>
 									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label">원가(구매가)</label>
-										<div class="col-sm-6" style="width: 309px;">
+										<label class="col-sm-2 col-sm-2 control-label" style="width: 90px;">원가(구매가)</label>
+										<div class="col-sm-6" style="width: 220px;">
 											<input type="text" class="form-control" id="itemPrice1"
 												name="itemPrice1" value="${item.itemPrice1 }" />
 										</div>
@@ -146,8 +153,8 @@ $(document).ready(function() {
 
 								<td>
 									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label">판매가</label>
-										<div class="col-sm-6" style="width: 309px;">
+										<label class="col-sm-2 col-sm-2 control-label" style="width: 95px; margin-left: 22px;">판매가</label>
+										<div class="col-sm-6" style="width: 250px;">
 											<input type="text" class="form-control" id="itemPrice2"
 												name="itemPrice2" value="${item.itemPrice2 }" />
 										</div>
@@ -157,7 +164,7 @@ $(document).ready(function() {
 						</table>
 
 						<div class="form-group" align="center">
-							<button type="button" class="btn btn-theme" id="update_btn">수정</button>
+							<button type="button" class="btn btn-warning" id="update_btn">수정</button>
 							<button type="button" class="btn btn-theme" onclick="location.href='items_list'">목록으로</button>
 						</div>
 					</form>

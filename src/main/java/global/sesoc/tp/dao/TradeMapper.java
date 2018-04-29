@@ -34,7 +34,15 @@ public interface TradeMapper {
 	public ArrayList<ItemsVO> load_items(String bn);
 	//수정
 	public String get_cusno(int tradeNo);
-	//월별 판매량
-	public int get_uri(HashMap<String, String> hm);
+	// 결제완료하기
+	public int editStat(int tradeNo);
+	// 재고 더하기
+	public int pQty(TradeVO trade);
+	// 재고 빼기
+	public int mQty(TradeVO trade);
+	//판매량 
+	public int get_uriage(HashMap<String, String> hm);
+	//
+	ArrayList<TradeVO> readTrades(String userBn);
 	
 }

@@ -9,8 +9,7 @@
 <!-- jQuery 연결 -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <!-- 네이버 지도 -->
-<script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=m1DGWBeNqTfbtHfCToIo&submodules=geocoder"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=NeOragwFwZrlC04RCdGu&submodules=geocoder"></script>
 
 <script>
 
@@ -170,6 +169,12 @@ $(document).ready(function() {
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
 <!--main content start-->
+<style>
+table {
+	margin-left: 20px;
+}
+
+</style>
 <section id="main-content">
 	<section class="wrapper">
 		<h3>
@@ -186,7 +191,7 @@ $(document).ready(function() {
 						enctype="multipart/form-data" name="form">
 						<input type="hidden" id="hid_userBn" value="${bn }">
 						<input type="hidden" id="hid_customerNo" value="${cu.customerNo }">
-						<table>
+						<table >
 							<tr>
 								<td>
 									<div class="form-group">
@@ -382,8 +387,8 @@ $(document).ready(function() {
 						</div> -->
 						
 					</form>
-<div align="center">
-<div id="map" style="width: 50%; height: 400px;">
+<div align="left" style="margin-left: 100px;">
+<div id="map" style="width: 50%; height: 400px;" >
 	<script type="text/javascript">
 		// 맵 옵션
 		var mapOptions = {
@@ -395,7 +400,7 @@ $(document).ready(function() {
 		var map = new naver.maps.Map('map', mapOptions);
 
 		// 주소값
-		var myaddress = document.getElementById('roadFullAddr').innerHTML; // 도로명 주소나 지번 주소 ok
+		var myaddress = $('#roadFullAddr').val(); // 도로명 주소나 지번 주소 ok
 		// ex) var myaddress = '노원구 중계로 8길 20';
 
 		naver.maps.Service.geocode({
@@ -441,9 +446,10 @@ $(document).ready(function() {
 </div>
 </div>
 					<!-- line 8 -->
+					<br>
 						<div class="form-group" align="center">
-							<button id="editCustomer" class="btn btn-default">수정하기</button>&nbsp&nbsp
-							<button type="button" class="btn btn-default"
+							<button id="editCustomer" class="btn btn-warning">수정하기</button>&nbsp&nbsp
+							<button type="button" class="btn btn-theme"
 								onclick="location.href='/account/accountBoard'">목록으로</button>&nbsp&nbsp
 							<button type="button" class="btn btn-danger" onclick="location.href='/account/accountDelete?customerNo=${cu.customerNo}'">삭제하기</button>
 						</div>

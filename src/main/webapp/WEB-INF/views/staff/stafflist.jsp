@@ -52,7 +52,7 @@
 					</h4>
 					<section id="unseen">
 						<div class="insertstaff">
-							<input type="button" class="btn btn-success btn-sm"
+							<input type="button" class="btn btn-success"
 								onclick="location.href='EditStaff'" value="직원 등록">
 						</div>
 

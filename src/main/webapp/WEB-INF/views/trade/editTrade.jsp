@@ -82,6 +82,12 @@ $(document).ready(function() {
 		paymentDiv = $('#pDiv').find("option:selected").val();
 		tradeNote = $('#input_note').val();
 		
+		if (tradeDiv == '판매취소') {
+			var tradeStatus = 2;
+		} else if (tradeDiv == '구매취소') {
+			var tradeStatus = 3;
+		}
+		
 //		alert(tradeDiv + ", " + customerNo + ", " + itemCode + ", " + tradeQuantity + ", " 
 //				+ tradePayable + ", " + tradeReceivable + ", " + tradeTotal + ", " + paymentDiv + ", " + tradeNote);
 
@@ -99,7 +105,8 @@ $(document).ready(function() {
 				tradeReceivable : tradeReceivable,
 				tradeTotal : tradeTotal,
 				paymentDiv : paymentDiv,
-				tradeNote : tradeNote
+				tradeNote : tradeNote,
+				tradeStatus : tradeStatus
 			},
 			datatype: 'text',
 			success: function(data) {

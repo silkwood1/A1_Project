@@ -24,6 +24,7 @@ public interface StaffMapper {
 	
 	ArrayList<StaffVO> get_staff(String a); // 직원 가져오기
 	
-	
+	StaffVO readOneAccount(String id);
+
 
 }

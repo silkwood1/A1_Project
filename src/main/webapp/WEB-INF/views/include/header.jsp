@@ -170,20 +170,14 @@
 	display: block;
 }
 
+#logout_btn{
+	position: absolute;
+	left: 95%;
+}
 
 </style>
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
   </head>
-     
   <body>  
      
      <section id="container" >
@@ -195,6 +189,7 @@
             <!--logo start-->
             <a href="/home" class="logo"><b>${cname }</b></a>
             <!--logo end-->
+            <a href="/logout" class="logo" id="logout_btn"><img src="../resources/images/logout.png" style="height: 30px;"></a>
         </header>
       <!--header end-->
 
@@ -233,15 +228,10 @@
                       </a>
                   </li>
                   <li class="sub-menu">
-                      <a href="javascript:;" >
+                      <a href="/calendar" >
                           <i class="fa fa-tasks"></i>
                           <span>현장 관리</span>
                       </a>
-                      <ul class="sub">
-                          <li><a  href="/calendar">현장관리 1</a></li>
-                          <li><a  href="/calendar">현장관리 2</a></li>
-                          <li><a  href="/calendar">현장관리 3</a></li>
-                      </ul>
                   </li>
                   
                   <li class="sub-menu">

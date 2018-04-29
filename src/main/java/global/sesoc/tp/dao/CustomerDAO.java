@@ -99,4 +99,17 @@ public class CustomerDAO {
 		return user;
 	}
 	
+	//
+	public CustomerVO readCustomer(int customerNo){
+		
+		CustomerVO result = new CustomerVO();
+		
+		try {
+			CustomerMapper mapper = sqlSession.getMapper(CustomerMapper.class);
+			result = mapper.readCustomer(customerNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

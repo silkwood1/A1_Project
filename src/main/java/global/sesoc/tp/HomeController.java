@@ -1,6 +1,7 @@
 package global.sesoc.tp;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -20,11 +21,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import global.sesoc.tp.dao.SchedulesDAO;
+import global.sesoc.tp.dao.StaffDAO;
 import global.sesoc.tp.dao.TradeDAO;
 import global.sesoc.tp.dao.UserDAO;
 import global.sesoc.tp.view.QRCodeView;
 import global.sesoc.tp.vo.CustomerVO;
-import global.sesoc.tp.vo.ScheduleVO;
+import global.sesoc.tp.vo.SchedulesVO;
+import global.sesoc.tp.vo.StaffVO;
+import global.sesoc.tp.vo.TradeVO;
 import global.sesoc.tp.vo.UserVO;
 
 @Controller
@@ -35,6 +43,14 @@ public class HomeController {
 	
 	@Autowired
 	private TradeDAO dao2;
+	
+	@Autowired
+	private SchedulesDAO dao3;
+	
+	@Autowired
+	private StaffDAO dao4;
+	
+	
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
@@ -237,24 +253,187 @@ public class HomeController {
 	
 	@RequestMapping(value = "calendar", method = RequestMethod.GET)
 	public String calendar(HttpSession session) {
-		ScheduleVO sc1 = new ScheduleVO();
-		ScheduleVO sc2 = new ScheduleVO();
-		
-		ArrayList<ScheduleVO> list = null;
+		SchedulesVO sc1 = new SchedulesVO();
+		SchedulesVO sc2 = new SchedulesVO();
+		String loginId = (String) session.getAttribute("id");
+		ArrayList<SchedulesVO> list = new ArrayList<SchedulesVO>();
+		ArrayList<TradeVO> tradeList = new ArrayList<TradeVO>();
 		try {
-			list = (ArrayList<ScheduleVO>)session.getAttribute("list");
+			list = dao3.readSchedule("dydwns8471");
+			
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i).getTradeStatus()!=0) {
+					list.get(i).setColor("#ff00ff");
+				}
+			}
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		if (list == null) {
-			list = new ArrayList<ScheduleVO>();
+			list = new ArrayList<SchedulesVO>();
 			list.add(sc1);
 			list.add(sc2);
 			
 		}
+		
+		String bn = (String) session.getAttribute("bn");
+		
+		try {
+			tradeList = dao2.readTrades(bn);//사용자의사업자등록번호
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		session.setAttribute("list", list);
-	
+		session.setAttribute("tradeList", tradeList);
+		System.out.println(tradeList);
 		return "Calendar/Calendar";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "tryLoginFromM", method = RequestMethod.POST)
+	public String tryLoginFromM(String id, String pw)  {
+		
+		System.out.println("id="+id);
+		logger.debug("들어와 지나요???");
+		StaffVO confirm =null;
+		try {
+			confirm = dao4.readOneAccount(id);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		String msg = "";
+		if (confirm==null) {
+			msg = "No corresponding ID";
+		}else if (!confirm.getStaffPassword().equals(pw)) {
+			msg = "Password doesn't match";
+		}else{
+			msg = "LogIn";
+		}
+		
+		System.out.println(msg);
+		
+		return msg;
+	}
+	
+	//백업
+	@ResponseBody
+	@RequestMapping(value = "backUp", method = RequestMethod.POST)
+	public String backUp(String scheduleList,String loginid) {
+		
+		try {
+			System.out.println("scheduleList="+scheduleList.toString());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+        System.out.println("loginid="+loginid);
+		
+		String userId;
+		userId = loginid;
+
+		//user아이디를 받아서 db데이터를 전부 지운다.
+		int result = 0;
+		try {
+			result = dao3.deleteAllSchedule(userId);
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		if (result ==0) {
+			System.out.println("전체 데이터 삭제 실패");
+		} else{
+			System.out.println("전체 데이터 삭제 성공");
+		}
+		
+		Gson gson = new Gson();
+		String json = scheduleList;
+		Type type = new TypeToken<ArrayList<SchedulesVO>>() {}.getType();
+		ArrayList<SchedulesVO> List = new ArrayList<SchedulesVO>();
+		List = gson.fromJson(json, type);
+		
+		
+		
+		int result2 = 0;
+		for (int i = 0; i < List.size(); i++) {
+			SchedulesVO fromlist = List.get(i);
+			fromlist.setStartTime(fromlist.getStartTime().replace("/", "-"));
+			fromlist.setStaffId(userId);
+			
+			try {
+				result2 = dao3.insertSchedule(fromlist);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+			if (result2==0) {
+				System.out.println("입력 실패!");
+			}
+		}
+		
+		
+		/*// 여기
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		Map<Object, Object> ScheduleMap; // 가져온 친구
+		ArrayList<Map<Object, Object>> scList = new ArrayList<Map<Object, Object>>();
+		int num = 0;
+		for(int i=0;i<List.size();i++){
+			
+			Schedule fromList = List.get(i);
+			System.out.println(fromList.toString());
+			ScheduleMap = new HashMap<Object, Object>();
+			//ScheduleMap.put("scheduleNum", num);
+			System.out.println(fromList.getId());
+			
+			ScheduleMap.put("num", 0);
+			ScheduleMap.put("id", fromList.getId());
+			ScheduleMap.put("title", fromList.getTitle());
+			ScheduleMap.put("startTime", fromList.getStartTime());
+			ScheduleMap.put("endTime", fromList.getEndTime());
+			
+	        scList.add(ScheduleMap);*/
+	 
+	    
+		//paramMap.put("scList", scList);
+		
+		/*int result2 = 0;
+		try {
+			result2 = dao.insertList(paramMap);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}*/
+		
+		
+		String msg = "";
+		if (result2==0) {
+			msg = "Fail";
+		}else{
+			msg = "Success";
+		}
+		
+		System.out.println(msg);
+		
+		return msg;
+	}
+	
+	//synchronization
+
+	@ResponseBody
+	@RequestMapping(value = "synchronization", method = RequestMethod.POST)
+	public String synchronization(String loginid) {
+		
+		ArrayList<SchedulesVO> list = dao3.readSchedule(loginid);
+		
+		for (int i = 0; i < list.size(); i++) {
+			list.get(i).setStartTime(list.get(i).getStartTime().replace("-", "/"));
+			
+		}
+		Gson gson = new Gson();
+		
+		String result = gson.toJson(list);
+		
+		return result;
 	}
 }

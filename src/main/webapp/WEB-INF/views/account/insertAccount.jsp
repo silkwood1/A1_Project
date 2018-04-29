@@ -363,9 +363,9 @@ $(document).ready(function() {
 					
 						<!-- line 8 -->
 						<div class="form-group" align="center">
-							<button id="goEdit" class="btn btn-default" onclick="redirect:/account/goInsertAccount">수정하기</button>&nbsp&nbsp
+							<button id="goEdit" class="btn btn-warning" onclick="redirect:/account/goInsertAccount">수정하기</button>&nbsp&nbsp
 							<button type="button" class="btn btn-success" id="submit">등록하기</button>&nbsp&nbsp
-							<button type="button" class="btn btn-default"
+							<button type="button" class="btn btn-theme"
 								onclick="location.href='/account/accountBoard'">목록으로</button>
 						</div>
 					</form>

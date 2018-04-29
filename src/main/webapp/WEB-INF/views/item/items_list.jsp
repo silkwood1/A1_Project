@@ -5,7 +5,6 @@
 <%@include file="../include/header.jsp"%>
 <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 
-<!-- <script type="text/javascript" src="js/jquery.battatech.excelexport.js"></script> -->
 <style>
 .centertd{
 	text-align: center;
@@ -105,8 +104,8 @@
 						<input class="form-control" id="myInput" type="text"
 							placeholder="검색어(코드, 품목명) 입력 후 엔터." style="width: 400px;" onkeypress="if(event.keyCode==13) {goSearch();}">
 					
-						<button class="btn btn-warning  btn-sm" id="btnExport" download="">Export</button>
-						<button class="btn btn-success btn-sm" onclick="location.href='items_insert'">품목추가</button>
+						<button class="btn btn-warning " id="btnExport" download="">Export</button>
+						<button class="btn btn-success" onclick="location.href='items_insert'">품목추가</button>
 					
 					</div>
 					<section id="unseen">

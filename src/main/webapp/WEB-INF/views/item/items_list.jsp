@@ -6,22 +6,51 @@
 <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 
 <!-- <script type="text/javascript" src="js/jquery.battatech.excelexport.js"></script> -->
+<style>
+.centertd{
+	text-align: center;
+}
+.button_right{
+	text-align: right;
+	margin-right: 10px; 
+	float: left;
 
+}
+#myInput{
+	float: left;
+}
+.div_right{
+	text-align: right;
+	margin-left: 10px;
+	margin-right: 10px;
+
+}
+#thth{
+	padding-bottom: 18px;
+	text-align: center;
+}
+#thth2{
+	
+	text-align: center;
+}
+#tablee{
+	text-align: center;
+}
+
+
+
+</style>
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						$("#btnExport")
-								.click(
-										function(e) {
-											window
-													.open('data:application/vnd.ms-excel,'
-															+ encodeURIComponent($(
-																	'#exceldown')
-																	.html()));
-											e.preventDefault();
-										});
-					});
+	$(document).ready(
+		function() {
+			$("#btnExport").click(
+				function(e) {
+					window.open('data:application/vnd.ms-excel,'
+						+ encodeURIComponent($('#exceldown').html()));
+						e.preventDefault();
+			});
+	});
+	
 	function item_delete(num){
 		var itemNum = num;
 		if(confirm('정말 삭제하시겠습니까?') == true){
@@ -72,16 +101,25 @@
 					</h4>
 					<!--테이블 검색어 입력 박스 -->
 					<br>
+					<div class="div_right">
 						<input class="form-control" id="myInput" type="text"
-							placeholder="검색어(코드, 품목명) 입력 후 엔터." style="width: 701px;" onkeypress="if(event.keyCode==13) {goSearch();}">
+							placeholder="검색어(코드, 품목명) 입력 후 엔터." style="width: 400px;" onkeypress="if(event.keyCode==13) {goSearch();}">
+					
+						<button class="btn btn-warning  btn-sm" id="btnExport" download="">Export</button>
+						<button class="btn btn-success btn-sm" onclick="location.href='items_insert'">품목추가</button>
+					
+					</div>
 					<section id="unseen">
+						
+						<br>
 						<div id="exceldown">
-							<table class="table table-bordered table-striped table-condensed">
+							<table class="table table-bordered table-striped table-condensed" id="tablee">
 								<thead>
+								
 									<tr>
-										<th>
+										<th id="thth2">
 											<div class="dropdown">
-												<button onclick="myFunction()" class="dropbtn">품목
+												<button onclick="myFunction()" class="dropbtn" >품목
 													분류</button>
 												<div id="myDropdown" class="dropdown-content">
 													<!--이 부분은 DB에서 값을 가져와서 Drop list에서 선택값을 출력해준다. -->
@@ -91,15 +129,14 @@
 												</div>
 											</div>
 										</th>
-										<th><div class="dropbtn">품목 코드</div></th>
-										<th><div class="dropbtn">품목명</div></th>
-										<th><div class="dropbtn">원가</div></th>
-										<th><div class="dropbtn">판매가</div></th>
-										<th><div class="dropbtn">보유 수량</div></th>
-										<th><div class="dropbtn">등록일</div></th>
-										<th><a id="btnExport" href="#" download="">Export</a></th>
-										<th><input type="button" class="btn btn-info"
-											onclick="location.href='items_insert'" value="품목 추가"></th>
+										<th id="thth">품목 코드</th>
+										<th id="thth">품목명</th>
+										<th id="thth">원가</th>
+										<th id="thth">판매가</th>
+										<th id="thth">보유 수량</th>
+										<th id="thth">등록일</th>
+										<th id="thth">수정</th>
+										<th id="thth">삭제</th>
 									</tr>
 								</thead>
 								<tbody id="item_table">
@@ -121,12 +158,12 @@
 											<td>${item.itemQuantity}</td>
 											<td>${item.itemIndate}</td>
 
-											<td><a class="btn btn-info"
-												href="/item/items_info?num=${item.itemNum }">상세보기</a>
+											<td class="centertd"><a class="btn btn-primary btn-xs"
+												href="/item/items_info?num=${item.itemNum }"><i class="fa fa-pencil"></i></a>
 											</td>
 
-											<td><a class="btn btn-danger  btn-sm"
-												href="javascript:item_delete(${item.itemNum });">삭제</a></td>
+											<td class="centertd"><a class="btn btn-danger  btn-xs"
+												href="javascript:item_delete(${item.itemNum });"><i class="fa fa-trash-o "></i></a></td>
 										</tr>
 									</c:forEach>
 								</tbody>

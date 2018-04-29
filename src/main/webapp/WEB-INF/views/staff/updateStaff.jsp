@@ -210,10 +210,10 @@ function formCheck() {
 
 						<!-- line 9 -->
 						<div class="form-group" align="center">
-							<input type="submit" class="btn btn-theme" id="updatebtn" name="updatebtn" value="수정">
+							<input type="submit" class="btn btn-warning" id="updatebtn" name="updatebtn" value="수정">
 							<button type="button" class="btn btn-theme"
 								onclick="location.href='stafflist'">목록으로</button>
-							<a href="deleteStaff?staffNo=${staff.staffNo }" class="btn btn-theme"
+							<a href="deleteStaff?staffNo=${staff.staffNo }" class="btn btn-danger"
 								>삭제</a>
 						</div>
 

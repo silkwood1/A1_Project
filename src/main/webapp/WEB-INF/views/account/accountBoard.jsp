@@ -3,6 +3,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@include file="../include/header.jsp"%>
+
+<style>
+.centerbtn{
+	text-align: center;
+}
+.rightmove{
+	text-align: right;
+	margin-right: 10px;
+}
+#centere{
+	text-align: center;
+}
+
+</style>
 <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 
 <!-- <script type="text/javascript" src="js/jquery.battatech.excelexport.js"></script> -->
@@ -25,6 +39,7 @@ $(document).ready(function(){
 });
 </script>
 
+
 <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
@@ -43,21 +58,20 @@ $(document).ready(function(){
 					<h4>
 						<i class="fa fa-angle-right"></i>거래처 목록		
 					</h4>
-					<div align="center">
-						<input type="button" class="btn btn-success"
+					
+					<br>
+					<div class="rightmove">
+					<button class="btn btn-warning  btn-sm" id="btnExport" download="">Export</button>
+					<input type="button" class="btn btn-success btn-sm"
 							onclick="location.href='/account/goInsertAccount'" value="새 거래처">
 					</div>
+					
 					<br>
 					<section id="unseen">
 						<div id="exceldown">
-						<table class="table table-bordered table-striped table-condensed">
+						<table class="table table-bordered table-striped table-condensed" id="centere">
 							<thead>
-								<tr>
-									
-									<th colspan="13" style="text-align: right;"><a id="btnExport" href="#" download="">Export&nbsp&nbsp</a></th>
-									
-								</tr>
-
+		
 								<tr>
 									<c:if test="${sessionScope.Member.id == 'admin'}">
 										<th></th>
@@ -77,11 +91,11 @@ $(document).ready(function(){
 											</div>
 										</div>
 									</th> -->
-									<th>번호</th>
-									<th>고객분류</th>
-									<th>등록날짜</th>
-									<th>사업자 번호</th>
-									<th>상호명</th>
+									<th id="centere">번호</th>
+									<th id="centere">고객분류</th>
+									<th id="centere">등록날짜</th>
+									<th id="centere">사업자 번호</th>
+									<th id="centere">상호명</th>
 									<%-- <th>
 										<div class="dropdown">
 											<button onclick="myFunction1()" class="dropbtn">상호명</button>
@@ -96,14 +110,14 @@ $(document).ready(function(){
 											</div>
 										</div>
 									</th> --%>
-									<th>대표자명</th>
-									<th>휴대폰 번호</th>
-									<th>사무실 번호</th>
-									<th>주소</th>
-									<th>담당직원</th>
-									<th id="sort_rankDiv">회원등급</th>
-									<th></th>
-									<th></th>
+									<th id="centere">대표자명</th>
+									<th id="centere">휴대폰 번호</th>
+									<th id="centere">사무실 번호</th>
+									<th id="centere">주소</th>
+									<th id="centere">담당직원</th>
+									<th id="sort_rankDiv" style="text-align: center;">회원등급</th>
+									<th id="centere">수정</th>
+									<th id="centere">삭제</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -117,14 +131,14 @@ $(document).ready(function(){
 										<td>${c.customerCname}</td>
 										<td>${c.customerName}</td>
 										<td>${c.customerCellNo}</td>
-										<td>${c.customerOfficeNo}</td>
+										<td>${c.customerFaxNo}</td>
 										<td>${c.customerAddress}</td>
 										<td>${c.inCharge}</td>
 										<td>${c.rankDiv }</td>
-										<td><a class="btn btn-info btn-xs" href="/account/accountModify?customerNo=${c.customerNo}">수정</a>
+										<td class="centerbtn"><a class="btn btn-primary btn-xs" id="updatebtn" href="/account/accountModify?customerNo=${c.customerNo}"><i class="fa fa-pencil"></i></a>
 										</td>
 										
-										<td><a class="btn btn-danger btn-xs"  href="/account/accountDelete?customerNo=${c.customerNo}">삭제</a>
+										<td class="centerbtn"><a class="btn btn-danger  btn-xs" id="deletebtn" href="/account/accountDelete?customerNo=${c.customerNo}"><i class="fa fa-trash-o "></i></a>
 										</td>
 									</tr>
 								</c:forEach>

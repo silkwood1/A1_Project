@@ -44,10 +44,7 @@ function formCheck() {
 		var staffAccountNo = document.getElementById('staffAccountNo').value;	//account
 		var chk_num = $('#chk_num').val();
 		
-		if(chk_num != '1'){
-			alert('아이디를 제대로 입력해주세요.');
-			return false;
-		}
+		
 
 		if(staffName == ""){
 			alert("이름를 입력해주세요.");
@@ -94,6 +91,10 @@ function formCheck() {
 			alert("계좌번호를 입력해주세요.");
 			return false;
 		} 
+		if(chk_num != '1'){
+			alert('아이디를 제대로 입력해주세요.');
+			return false;
+		}
 		if(staffId == ""){
 			alert("아이디를입력해주세요.");
 			return false;
@@ -144,6 +145,12 @@ function formCheck() {
 		}
 	}
 </script>
+<style>
+#idcol{
+	margin-top: 10px;
+
+}
+</style>
 
 <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
@@ -152,7 +159,7 @@ function formCheck() {
 <section id="main-content">
 	<section class="wrapper">
 		<h3>
-			<i class="fa fa-angle-right"></i>직원 등록
+			<i class="fa fa-angle-right"></i>직원 정보 페이지
 		</h3>
 
 		<!-- BASIC FORM ELELEMNTS -->
@@ -279,9 +286,14 @@ function formCheck() {
 							<div class="col-sm-3" style="width: 250px;">
 								<input type="text" class="form-control" id="staffId"
 									name="staffId" onkeyup="keyup()"/>
-									<span id="id_chk"></span>
-									<input type="hidden" id="chk_num" value="0">
 							</div>
+							<div class="col-sm-3" id="idcol">
+								<span id="id_chk"></span>
+								<input type="hidden" id="chk_num" value="0">
+							
+							
+							</div>
+							
 						</div>
 						
 						<div class="form-group">
@@ -316,7 +328,7 @@ function formCheck() {
 
 						<!-- line 9 -->
 						<div class="form-group" align="center">
-							<input type="submit" class="btn btn-theme" id="savebtn" name="savebtn" value="저장">
+							<input type="submit" class="btn btn-success" id="savebtn" name="savebtn" value="저장">
 							<button type="button" class="btn btn-theme"
 								onclick="location.href='stafflist'">목록으로</button>
 						</div>

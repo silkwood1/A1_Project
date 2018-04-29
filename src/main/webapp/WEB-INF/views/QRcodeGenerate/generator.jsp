@@ -1,73 +1,72 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ page import="java.io.File, java.util.UUID"%>
 <%@ page import="java.awt.image.BufferedImage, javax.imageio.ImageIO"%>
 <%@ page import="com.google.zxing.qrcode.QRCodeWriter"%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <%@include file="../include/header.jsp"%>
 
-<!-- <script type="text/javascript" src="resource/js/jquery-1.7.2.min.js" charset="UTF-8"></script> -->
 <script type="text/javascript"
 	src="../resources/assets/js/jquery-1.8.3.min.js" charset="UTF-8"></script>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.js"></script>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		alert('Execute button clicked !');
-		$("#execute").click(function() {
-			url = "/createQRcode";
-			var userBsn = $("#userBsn").val();
-			var customerNum = $("#customerNum").val();
-			var customerDiv = $("#customerDiv").val();
-			var customerBsn = $("#customerBsn").val();
-			var customerCName = $("#customerCName").val();
-			var customerName = $("#customerName").val();
-			var customerCellNum = $("#customerCellNum").val();
-			var customerOfficeNum = $("#customerOfficeNum").val();
-			var customerFaxNum = $("#customerFaxNum").val();
-			var customerEmail = $("#customerEmail").val();
-			var customerZipCode = $("#customerZipCode").val();
-			var customerAddress = $("#customerAddress").val();
-			var customerIndate = $("#customerIndate").val();
-			var customerRankDiv = $("#customerRankDiv").val();
-			var incharge = $("#incharge").val();
-			var customerNote = $("#customerNote").val();
-			
-			var content = userBsn+","+customerNum+","+customerDiv+","+customerBsn+","+customerCName+","+customerName
-						  +","+customerCellNum+","+customerOfficeNum+","+customerFaxNum+","+customerEmail+","+customerZipCode
-						  +","+customerAddress+","+customerIndate+","+customerRankDiv+","+incharge+","+customerNote;
-			
-			alert(content);
-			
-			$("#img").attr("src", url + "?content=" + content);
-			
-			$("#company").attr("value", customerCName);
-		});
-	});
-	
-	function changeValue(){
-		var option = document.getElementById('filter').value; 
-		alert("옵션: " + option);
-		
-		if(option == "0"){
+	$(document).ready(
+			function() {
+				$("#execute").click(
+						function() {
+							url = "/createQRcode";
+							var userBsn = $("#userBsn").val();
+							var customerNum = $("#customerNum").val();
+							var customerDiv = $("#customerDiv").val();
+							var customerBsn = $("#customerBsn").val();
+							var customerCName = $("#customerCName").val();
+							var customerName = $("#customerName").val();
+							var customerCellNum = $("#customerCellNum").val();
+							var customerOfficeNum = $("#customerOfficeNum")
+									.val();
+							var customerFaxNum = $("#customerFaxNum").val();
+							var customerEmail = $("#customerEmail").val();
+							var customerZipCode = $("#customerZipCode").val();
+							var customerAddress = $("#customerAddress").val();
+							var customerIndate = $("#customerIndate").val();
+							var customerRankDiv = $("#customerRankDiv").val();
+							var incharge = $("#incharge").val();
+							var customerNote = $("#customerNote").val();
+
+							var content = userBsn + "," + customerNum + ","
+									+ customerDiv + "," + customerBsn + ","
+									+ customerCName + "," + customerName + ","
+									+ customerCellNum + "," + customerOfficeNum
+									+ "," + customerFaxNum + ","
+									+ customerEmail + "," + customerZipCode
+									+ "," + customerAddress + ","
+									+ customerIndate + "," + customerRankDiv
+									+ "," + incharge + "," + customerNote;
+
+							$("#img").attr("src", url + "?content=" + content);
+
+							$("#company").attr("value", customerCName);
+						});
+			});
+	function changeValue() {
+		var option = document.getElementById('filter').value;
+
+		if (option == "0") {
 			alert('정확한 거래처를 선택해주세요.');
 			return false;
 		}
-	
-	
-	$("#filter").click(function(){
-		
-		$.ajax({
-			type:"post",
-			url:'qrPage',
-			data:{
-				'bsnNum':option	
-			},
-			success:function(data){
+
+		$("#filter").click(function() {
+
+			$.ajax({
+				type : "post",
+				url : 'qrPage',
+				data : {
+					'bsnNum' : option
+				},
+				success : function(data) {
 					alert("성공");
 					alert(data.userBn);
 					$("#subtitle").val(data.customerCname);
@@ -86,29 +85,21 @@
 					$("#customerIndate").val(data.customerIndate);
 					$("#customerRankDiv").val(data.rankDiv);
 					$("#incharge").val(data.incharge);
-					$("#customerNote").val(data.customerNote);		
-			}
-			,error:function(err){
-				console.log(err);
-			}
+					$("#customerNote").val(data.customerNote);
+				},
+				error : function(err) {
+					console.log(err);
+				}
+			});
 		});
-	}); 
-	
 	}
-	
 </script>
-
-
 
 <section id="main-content">
 	<section class="wrapper">
 		<h3>
 			<i class="fa fa-angle-right"></i> QR CODE 생성
 		</h3>
-
-
-		<!-- BASIC FORM ELELEMNTS -->
-
 		<div class="row mt">
 			<div class="col-lg-12">
 				<div class="form-panel">
@@ -123,8 +114,10 @@
 
 								<label class="col-sm-2 col-sm-2 control-label">QR 코드</label>
 								<div class="col-sm-3">
-									<img id="img" style="display: none" onload="this.style.display='block'" /> 
-									고객사명  <input type="text" id="company" class="form-control" readonly="readonly" disabled="disabled">
+									<img id="img" style="display: none"
+										onload="this.style.display='block'" /> 고객사명 <input
+										type="text" id="company" class="form-control"
+										readonly="readonly" disabled="disabled">
 								</div>
 							</div>
 						</div>
@@ -132,7 +125,8 @@
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">고객사</label>
 							<div class="col-sm-3">
-								<select name="filter" id="filter" class="form-control" onchange="changeValue();">
+								<select name="filter" id="filter" class="form-control"
+									onchange="changeValue();">
 									<option value="0">--거래처를 선택하십시오--</option>
 									<c:forEach var="a" items="${A}">
 										<option value="${a.customerBn}">${a.customerCname}</option>
@@ -140,7 +134,7 @@
 										<option value="B">B</option> -->
 									</c:forEach>
 								</select>
-								
+
 							</div>
 
 						</div>
@@ -264,19 +258,10 @@
 									onclick="javascript:content_print();">
 							</div>
 						</div>
-
 					</form>
 				</div>
-
 			</div>
-
-
-			<!-- col-lg-6-->
 	</section>
 </section>
-
-<!-- /row -->
-
-<!-- /row -->
 
 <%@include file="../include/footer.jsp"%>

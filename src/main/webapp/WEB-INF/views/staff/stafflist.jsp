@@ -24,6 +24,11 @@
 	float: left;
 	margin-top: 10%;
 }
+.insertstaff{
+	text-align: right;
+	margin-right: 10px;
+
+}
 </style>
 
 
@@ -46,8 +51,8 @@
 						<i class="fa fa-angle-right"></i>직원 리스트
 					</h4>
 					<section id="unseen">
-						<div align="right">
-							<input type="button" class="btn btn-info"
+						<div class="insertstaff">
+							<input type="button" class="btn btn-success btn-sm"
 								onclick="location.href='EditStaff'" value="직원 등록">
 						</div>
 
@@ -55,11 +60,12 @@
 						<div class="card">
 						<!--이미지가 없을 경우 기본이미지  -->
 							<c:if test="${s.originalfile != null }">
-							<img class="cardimg" class="card-img-top" src="./memberimg?strurl=${s.savedfile }" alt="Card image"
+							<img  class="img-circle" src="./memberimg?strurl=${s.savedfile }" alt="Card image"
 								>
+							
 							</c:if>
 							<c:if test="${s.originalfile == null }">
-							<img class="cardimg" class="card-img-top" src="../resources/images/m_img.jpg" alt="기본이미지">
+							<img class="img-circle"  src="../resources/images/m_img.jpg" alt="기본이미지">
 							</c:if>
 							<div class="card-body">
 								<h4 class="card-title">${s.staffName }</h4>

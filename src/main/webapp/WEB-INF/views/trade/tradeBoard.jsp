@@ -375,6 +375,23 @@ $(document).ready(function() {
 });
 	
 </script>
+<style type="text/css">
+#center{
+	text-align: center;
+}
+#tight{
+	text-align: right;
+	margin-right: 10px;
+}
+#sortDiv{
+	display: inline;
+}
+#sortExp{
+	display: inline;
+}
+
+
+</style>
 </head>
 <body>
 <%@include file="../include/header.jsp"%>
@@ -509,10 +526,8 @@ $(document).ready(function() {
 					<!-- newtradeform 끝 -->
 
 					<div>
-					<table>
-						<tr>
-							<td>
-								<select class="form-control" style="width: 150px;" id="sortDiv">
+					
+					<select class="form-control" style="width: 150px;" id="sortDiv">
 									<option>검색 설정</option>
 									<option>거래구분</option>
 									<option>거래처</option>
@@ -520,19 +535,11 @@ $(document).ready(function() {
 									<option>결제수단</option>
 									<option>상태</option>
 								</select>
-							</td>
-							<td>
-							<input type="text" class="form-control" style="width: 300px;" id="sortExp">
-							</td>
-						</tr>
-					</table>
+					<input type="text" class="form-control" style="width: 300px;" id="sortExp">
+					<button type="button" class="btn btn-success" id="newtrade">새 거래</button>	
 					</div>
-					<br>
-					<br>
-					<div align="center">
-						<button type="button" class="btn btn-success" id="newtrade">새 거래</button>
-					</div>
-					<br>
+				
+					<br><br>
 
 					<!-- trade list -->
 					<div id="refreshable">
@@ -540,17 +547,17 @@ $(document).ready(function() {
 							<table class="table table-bordered table-striped table-condensed">
 								<thead>
 									<tr>
-										<th align="center">번호</th>
-										<th align="center">거래구분</th>
-										<th align="center">거래처</th>
-										<th align="center">품목</th>
-										<th align="center">수량</th>
-										<th align="center">미지급금</th>
-										<th align="center">미수금</th>
-										<th align="center">총액</th>
-										<th align="center">결제수단</th>
-										<th align="center">등록일자</th>
-										<th align="center">상태</th>
+										<th id="center">번호</th>
+										<th id="center">거래구분</th>
+										<th id="center">거래처</th>
+										<th id="center">품목</th>
+										<th id="center">수량</th>
+										<th id="center">미지급금</th>
+										<th id="center">미수금</th>
+										<th id="center">총액</th>
+										<th id="center">결제수단</th>
+										<th id="center">등록일자</th>
+										<th id="center">상태</th>
 									</tr>
 								</thead>
 								

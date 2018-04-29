@@ -12,7 +12,7 @@
 			<div class="row mt">
 				<!--CUSTOM CHART START -->
 				<div class="border-head">
-					<h3>${name }님의 월별 판매량</h3>
+					<h3>${name }님의 2018년 월별 판매량</h3>
 				</div>
 				<div class="custom-bar-chart">
 				<%int month = 0; %>

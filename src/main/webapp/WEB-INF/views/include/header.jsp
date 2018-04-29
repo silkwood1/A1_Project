@@ -38,17 +38,7 @@
   
   
   <script>
-  	function content_print(){
-	     
-      var initBody = document.body.innerHTML;
-      window.onbeforeprint = function(){
-          document.body.innerHTML = document.getElementById('printArea').innerHTML;
-      }
-      window.onafterprint = function(){
-          document.body.innerHTML = initBody;
-      }
-      window.print();    
- 	 }             
+
 	/*
 	버튼에 Drop-List Filter 적용.
 	
@@ -120,9 +110,7 @@
 /* Dropdown Button */
 .dropbtn {
 	background-color: white;
-	color: black;
 	padding: 16px;
-	font-size: 10px;
 	border: none;
 	cursor: pointer;
 }
@@ -159,7 +147,7 @@
 	display: none;
 	position: absolute;
 	background-color: #f6f6f6;
-	min-width: 230px;
+	min-width: 100px;
 	border: 1px solid #ddd;
 	z-index: 1;
 }
@@ -216,7 +204,7 @@
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
               
-              	  <p class="centered"><a href="/home"><img src="/resources/images/neko.png" class="img-circle" width="60"></a></p>
+              	  <p class="centered"><a href="/home"><img src="/resources/images/마네지네코.png" class="img-circle" width="100"></a></p>
               	  <h5 class="centered">${cname }</h5>
               	  
               	  <!-- 거래처 관리 -->
@@ -270,7 +258,7 @@
                   <li class="sub-menu">
                       <a href="/qrcode" >
                           <i class="fa fa-tasks"></i>
-                          <span>QR code 생성</span>
+                          <span>QR code 생성기</span>
                       </a>
                   </li>
               </ul>

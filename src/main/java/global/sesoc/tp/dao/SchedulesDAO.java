@@ -18,6 +18,7 @@ public class SchedulesDAO {
 	
 	public int insertSchedule(SchedulesVO schedule){
 		int result = 0;
+		schedule.setColor("0");
 		try {
 			SchedulesMapper mapper = sqlsession.getMapper(SchedulesMapper.class);
 			result = mapper.insertSchedule(schedule);

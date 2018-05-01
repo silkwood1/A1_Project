@@ -46,9 +46,7 @@
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script src="resources/date_picker/jquery-ui-timepicker-addon.js"></script>
     
-    
-    
-    
+ 
     
     <!--common script for all pages-->
     <script src="resources/assets/js/common-scripts.js"></script>
@@ -59,6 +57,8 @@
 	<!-- dialog -->
 	 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
 
+	<!-- naver map -->
+	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=o26GkaCYMVJHyu1k7CZl&submodules=geocoder"></script>
 	
 <script>
 
@@ -123,27 +123,17 @@
 	          	$("#endTime").datetimepicker("option","minDate",selected)
 	          }
 	      });
-  
-	  
 	  /* 날짜 선택 창 끝  */
 	  
-	  /* 풀캘린더 */
-	  var d = new Date();
-	  if (d.getMonth()+1<10) {
-		var strMonth = "0"+(d.getMonth()+1);
-	}else{
-		var strMonth = d.getMonth()+1;
-	}
-	  if (d.getDate()<10) {
-		  var strDate = "0"+d.getDate();
-	}else{
-		var strDate = d.getDate();
-	}
-	  var nowDate = "'"+d.getFullYear()+"-"+strMonth+"-"+strDate+"'";
 	  
 	  
-	  
+	  //풀켈린더
 	  $('#calendar').fullCalendar({
+		  header: {
+		        left: 'prev,next today',
+		        center: 'title',
+		        right: 'month agendaWeek,agendaDay,listWeek '
+		      },
 	      navLinks: true, // can click day/week names to navigate views
 	      selectable: true,
 	      select: function() {
@@ -162,7 +152,7 @@
 	  //퓰캘린더 끝
 	  
 	  
-	  //다이얼로그 이벤트
+	  //일정 삽입 다이얼로그 이벤트
 	  function dialogEvents(event){
 		  var eId = document.getElementById('staffId').val;
 		  var eSchedulesaddress = document.getElementById('schedulesaddress').val;
@@ -176,13 +166,38 @@
 		      height: '350',
 		      color: '#ffffff'
 		});
-		 
 		  
 	  }
 	  
-	  //확인 다이얼로그 이벤트
+	  //이벤트 확인 다이얼로그 이벤트**********************
 	  function cdialogEvents(event){// id,날짜,title,시작시간,색깔 
-		  //눌렀을 때 이벤트와 리스트를 비교해서  해당 input 값에 집어넣음
+		  	var ceId = document.getElementById('cstaffId');
+			var ceSchedulesaddress = document.getElementById('cschedulesaddress');
+			var ceStartTime = document.getElementById('cstartTime');
+			var ceTitle = document.getElementById('ctitle');
+			var ceuserBn = document.getElementById('cuserBn');
+			var cecoordinates = document.getElementById('ccoordinates');
+			var cetradeStatus = document.getElementById('ctradeStatus');
+			var cecolor = document.getElementById('ccolor');
+			var ceschedulesNum = document.getElementById('cschedulesNum');
+			var ceremark = document.getElementById('cremark');
+			//cuserBn, ccoordinates, ctradeStatus, ccolor, cschedulesNum
+			//창을 띄울 때 이벤트의 일정(list) title과 스케쥴의 타이틀을 비교
+			//맞으면 스케쥴객체의 값을 작성
+		   <c:forEach items="${list}" var="item">//${list}
+			if ("${item.title}" == event.title) { 
+				$("#cstaffId").val("${item.staffId}").prop("selected", true);
+				$("#ctradeNo").val("${item.tradeNo}").prop("selected", true);
+				
+				ceSchedulesaddress.value = "${item.schedulesaddress}";
+				cecoordinates.value = "${item.coordinates}";
+				ceStartTime.value = "${item.startTime}";
+				ceTitle.value = "${item.title}";
+				ceschedulesNum.value="${item.schedulesNum}";
+				ceremark.value="${item.remark}";
+			}
+			</c:forEach> 
+		 
 		  $('#confirmdialog').dialog({
 		      title: '일정 확인',
 		      modal: true,
@@ -190,52 +205,107 @@
 		      height: '350',
 		      color: '#ffffff'
 		});
-		 /*  document.getElementById('personlist').value=Person_ID; 셀렉트 셀렉트하는 법*/
-		var ceId = document.getElementById('cstaffId');
-		var ceSchedulesaddress = document.getElementById('cschedulesaddress');
-		var ceStartTime = document.getElementById('cstartTime');
-		var ceTitle = document.getElementById('ctitle');
-		  
-		ceId.value=event.id;
-		ceStartTime.value=event.start;
-		ceTitle.value=event.title;
 		  
 	  }
 
 	});
 	  
-
-function backMain(){
-	  
-	  location.href='./';
-  }
-  
-  
+  //스케쥴 삭제
   function deleteSchedule(){
-	  
-     
-  }
-  
-  function updateSchedule(){
+		var schedulesNum = document.getElementById('cschedulesNum').value;	  
+		var con_test = confirm("정말 삭제하시겠습니까?");
+		if(con_test == true){
+			$.ajax({
+				url: 'deleteSchedule'
+				, type: 'post'
+				, data: {'schedulesNum' : schedulesNum}
+				, success:function(str){
+					if (str=='삭제성공') {
+						alert('일정삭제가 완료되었습니다.');
+						location.reload();
+					}else{
+						alert('일정삭제에 실패하였습니다.');
+					}
+					
+				}
+				, error:function(err){
+					console.log(err);
+				}
+			});//ajax 
+		}
+		else if(con_test == false){
+			location.reload();
+		}
+		
+		
 	
   }
+  //스케쥴 수정버튼 클릭
+  function updateSchedule(){//스케쥴번호,직원,거래번호,방문지,시간,내용,좌표
+	  var schedulesNum = document.getElementById('cschedulesNum').value;
+	  var staffId = document.getElementById('cstaffId').value;
+	  var tradeNo= document.getElementById('ctradeNo').value;
+	  var schedulesaddress = document.getElementById('cschedulesaddress').value;
+	  var startTime = document.getElementById('cstartTime').value;
+	  var title = document.getElementById('ctitle').value;
+	  var coordinates = document.getElementById('ccoordinates').value;
+	  var remark = document.getElementById('cremark').value;
+	  
+	  var con_test = confirm("이대로 수정하시겠습니까?");
+		if(con_test == true){
+			$.ajax({
+				url: 'updateSchedule'
+				, type: 'post'
+				, data: {'schedulesNum' : schedulesNum,
+					'staffId' : staffId,
+					'tradeNo' : tradeNo,
+					'schedulesaddress' : schedulesaddress,
+					'startTime' : startTime,
+					'title' : title,
+					'coordinates' : coordinates,
+					'remark' : remark
+				}
+				, success:function(str){
+					if (str=='수정성공') {
+						alert('일정이 수정되었습니다. 확인해주세요.');
+						location.reload();
+					}else{
+						alert('일정 수정에 실패하였습니다. 다시 시도해주세요.');
+					}
+					
+				}
+				, error:function(err){
+					console.log(err);
+				}
+			});//ajax 
+		}
+		else if(con_test == false){
+			location.reload();
+		}
+
+	  
+	  
+	  
+  }
   
+  //스케쥴 입력 시 거래번호를 선택하면 주소와 좌표를 받아오는 부분 
   function changeSelect(){
-	  var eId = document.getElementById('staffId').value='';
+	  var eId = document.getElementById('staffId');
 	  var eSchedulesaddress = document.getElementById('schedulesaddress');
 	  var eStartTime = document.getElementById('startTime').value='';
 	  var eTitle = document.getElementById('title').value='';	  
+	  var eCoordinates = document.getElementById('coordinates');
 	  //ajax로 선택된 번호를 보낸다. 보낸 번호로 검색하여 해당 거래번호의 고객의 주소를 불러온다.
 	  //고객의 주소를 주소창에 입력한다.
-			var TradeNo=$('#tradeNo').val();//${tradeList}
+	  
+			var TradeNo=$('#tradeNo').val();//$('#tradeNo').val()
 			var tradeSampleNo;
-			var list = new Array(); 
-			<c:forEach items="${tradeList}" var="item">
+			
+			<c:forEach items="${tradeList2}" var="item">
 			if ("${item.tradeNo}" == TradeNo) { 
 				tradeSampleNo = "${item.customerNo}";
 			}
 			</c:forEach>
-			
 			  
 			$.ajax({
 				url: 'gettingAddr'
@@ -243,6 +313,31 @@ function backMain(){
 				, data: {'tradeSampleNo':tradeSampleNo}
 				, success:function(str){
 					eSchedulesaddress.value= str;
+					
+					////
+					 // 주소값
+			         var myaddress = str; // 도로명 주소나 지번 주소 ok
+			         // ex) var myaddress = '노원구 중계로 8길 20';
+
+			         naver.maps.Service.geocode({
+			            address : myaddress
+			         }, function(status, response) {
+			            if (status !== naver.maps.Service.Status.OK) {
+			               return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러입니다. 다시 시도해주세요.');
+			            }
+			            var result = response.result;
+			            // 검색 결과 갯수: result.total
+			            // 첫번째 결과 결과 주소: result.items[0].address
+			            // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
+
+			           /*  var myaddr = new naver.maps.Point(result.items[0].point.x,
+			                  result.items[0].point.y); */
+			            
+			            
+			            eCoordinates.value=result.items[0].point.y + ", " + result.items[0].point.x;
+			         });
+			         
+					
 				}
 				, error:function(err){
 					console.log(err);
@@ -250,20 +345,21 @@ function backMain(){
 			});//ajax 
 
 	}
-  
+  ////이벤트 클릭 시 거래번호가 바뀌면  해당 이벤트정보를 불러오는 부분
   function cchangeSelect(){
-	  var ceId = document.getElementById('cstaffId').value='';
-	  var ceSchedulesaddress = document.getElementById('cschedulesaddress').value='';
-	  var ceStartTime = document.getElementById('cstartTime').value='';
-	  var ceTitle = document.getElementById('ctitle').value='';	  
+	  var ceId = document.getElementById('cstaffId');
+	  var ceSchedulesaddress = document.getElementById('cschedulesaddress');
+	  var ceStartTime = document.getElementById('cstartTime');
+	  var ceTitle = document.getElementById('ctitle');	  
+	  var cecoordinates = document.getElementById('ccoordinates');
 	  //ajax로 선택된 번호를 보낸다. 보낸 번호로 검색하여 해당 거래번호의 고객의 주소를 불러온다.
 	  //고객의 주소를 주소창에 입력한다.
-			var TradeNo=$('#tradeNo').val();//${tradeList}
-			var tradeSampleNo;
-			var list = new Array(); 
+	  
+			var TradeNo=$('#ctradeNo').val();//${tradeList}
+			var tradeSampleNo;//고객번호
 			
 			//거래 검색해서 거래리스트의 거래번호와 입력창의 거래번호가 맞으면 
-			<c:forEach items="${tradeList}" var="item">
+			<c:forEach items="${tradeList2}" var="item">
 			if ("${item.tradeNo}" == TradeNo) { 
 				tradeSampleNo = "${item.customerNo}";
 			}
@@ -276,6 +372,31 @@ function backMain(){
 				, data: {'tradeSampleNo':tradeSampleNo}
 				, success:function(str){
 					ceSchedulesaddress.value= str;
+					
+					////
+					 // 주소값
+			         var myaddress = str; // 도로명 주소나 지번 주소 ok
+			         // ex) var myaddress = '노원구 중계로 8길 20';
+
+			         naver.maps.Service.geocode({
+			            address : myaddress
+			         }, function(status, response) {
+			            if (status !== naver.maps.Service.Status.OK) {
+			               return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러입니다. 다시 시도해주세요.');
+			            }
+			            var result = response.result;
+			            // 검색 결과 갯수: result.total
+			            // 첫번째 결과 결과 주소: result.items[0].address
+			            // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
+
+			           /*  var myaddr = new naver.maps.Point(result.items[0].point.x,
+			                  result.items[0].point.y); */
+			            
+			            
+			            eCoordinates.value=result.items[0].point.y + ", " + result.items[0].point.x;
+			         });
+			         
+					
 				}
 				, error:function(err){
 					console.log(err);
@@ -309,77 +430,68 @@ element.style {
 
 <section id="main-content">
 	<section class="wrapper">
-		<div class="row">
-			<div class="col-md-6">
-				<div class="box1">
-					<span class="li_heart"></span>
-					<h3>업무 스케쥴 달력</h3>
-					<div id='calendar' class="has-toolbar fc">
-					
-						<form name="inserting" action="" method="post">
-							
-							<input type="button" value="메인으로" onclick="backMain()">
-						</form>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="box1">
-					<span class="li_heart"></span>
-					<h3>
-						<i class="fa fa-angle-right"></i> < 오늘 할 일 >
-					</h3>
-
-					<div class="row mt">
-						<div class="col-lg-12">
-							<div class="content-panel">
-								<h4>
-									<i class="fa fa-angle-right"></i> 업무 스케쥴 리스트
-								</h4>
-								<section id="unseen">
-									<table
-										class="table table-bordered table-striped table-condensed">
-										<thead>
+			<h3><i class="fa fa-angle-right"></i></h3>
+			<!-- page start -->
+		<div class="row.mt">
+			<aside class="col-md-6">
+			 	<section class="panel">
+                    <div class="panel-body">
+                        <div id="calendar" class="has-toolbar"></div>
+                    </div>
+                </section>
+			</aside>
+		<div class="col-md-6">
+			<div class="box1">
+				<div class="row mt">
+					<div class="col-lg-12">
+						<div class="content-panel">
+							<h4>
+								<i class="fa fa-angle-right"></i> 업무 스케쥴 리스트
+							</h4>
+							<section id="unseen">
+								<table
+									class="table table-bordered table-striped table-condensed">
+									<thead>
+										<tr>
+											<th class="numeric">번호</th>
+											<th class="numeric">거래처</th>
+											<th class="numeric">품목</th>
+											<th class="numeric">거래량</th>
+											<th class="numeric">미지급</th>
+											<th class="numeric">미수금</th>
+											<th class="numeric">총액</th>
+											<th class="numeric">거래수단</th>
+											<th class="numeric">거래일자</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="i" items="${tradeList}">
 											<tr>
-												<th class="numeric">번호</th>
-												<th class="numeric">거래처</th>
-												<th class="numeric">품목</th>
-												<th class="numeric">거래량</th>
-												<th class="numeric">미지급</th>
-												<th class="numeric">미수금</th>
-												<th class="numeric">총액</th>
-												<th class="numeric">거래수단</th>
-												<th class="numeric">거래일자</th>
+												<td class="numeric">${i.tradeNo}</td>
+												<td class="numeric">${i.customerNo}</td>
+												<td class="numeric">${i.itemCode}</td>
+												<td class="numeric">${i.tradeQuantity}</td>
+												<td class="numeric">${i.tradePayable}</td>
+												<td class="numeric">${i.tradeReceivable}</td>
+												<td class="numeric">${i.tradeTotal}</td>
+												<td class="numeric">${i.paymentDiv}</td>
+												<td class="numeric">${i.tradeIndate}</td>
 											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td class="numeric"><!--EL 번호--></td>
-												<td class="numeric"><!--EL 거래처--></td>
-												<td class="numeric"><!--EL 품목--></td>
-												<td class="numeric"><!--EL 거래량--></td>
-												<td class="numeric"><!--EL 미지급--></td>
-												<td class="numeric"><!--EL 미수금--></td>
-												<td class="numeric"><!--EL 총액--></td>
-												<td class="numeric"><!--EL 거래수단--></td>
-												<td class="numeric"><!--EL 거래일자--></td>
-											</tr>
-											
-										</tbody>
-									</table>
-								</section>
-							</div>
-							<!-- /content-panel -->
+										</c:forEach>
+									</tbody>
+								</table>
+							</section>
 						</div>
-						<!-- /col-lg-4 -->
+						<!-- /content-panel -->
 					</div>
-					<!-- /row -->
-
-
-
+					<!-- /col-lg-4 -->
 				</div>
+				<!-- /row -->
+
 			</div>
 		</div>
+	</div>
+	
 		<!-- 날짜의 빈 공간을  클릭했을 때 출력되는 다이얼로그 --> 
 		
 		<div id="dialog" name="dialog" class ="dialog" title="일정 등록" style="display: none"> 
@@ -393,13 +505,11 @@ element.style {
 					<td>staff Id</td>
 					<td>
 						<select id="staffId" name="staffId">
-						     <option value="">매장 내 staff</option><!-- 해당 사업장의 직원 리스트 -->
-							 <option value="1">1</option> 
-							    <c:forEach var="i" items="${stafflist}" >
-									 <option value="1">1</option>
+						     <!-- 해당 사업장의 직원 리스트 -->
+							    <c:forEach var="i" items="${staffList}" >
+							    	 <option value="${i.staffId}">${i.staffName}</option>
 								</c:forEach>
-								
-						 </select>
+						</select>
 					</td>
 				</tr>
 				
@@ -452,17 +562,18 @@ element.style {
 		<div id="confirmdialog" title="일정 확인" style="display: none"> 
 			<form id="addForm" name="addForm" method="post">
 			<table>
-			
-				<input type="hidden" id="cuserBn" name="userBn" value="${sessionScope.userBn}">
-				<input type="hidden" id="ccoordinates" name="coordinates" value="">
+				<input type="hidden" id="cuserBn" name="cuserBn" value="1"><!-- ${sessionScope.userBn} -->
+				<input type="hidden" id="ccoordinates" name="ccoordinates" value="">
+				<input type="hidden" id="ctradeStatus" name="ctradeStatus" value="">
+				<input type="hidden" id="ccolor" name="ccolor" value="">
+				<input type="hidden" id="cschedulesNum" name="cschedulesNum" value="">
 				<tr>
-					<td>staff Id</td>
+					<td>매장 내 직원</td>
 					<td>
 						<select id="cstaffId" name="cstaffId">
-						     <option value="">매장 내 staff</option><!-- 해당 사업장의 직원 리스트 -->
-							 <option value="1">1</option> 
-							    <c:forEach var="i" items="${stafflist}" >
-									 <option value="1">1</option>
+						     <!-- 해당 사업장의 직원 리스트 -->
+							  <c:forEach var="i" items="${staffList}" >
+							    	 <option value="${i.staffId}">${i.staffName}</option>
 								</c:forEach>
 								
 						 </select>
@@ -501,11 +612,17 @@ element.style {
 					<input type="text" id="ctitle" name="ctitle" placeholder="제목">
 					</td>
 				</tr>
+				<tr>
+					<td>인수인계</td>
+					<td>
+					<input type="text" id="cremark" name="cremark" placeholder="인수인계">
+					</td>
+				</tr>
 				
 				<tr>
 					<td>
-						<input type="input" value="일정 수정" onclick="updateSchedule()">
-						<input type="input" value="일정 삭제" onsubmit="deleteSchedule()">
+						<input type="button" value="일정 수정" onclick="updateSchedule()">
+						<input type="button" value="일정 삭제" onclick="deleteSchedule()">
 					</td>
 				
 				</tr>

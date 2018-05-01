@@ -8,7 +8,7 @@
 	<insert id = "insertSchedule" parameterType="schedules">
 		insert into schedules
 		values
-		(#{userBn},#{tradeNo},#{schedulesaddress},#{coordinates},#{staffId},#{title},#{startTime},schedules_seq.nextval,#{tradeStatus},#{color},"")
+		(#{userBn},#{tradeNo},#{schedulesaddress},#{coordinates},#{staffId},#{title},#{startTime},schedules_seq.nextval,#{tradeStatus},#{color},' ')
 	</insert>
 	
 	<select id="readSchedule" parameterType="String" resultType="schedules">

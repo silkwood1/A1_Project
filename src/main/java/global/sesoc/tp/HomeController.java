@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import global.sesoc.tp.dao.CustomerDAO;
 import global.sesoc.tp.dao.SchedulesDAO;
 import global.sesoc.tp.dao.StaffDAO;
 import global.sesoc.tp.dao.TradeDAO;
@@ -50,6 +51,8 @@ public class HomeController {
 	@Autowired
 	private StaffDAO dao4;
 	
+	@Autowired
+	private CustomerDAO dao5;
 	
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -92,7 +95,15 @@ public class HomeController {
 		}
 		
 		m.addAttribute("uriage", uriage);
-		return "home";
+		  // 내 위치
+	      UserVO user = dao.get_user_profile(bn);
+	      s.setAttribute("addr", user.getUserAddress());
+	      // 고객들 위치
+	      ArrayList<CustomerVO> addrList = dao5.customerList(bn);
+	      s.setAttribute("addrList", addrList);
+	      s.setAttribute("size", addrList.size());
+	      
+	      return "home";
 	}
 
 	@ResponseBody
@@ -255,12 +266,16 @@ public class HomeController {
 	public String calendar(HttpSession session) {
 		SchedulesVO sc1 = new SchedulesVO();
 		SchedulesVO sc2 = new SchedulesVO();
-		String loginId = (String) session.getAttribute("id");
+		String bn = (String) session.getAttribute("bn");
+		
 		ArrayList<SchedulesVO> list = new ArrayList<SchedulesVO>();
 		ArrayList<TradeVO> tradeList = new ArrayList<TradeVO>();
+		ArrayList<TradeVO> tradeList2 = new ArrayList<TradeVO>();
+		
+		//스케쥴 가져오기
 		try {
-			list = dao3.readSchedule("dydwns8471");
-			
+			list = dao3.readSchedules(bn);
+
 			for (int i = 0; i < list.size(); i++) {
 				if (list.get(i).getTradeStatus()!=0) {
 					list.get(i).setColor("#ff00ff");
@@ -273,21 +288,39 @@ public class HomeController {
 		if (list == null) {
 			list = new ArrayList<SchedulesVO>();
 			list.add(sc1);
-			list.add(sc2);
 			
 		}
 		
-		String bn = (String) session.getAttribute("bn");
 		
+		//거래리스트 (보여주기용) 가져오기
 		try {
 			tradeList = dao2.readTrades(bn);//사용자의사업자등록번호
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		
+		//거래리스트 (검색용) 가져오기
+				try {
+					tradeList2 = dao2.readTradesbybn(bn);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+		
+		
+		
+		//스태프 리스트 추가
+		ArrayList<StaffVO> staffList = new ArrayList<StaffVO>();
+		try {
+			staffList = dao4.staffList(bn);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		session.setAttribute("list", list);
 		session.setAttribute("tradeList", tradeList);
-		System.out.println(tradeList);
+		session.setAttribute("staffList", staffList);
+		session.setAttribute("tradeList2", tradeList2);
+		
 		return "Calendar/Calendar";
 	}
 	
@@ -321,7 +354,7 @@ public class HomeController {
 	
 	//백업
 	@ResponseBody
-	@RequestMapping(value = "backUp", method = RequestMethod.POST)
+	@RequestMapping(value = "backUp", method = RequestMethod.POST, produces = "text/json; charset=UTF-8")
 	public String backUp(String scheduleList,String loginid) {
 		
 		try {
@@ -374,36 +407,6 @@ public class HomeController {
 		}
 		
 		
-		/*// 여기
-		Map<Object, Object> paramMap = new HashMap<Object, Object>();
-		Map<Object, Object> ScheduleMap; // 가져온 친구
-		ArrayList<Map<Object, Object>> scList = new ArrayList<Map<Object, Object>>();
-		int num = 0;
-		for(int i=0;i<List.size();i++){
-			
-			Schedule fromList = List.get(i);
-			System.out.println(fromList.toString());
-			ScheduleMap = new HashMap<Object, Object>();
-			//ScheduleMap.put("scheduleNum", num);
-			System.out.println(fromList.getId());
-			
-			ScheduleMap.put("num", 0);
-			ScheduleMap.put("id", fromList.getId());
-			ScheduleMap.put("title", fromList.getTitle());
-			ScheduleMap.put("startTime", fromList.getStartTime());
-			ScheduleMap.put("endTime", fromList.getEndTime());
-			
-	        scList.add(ScheduleMap);*/
-	 
-	    
-		//paramMap.put("scList", scList);
-		
-		/*int result2 = 0;
-		try {
-			result2 = dao.insertList(paramMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}*/
 		
 		
 		String msg = "";
@@ -421,19 +424,60 @@ public class HomeController {
 	//synchronization
 
 	@ResponseBody
-	@RequestMapping(value = "synchronization", method = RequestMethod.POST)
+	@RequestMapping(value = "synchronization", method = RequestMethod.POST, produces = "text/json; charset=UTF-8")
 	public String synchronization(String loginid) {
+		ArrayList<SchedulesVO> testlist= dao3.readSchedule(loginid);//db에서 받아온 것
 		
-		ArrayList<SchedulesVO> list = dao3.readSchedule(loginid);
+		ArrayList<SchedulesVO> list = new ArrayList<SchedulesVO>();
+		SchedulesVO sample;
 		
-		for (int i = 0; i < list.size(); i++) {
-			list.get(i).setStartTime(list.get(i).getStartTime().replace("-", "/"));
+		for (int i = 0; i < testlist.size(); i++) {
+			
+			if (testlist.get(i).getTradeStatus()==0) {
+				
+				sample = new SchedulesVO();
+				sample = testlist.get(i);
+				sample.setStartTime(testlist.get(i).getStartTime().replace("-", "/"));
+				list.add(sample);
+			}
 			
 		}
+		System.out.println("list : "+list);
 		Gson gson = new Gson();
 		
 		String result = gson.toJson(list);
-		
+
 		return result;
 	}
+	
+	//모바일에서 qr코드 스캔하고 전송받은 schedulesnum에 대한 스케쥴의 상태 처리
+	@ResponseBody
+	@RequestMapping(value="workConfirm", method = RequestMethod.GET, produces = "text/json; charset=UTF-8")
+	   public String workConfirm(String schedulesNum,String remark){
+	    
+		int scheduleNum = Integer.parseInt(schedulesNum);
+		String str = "";  
+	    System.out.println("schedulesNum : "+scheduleNum);
+	    System.out.println("remark : "+remark);
+		int result = 0;
+		
+	      System.out.println("schedulesNum = "+scheduleNum);
+	     
+	      SchedulesVO schedule = new SchedulesVO();
+	      
+	      schedule.setSchedulesNum(Integer.parseInt(schedulesNum));
+	      schedule.setremark(remark);
+	      
+	      //schedule.set
+	      //스케쥴 넘버를 보내면 해당 스케쥴의 데이터 처리 완료
+	      result = dao3.UpdateStatus(schedule);
+	      
+	      if (result ==0) {
+			str="fail";
+	      } else {
+			str="success";
+	      }
+	      
+	      return str;
+	   }
 }

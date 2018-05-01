@@ -8,12 +8,17 @@
 	<insert id = "insertSchedule" parameterType="schedules">
 		insert into schedules
 		values
-		(#{userBn},#{tradeNo},#{schedulesaddress},#{coordinates},#{staffId},#{title},#{startTime},schedules_seq.nextval,#{tradeStatus},#{color})
+		(#{userBn},#{tradeNo},#{schedulesaddress},#{coordinates},#{staffId},#{title},#{startTime},schedules_seq.nextval,#{tradeStatus},#{color},"")
 	</insert>
 	
 	<select id="readSchedule" parameterType="String" resultType="schedules">
 		select * from schedules
 		where staffId=#{staffId}
+	</select>
+	
+	<select id="readSchedules" parameterType="String" resultType="schedules">
+		select * from schedules
+		where userBn=#{userBn}
 	</select>
 	
 	<delete id="deleteSchedule" parameterType="int">
@@ -34,77 +39,24 @@
 	<update id="UpdateSchedule" parameterType="schedules">
 		update schedules
 		set
-			title=#{title},
-			startTime=#{startTime},
+		staffId = #{staffId},
+		tradeNo = #{tradeNo},
+		schedulesaddress = #{schedulesaddress},
+		startTime = #{startTime},
+		title = #{title},
+		coordinates = #{coordinates},
+		remark = #{remark}
 		where
 			schedulesNum=#{schedulesNum}
 	</update>
 	
-	
-
-	<!-- <select staffId="selectList" parameterType="String" resultType="Board">
-	SELECT * FROM BOARD8
-	<if test="_parameter != null and _parameter != ''">
-	WHERE
-		title LIKE '%'||#{searchText}||'%'
-	</if>
-	ORDER BY
-	BOARDNUM DESC
-	</select> -->
-	
-	
-	<!-- <select staffId="selectAllBoard" resultType="Board">
-		select * from board8
-		<if test="_parameter != null and _parameter != ''">
-		WHERE
-		title LIKE '%'||#{searchText}||'%'
-		</if>
-		order by 
-		boardnum desc
-	</select>
-	
-	<select staffId="selectOneBoard" parameterType="integer" resultType="Board">
-		select * from board8
-		where boardnum=#{boardnum}
-	</select>
-	
-	<update staffId="hitNum" parameterType="int">
-		update board8
+	<update id="UpdateStatus" parameterType="schedules">
+		update schedules
 		set
-			hits=hits+1
-		where 
-			boardnum=#{boardnum}
+			tradeStatus = 1,
+			remark = #{remark}
+		where
+			schedulesNum=#{schedulesNum}
 	</update>
-	
-	<update staffId="updateBoard" parameterType="Board" >
-		update board8
-		set
-			title = #{title},
-			content = #{content},
-			inputdate = SYSDATE
-			<if test="originalfile != null and savedfile != null">
-			,
-			originalfile = #{originalfile},
-			savedfile = #{savedfile}
-			</if>
-		where 
-			boardnum=#{boardnum}
-	</update>
-	
-	<select staffId="selectBoardCount" resultType="int">
-      select
-      count(*)
-      from
-      board8
-      <if test="_parameter != null and _parameter != ''">
-			WHERE
-			title LIKE '%'||#{searchText}||'%'
-		</if>
-   </select>
-   
-   <delete staffId="deleteBoard" parameterType="int">
-   	delete from board8
-   	where boardnum=#{boardnum} 
-   </delete> -->
 
 </mapper>

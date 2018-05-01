@@ -38,26 +38,23 @@ public class ScheduleController {
 	
 	
 	
-
-	
-	
-	
 	@RequestMapping(value="insertSchedule",method=RequestMethod.POST)
 	public String insertSchedule(String userBn,int tradeNo,String schedulesaddress,String coordinates,
 			String staffId,String title,String startTime,String color,
 			HttpSession session){//일정 삽입했을 때
 		
+		System.out.println("staffId = "+staffId);
+		String name = (String)session.getAttribute("name");
+		String id = (String)session.getAttribute("id");
+		String bn = (String)session.getAttribute("bn");
 		
-		/*                                 
-			int schedulesNum이 들어가지 않음
-		 */
 		ArrayList<SchedulesVO> scheduleList = null;
 		SchedulesVO sample = new SchedulesVO();
-		sample.setUserBn(userBn);
-		sample.setCoordinates("12, 12");
+		sample.setUserBn(bn);
+		sample.setCoordinates(coordinates);//좌표를 받아 입력
 		sample.setTradeNo(tradeNo);
 		sample.setSchedulesaddress(schedulesaddress);
-		sample.setStaffId("dydwns8471");
+		sample.setStaffId(staffId);
 		sample.setTitle(title);
 		sample.setStartTime(startTime);
 		
@@ -69,54 +66,74 @@ public class ScheduleController {
 		} catch (Exception e) {
 			
 		}
+		
 		if (scheduleList == null) {
 			scheduleList = new ArrayList<SchedulesVO>();
 		}
 		
-		
 		//db연동시 스케쥴을 삽입한다.
 		try {
 			result = dao.insertSchedule(sample);
-			scheduleList.add(sample);
+			
 		} catch (Exception e) {
 			System.out.println("db에 스케쥴 넣기 실패!");
 		}
 		
-		session.setAttribute("list", scheduleList);
 		return "redirect:/calendar";
 		
 	}
 	
-	@RequestMapping(value="deleteForm")//삭제,수정폼으로 이동
-	public String deleteForm(HttpSession session){
-		String loginId = (String) session.getAttribute("loginId");
-		//id에 맞는 스케쥴 불러온다
-		ArrayList<SchedulesVO> list = dao.readSchedule(loginId);
-		System.out.println(list);
-		session.setAttribute("list", list);
-		return "Calendar/deleteForm";
-	}
-	
-	@RequestMapping(value="updateForm")//수정폼으로 이동
-	public String updateForm(int scheduleNum,Model model){
-		SchedulesVO schedule = dao.readOneSchedule(scheduleNum);
-		model.addAttribute("schedule",schedule);
-		
-		return "Calendar/updateForm";
-	}
-	
-	@RequestMapping(value="UpdateSchedule",method=RequestMethod.POST)//수정버튼을 클릭했을 때
+	@RequestMapping(value="deleteSchedule",produces = "application/text; charset=utf8",method=RequestMethod.POST)//삭제 ajax
 	@ResponseBody
-	public void UpdateSchedule(SchedulesVO schedule){
+	public String deleteForm(int schedulesNum){
+		String str = "";
 		int result = 0;
-		System.out.println("업데이트컨트롤");
-		System.out.println(schedule);
-		System.out.println(schedule.getSchedulesNum());
 		
-		result = dao.UpdateSchedule(schedule);
-		if (result!=0) {
+		System.out.println("삭제할 스케쥴 번호 = "+schedulesNum);
+		try {
+			result = dao.deleteSchedule(schedulesNum);
 			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		
+		if (result!=0) {
+			str = "삭제성공";
+		}
+		return str;
+	}
+	
+	
+	
+	@RequestMapping(value="updateSchedule",produces = "application/text; charset=utf8",method=RequestMethod.POST)//수정버튼을 클릭했을 때
+	@ResponseBody
+	public String UpdateSchedule(int schedulesNum,String staffId, int tradeNo,
+			String schedulesaddress,String startTime, String title,String coordinates,
+			String remark){
+		int result = 0;
+		String str = "";
+		SchedulesVO schedules = new SchedulesVO();
+		schedules.setSchedulesNum(schedulesNum);
+		schedules.setStaffId(staffId);
+		schedules.setTradeNo(tradeNo);
+		schedules.setSchedulesaddress(schedulesaddress);
+		schedules.setStartTime(startTime);
+		schedules.setTitle(title);
+		schedules.setCoordinates(coordinates);
+		schedules.setremark(remark);
+		
+		System.out.println(coordinates);
+		
+		try {
+			result = dao.UpdateSchedule(schedules);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if (result!=0) {
+			str="수정성공";
+		}
+		return str;
 	}
 	
 	@RequestMapping(value="gettingAddr",produces = "application/text; charset=utf8",method=RequestMethod.POST)

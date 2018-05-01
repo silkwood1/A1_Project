@@ -3,9 +3,99 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@include file="include/header.jsp"%>
-
+<!-- 네이버 지도 -->
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=NeOragwFwZrlC04RCdGu&submodules=geocoder"></script>
 <section id="main-content">
 	<section class="wrapper">
+	 <br>
+   <input type="hidden" value="${size }" id="hid_size">
+   <div style="display: none;">
+      <c:forEach var="al" items="${addrList }" varStatus="status" >
+         <table>
+            <tr>
+               <td id="addr${status.index }">${al.customerAddress }</td>
+               <td id="cnam${status.index }">${al.customerCname }</td>
+            </tr>
+         </table>
+      </c:forEach>
+   </div>
+
+   <div id="map" style="width: 80%; height: 640px;">
+      <script type="text/javascript">
+         // 맵 옵션
+         var mapOptions = {
+            zoom : 10, // 50m, 11: 100m, 10: 200m
+            mapTypeControl : true
+         };
+
+         // 맵 생성
+         var map = new naver.maps.Map('map', mapOptions);
+
+         // 주소값
+         var myaddress = "<%= session.getAttribute("addr")%>";
+
+         naver.maps.Service.geocode({
+            address : myaddress
+         }, function(status, response) {
+            if (status !== naver.maps.Service.Status.OK) {
+               return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
+            }
+            var result = response.result;
+
+            var myaddr = new naver.maps.Point(result.items[0].point.x,
+                  result.items[0].point.y);
+            
+            // 검색된 좌표로 지도 이동
+            map.setCenter(myaddr);
+
+         });
+         
+         // 2
+         var size = $('#hid_size').val();
+         var myaddress;
+         var cnam;
+         for (var i = 0; i < size; i++) {
+            myaddress = document.getElementById('addr' + i).innerHTML;
+            cnam = document.getElementById('cnam' + i).innerHTML;
+            naver.maps.Service.geocode({
+               address : myaddress
+            }, function(status, response) {
+               if (status !== naver.maps.Service.Status.OK) {
+                  return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
+               }
+               var result = response.result;
+
+               var myaddr = new naver.maps.Point(result.items[0].point.x,
+                     result.items[0].point.y);
+               
+               // 마커 표시
+               var marker = new naver.maps.Marker({
+                  position : myaddr,
+                  map : map
+               });
+
+ /*               // 마커 클릭 이벤트 처리
+               naver.maps.Event.addListener(marker, "click", function(e) {
+                  
+                  if (infowindow.getMap()) {
+                     infowindow.close();
+                  } else {
+                     infowindow.open(map, marker);
+                  }
+               });
+
+               // 마크 클릭시 인포윈도우 오픈
+               var infowindow = new naver.maps.InfoWindow({
+                  // 인포윈도우에 주소 표시
+                  content : myaddress
+               });
+               
+               */
+            }); 
+         } 
+         
+      </script>
+   </div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="box1">

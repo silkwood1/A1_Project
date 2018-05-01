@@ -235,7 +235,7 @@ public class TradeDAO {
 		return a;
 	}
 	
-	public ArrayList<TradeVO> readTrades(String userBn){
+	public ArrayList<TradeVO> readTrades(String userBn){ //readTradesbybn
 		
 		ArrayList<TradeVO> result = new ArrayList<TradeVO>();
 		
@@ -247,5 +247,21 @@ public class TradeDAO {
 		}
 		return result;
 	}
+	
+	public ArrayList<TradeVO> readTradesbybn(String userBn){ //readTradesbybn
+		
+		ArrayList<TradeVO> result = new ArrayList<TradeVO>();
+		
+		try {
+			TradeMapper mapper = sqlSession.getMapper(TradeMapper.class);
+			result = mapper.readTradesbybn(userBn);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	
+	
 	
 }

@@ -11,6 +11,7 @@ public class SchedulesVO {
 	  private int schedulesNum;//      v                                
 	  private int tradeStatus;//     v                                            
 	  private String color;//         v
+	  private String remark;	//		모바일에서 데이터 처리 후 변동사항
 
 	  public SchedulesVO() {
 		super();
@@ -18,7 +19,7 @@ public class SchedulesVO {
 	}
 
 	public SchedulesVO(String userBn, int tradeNo, String schedulesaddress, String coordinates, String staffId,
-			String title, String startTime, int schedulesNum, int tradeStatus, String color) {
+			String title, String startTime, int schedulesNum, int tradeStatus, String color, String remark) {
 		super();
 		this.userBn = userBn;
 		this.tradeNo = tradeNo;
@@ -30,7 +31,11 @@ public class SchedulesVO {
 		this.schedulesNum = schedulesNum;
 		this.tradeStatus = tradeStatus;
 		this.color = color;
+		this.remark = remark;
 	}
+
+
+
 
 	public String getUserBn() {
 		return userBn;
@@ -104,12 +109,20 @@ public class SchedulesVO {
 		this.tradeStatus = tradeStatus;
 	}
 
-	public int getColor() {//컬러를 확인 할 때 거래 상태를 물어본다.
-		return this.tradeStatus;
+	public String getColor() {
+		return color;
 	}
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+
+	public String getremark() {
+		return remark;
+	}
+
+	public void setremark(String remark) {
+		this.remark = remark;
 	}
 
 	@Override

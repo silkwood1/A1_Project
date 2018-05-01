@@ -6,7 +6,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import global.sesoc.tp.vo.StaffVO;
-import global.sesoc.tp.vo.UserVO;
 
 /*
  * 직원 관련 DAO
@@ -51,18 +50,6 @@ public class StaffDAO {
 		return s;
 	}
 
-/*	//id 중복검사
-	public UserVO getId(String staffId){
-		UserVO u = null;
-		StaffMapper mapper = sqlSession.getMapper(StaffMapper.class);
-		try {
-			u = mapper.getId(staffId);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return u;
-	}
-*/
 	public int update_staff_profile(StaffVO staff) {
 		int s = 0;
 		StaffMapper mapper = sqlSession.getMapper(StaffMapper.class);

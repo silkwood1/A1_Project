@@ -92,6 +92,32 @@
 			pd.paymentDiv = t.paymentDiv
   	</select>
   	
+  	<select id="selectTradeTwo" parameterType="int" resultType="Trade">
+  		select 
+  		t.userBn userBn
+  		, t.tradeNo tradeNo
+  		, td.tradeExp tradeDiv
+  		, c.customerName customerNo
+  		, i.itemName itemCode
+  		, pd.paymentExp paymentDiv
+  		, t.tradeNote tradeNote
+  		, t.tradeQuantity
+  		, t.tradePayable
+  		, t.tradeReceivable
+  		, t.tradeTotal
+  		, TO_CHAR(t.tradeIndate, 'YYYY-MM-DD HH24:MI:SS') tradeIndate
+  			from trade t, tb_tradeDiv td, customer c, items i, tb_paymentDiv pd
+  			where t.tradeNo = #{tradeNo}
+  			and
+  			td.tradeDiv = t.tradeDiv
+  			and
+  			c.customerNo = t.customerNo
+			and
+			i.itemCode = t.itemCode
+			and
+			pd.paymentDiv = t.paymentDiv
+  	</select>
+  	
   	<!-- 거래 삭제 -->
   	<delete id="deleteTrade" parameterType="int">
   		delete from Trade
@@ -246,6 +272,7 @@
   		, t.tradePayable tradePayable
   		, t.tradeReceivable tradeReceivable
   		, t.tradeTotal tradeTotal
+  		, t.tradeStatus tradeStatus
   		, TO_CHAR(t.tradeIndate, 'YYYY-MM-DD') tradeIndate
   			from trade t, tb_tradeDiv td, customer c, items i, tb_paymentDiv pd
   			where t.userBn = #{userBn}
@@ -257,6 +284,8 @@
 			i.itemCode = t.itemCode
 			and
 			pd.paymentDiv = t.paymentDiv
+			and
+			t.tradeStatus = #{tradeStatus}
   			order by tradeNo DESC
   	</select>
   	
@@ -301,13 +330,39 @@
   		select count(*) from trade where userBn = #{a} and to_char(tradeIndate, 'MM') = #{b}
   	</select>
   	
-  	<!--  -->
-  	<select id="readTrades" parameterType="String" resultType="Trade">
-		select * from trade
-		where 
-		userBn=#{String}
-		and
-		tradeStatus = 0
-	</select>
+  	 <select id="readTrades" parameterType="String" resultType="Trade">
+          select 
+        t.userBn userBn
+        , t.tradeNo tradeNo
+        , td.tradeExp tradeDiv
+        , c.customerName customerNo
+        , i.itemName itemCode
+        , pd.paymentExp paymentDiv
+        , t.tradeNote tradeNote
+        , t.tradeQuantity tradeQuantity
+        , t.tradePayable tradePayable
+        , t.tradeReceivable tradeReceivable
+        , t.tradeTotal tradeTotal
+        , t.tradeStatus tradeStatus
+        , TO_CHAR(t.tradeIndate, 'YYYY-MM-DD') tradeIndate
+           from trade t, tb_tradeDiv td, customer c, items i, tb_paymentDiv pd
+           where t.userBn = #{userBn}
+           and
+           td.tradeDiv = 1
+           and
+           c.customerNo = t.customerNo
+         and
+         i.itemCode = t.itemCode
+         and
+         pd.paymentDiv = t.paymentDiv
+         and
+         t.tradeStatus = 0
+           order by tradeNo DESC
+   </select>
+   
+   <select id="readTradesbybn" parameterType="String" resultType="Trade">
+       select * from trade
+       where userBn = #{userBn}
+   </select>
   	
   </mapper>

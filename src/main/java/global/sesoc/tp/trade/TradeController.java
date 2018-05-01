@@ -315,7 +315,7 @@ public class TradeController {
 			ArrayList<TradeVO> tradeList = new ArrayList<TradeVO>();
 			
 			try {
-				TradeVO trade = dao.selectTrade(tradeNo);
+				TradeVO trade = dao.selectTradeTwo(tradeNo);
 				
 				res = dao.editStat(tradeNo);
 				System.out.println(trade.toString());

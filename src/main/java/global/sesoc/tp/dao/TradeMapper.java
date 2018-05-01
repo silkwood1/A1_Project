@@ -44,5 +44,9 @@ public interface TradeMapper {
 	public int get_uriage(HashMap<String, String> hm);
 	//
 	ArrayList<TradeVO> readTrades(String userBn);
+	//
+	ArrayList<TradeVO> readTradesbybn(String userBn);
+	
+	
 	
 }

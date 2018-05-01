@@ -10,8 +10,6 @@ import org.springframework.stereotype.Repository;
 import global.sesoc.tp.vo.SchedulesVO;
 
 
-
-
 @Repository
 public class SchedulesDAO {
 	
@@ -90,11 +88,34 @@ public class SchedulesDAO {
 		int result = 0;
 		SchedulesMapper mapper = sqlsession.getMapper(SchedulesMapper.class);
 		try {
-			
 			result = mapper.insertList(paramMap);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
+	
+	public ArrayList<SchedulesVO> readSchedules(String userBn){
+		ArrayList<SchedulesVO> result = new ArrayList<SchedulesVO>();
+		try {
+			SchedulesMapper mapper = sqlsession.getMapper(SchedulesMapper.class);
+			result = mapper.readSchedules(userBn);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	public int UpdateStatus(SchedulesVO schedules){
+		int result = 0;
+		try {
+			SchedulesMapper mapper = sqlsession.getMapper(SchedulesMapper.class);
+			result = mapper.UpdateStatus(schedules);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 }

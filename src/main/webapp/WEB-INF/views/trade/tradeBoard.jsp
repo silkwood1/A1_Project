@@ -180,7 +180,7 @@ $(document).ready(function() {
 			tradeStatus = 0;
 		} else if ($('#tradeDiv').attr('name') == '2') {
 			tradeDiv = 2;
-			tradeStatus = 1;
+			tradeStatus = 0;
 		} else if ($('#tradeDiv').attr('name') == '3') {
 			tradeDiv = 3;
 			tradeStatus = 2;
@@ -364,14 +364,12 @@ $(document).ready(function() {
 					userBn : userBn,
 					tradeStatus : sortExp
 				}, success: function(data) {
-					if (data == 1) {
 						// 리스트 새로 고침
 						var currentLocation = window.location;
 						$("#refreshable").load(currentLocation + ' #refreshable').fadeIn("fast");
-					} 
 				},
 				error: function(error) {
-					alert(error);
+					//alert(error);
 				}
 			});
 		}	// 상태 fin
@@ -411,6 +409,44 @@ $(document).ready(function() {
 });
 	
 </script>
+<style type="text/css">
+.pre-scrollable2 {
+  max-height: 420px;
+  overflow-y: scroll;
+}
+
+#style-6::-webkit-scrollbar-track
+{
+   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+   background-color: #F5F5F5;
+}
+
+#style-6::-webkit-scrollbar
+{
+   width: 10px;
+   background-color: #F5F5F5;
+}
+
+#style-6::-webkit-scrollbar-thumb
+{
+   background-color: #ffd777;   
+   background-image: -webkit-linear-gradient(45deg,
+                                             rgba(255, 255, 255, .2) 25%,
+                                   transparent 25%,
+                                   transparent 50%,
+                                   rgba(255, 255, 255, .2) 50%,
+                                   rgba(255, 255, 255, .2) 75%,
+                                   transparent 75%,
+                                   transparent)
+}
+.rightt{
+	text-align: right;
+}
+.betee{
+	float: left;
+}
+
+</style>
 </head>
 <body>
 <%@include file="../include/header.jsp"%>
@@ -545,10 +581,7 @@ $(document).ready(function() {
 					<!-- newtradeform 끝 -->
 
 					<div>
-					<table>
-						<tr>
-							<td>
-								<select class="form-control" style="width: 150px;" id="sortDiv">
+								<select class="form-control" style="width: 150px; float: left; margin-left: 10px;" id="sortDiv">
 									<option>검색 설정</option>
 									<option>거래구분</option>
 									<option>거래처</option>
@@ -556,23 +589,22 @@ $(document).ready(function() {
 									<option>결제수단</option>
 									<option>상태</option>
 								</select>
-							</td>
-							<td>
-							<input type="text" class="form-control" style="width: 300px;" id="sortExp">
-							</td>
-						</tr>
-					</table>
+							
+							<input type="text" class="form-control" style="width: 300px; float: left;" id="sortExp">
+							<div class="rightt">
+							<button type="button" class="btn btn-success" id="newtrade" style="margin-right: 10px;">새 거래</button>
+							</div>
 					</div>
-					<br>
-					<br>
-					<div align="center">
+					
+					<!-- <div align="center">
 						<button type="button" class="btn btn-success" id="newtrade">새 거래</button>
-					</div>
+					</div> -->
 					<br>
 
 					<!-- trade list -->
 					<div id="refreshable">
 					<section id="unseen">
+					<div id="style-6" class="pre-scrollable2">
 							<table class="table table-bordered table-striped table-condensed">
 								<thead>
 									<tr>
@@ -621,6 +653,7 @@ $(document).ready(function() {
 									</c:forEach>
 								</tbody>
 							</table>
+							</div>
 					</section>
 					</div>
 					<!-- /trade list -->

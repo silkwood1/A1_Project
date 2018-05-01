@@ -5,7 +5,6 @@ import java.util.Map;
 
 import global.sesoc.tp.vo.SchedulesVO;
 
-
 public interface SchedulesMapper {
 	int insertSchedule(SchedulesVO schedule);
 	ArrayList<SchedulesVO> readSchedule(String id);
@@ -14,4 +13,8 @@ public interface SchedulesMapper {
 	int UpdateSchedule(SchedulesVO schedule);
 	int deleteAllSchedule(String id);
 	int insertList(Map<Object, Object> paramMap);
+	ArrayList<SchedulesVO> readSchedules(String userBn);
+	SchedulesVO readSchedulebytradeno(int tradeNo);
+	int UpdateStatus(SchedulesVO schedules);
+	
 }

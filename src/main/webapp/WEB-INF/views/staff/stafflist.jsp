@@ -29,6 +29,35 @@
 	margin-right: 10px;
 
 }
+.pre-scrollable2 {
+  max-height: 460px;
+  overflow-y: scroll;
+}
+
+#style-6::-webkit-scrollbar-track
+{
+   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+   background-color: #F5F5F5;
+}
+
+#style-6::-webkit-scrollbar
+{
+   width: 10px;
+   background-color: #F5F5F5;
+}
+
+#style-6::-webkit-scrollbar-thumb
+{
+   background-color: #ffd777;   
+   background-image: -webkit-linear-gradient(45deg,
+                                             rgba(255, 255, 255, .2) 25%,
+                                   transparent 25%,
+                                   transparent 50%,
+                                   rgba(255, 255, 255, .2) 50%,
+                                   rgba(255, 255, 255, .2) 75%,
+                                   transparent 75%,
+                                   transparent)
+}
 </style>
 
 
@@ -55,7 +84,7 @@
 							<input type="button" class="btn btn-success"
 								onclick="location.href='EditStaff'" value="직원 등록">
 						</div>
-
+						<div id="style-6" class="pre-scrollable2">
 						<c:forEach var="s" items="${slist }">
 						<div class="card">
 						<!--이미지가 없을 경우 기본이미지  -->
@@ -81,7 +110,7 @@
 						
 						
 						</c:forEach>
-						
+						</div>
 					</section>
 
 				</div>

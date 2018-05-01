@@ -15,7 +15,35 @@
 #centere{
 	text-align: center;
 }
+.pre-scrollable2 {
+  max-height: 420px;
+  overflow-y: scroll;
+}
 
+#style-6::-webkit-scrollbar-track
+{
+   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+   background-color: #F5F5F5;
+}
+
+#style-6::-webkit-scrollbar
+{
+   width: 10px;
+   background-color: #F5F5F5;
+}
+
+#style-6::-webkit-scrollbar-thumb
+{ 
+	background-color: #ffd777;   
+   	background-image: -webkit-linear-gradient(45deg,
+                                             rgba(255, 255, 255, .2) 25%,
+                                   transparent 25%,
+                                   transparent 50%,
+                                   rgba(255, 255, 255, .2) 50%,
+                                   rgba(255, 255, 255, .2) 75%,
+                                   transparent 75%,
+                                   transparent)
+}
 </style>
 <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 
@@ -69,6 +97,7 @@ $(document).ready(function(){
 					<br>
 					<section id="unseen">
 						<div id="exceldown">
+						<div id="style-6" class="pre-scrollable2">
 						<table class="table table-bordered table-striped table-condensed" id="centere">
 							<thead>
 		
@@ -115,7 +144,7 @@ $(document).ready(function(){
 								</c:forEach>
 							</tbody>
 						</table>
-						
+						</div>
 						</div>
 					</section>
 

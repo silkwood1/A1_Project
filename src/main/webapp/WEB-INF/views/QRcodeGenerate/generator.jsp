@@ -251,10 +251,10 @@
 							</div>
 						</div>
 						<div>
-							<div>
+							<div align="center">
 								<input type="button" class="btn btn-success" id="execute"
 									value="QR코드생성" /> <input type="button"
-									class="btn btn-warning btn-sm" value="프린트"
+									class="btn btn-warning" value="프린트"
 									onclick="javascript:content_print();">
 							</div>
 						</div>

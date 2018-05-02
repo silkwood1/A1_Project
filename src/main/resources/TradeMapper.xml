@@ -101,10 +101,10 @@
   		, i.itemName itemCode
   		, pd.paymentExp paymentDiv
   		, t.tradeNote tradeNote
-  		, t.tradeQuantity
-  		, t.tradePayable
-  		, t.tradeReceivable
-  		, t.tradeTotal
+  		, TO_CHAR(t.tradeQuantity, '9,999,999,999') tradeQuantity
+  		, TO_CHAR(t.tradePayable, '9,999,999,999') tradePayable
+  		, TO_CHAR(t.tradeReceivable, '9,999,999,999') tradeReceivable
+  		, TO_CHAR(t.tradeTotal, '9,999,999,999') tradeTotal
   		, TO_CHAR(t.tradeIndate, 'YYYY-MM-DD HH24:MI:SS') tradeIndate
   			from trade t, tb_tradeDiv td, customer c, items i, tb_paymentDiv pd
   			where t.tradeNo = #{tradeNo}
@@ -197,7 +197,7 @@
 			and
 			pd.paymentDiv = t.paymentDiv
 			and
-  			c.customerNo = (SELECT customerNo FROM customer WHERE customerName = '${customerNo}')
+  			c.customerName like '%${customerNo}%'
   			order by tradeNo DESC
   	</select>
   	<!-- 품목명으로 찾기 -->
@@ -226,7 +226,7 @@
 			and
 			pd.paymentDiv = t.paymentDiv
 			and
-  			i.itemCode = (SELECT itemCode FROM items WHERE itemName = '${itemCode}')
+  			i.itemName like '%${itemCode}%'
   			order by tradeNo DESC
   	</select>
   	<!-- 결제수단으로 찾기 -->

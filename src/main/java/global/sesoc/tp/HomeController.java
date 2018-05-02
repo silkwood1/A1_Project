@@ -209,9 +209,9 @@ public class HomeController {
 		if(dao.update_user(user) == 0 || dao.update_user_profile(user) == 1){
 			session.setAttribute("name", user.getUserName());
 			session.setAttribute("cname", user.getUserCname());
-			return "home";
+			return "redirect:home";
 		}
-		return "update";
+		return "redirect:update";
 	}
 	
 	@RequestMapping(value="goodbye", method = RequestMethod.GET)
@@ -439,6 +439,8 @@ public class HomeController {
 				sample = testlist.get(i);
 				sample.setStartTime(testlist.get(i).getStartTime().replace("-", "/"));
 				list.add(sample);
+				System.out.println(sample.getSchedulesaddress());
+				System.out.println(sample.getCoordinates());
 			}
 			
 		}

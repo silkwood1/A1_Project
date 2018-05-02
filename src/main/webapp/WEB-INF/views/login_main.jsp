@@ -331,7 +331,6 @@
 	overflow:hidden;  
 	margin-top:-150px; 
 	margin-left:-100px;
-	color: white;
 	font-size: 20px;
 	font-weight: bold;
 }

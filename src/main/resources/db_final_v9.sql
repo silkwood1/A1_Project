@@ -5,13 +5,6 @@ create sequence itemsNo_seq 	start with 1 increment by 1;
 create SEQUENCE staffNo_seq     start with 1 INCREMENT by 1;    
 create sequence schedules_seq    start with 1 increment by 1;   
 
-drop sequence customerNo_seq;	
-drop sequence tradeNo_seq;
-drop sequence itemsNo_seq;
-drop SEQUENCE staffNo_seq;  
-drop SEQUENCE schedules_seq;
-
-
 -- (1) 고객 분류
 CREATE TABLE tb_customerDiv (
 customerDiv 	number(1) 		constraint tb_customerDiv_customerDiv_pk 	primary key,	-- 고객 분류

@@ -101,7 +101,17 @@
 		    });
 		  });
 		});
-	
+	function content_print(){
+	     
+	      var initBody = document.body.innerHTML;
+	      window.onbeforeprint = function(){
+	          document.body.innerHTML = document.getElementById('printArea').innerHTML;
+	      }
+	      window.onafterprint = function(){
+	          document.body.innerHTML = initBody;
+	      }
+	      window.print();    
+	  }    
 	
 </script>
 

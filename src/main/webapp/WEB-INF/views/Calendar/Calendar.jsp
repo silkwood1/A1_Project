@@ -10,12 +10,8 @@
 <html>
 <head>
 <meta charset='utf-8' />
-
-
-
-
     <!-- Bootstrap core CSS -->
-    <link href="resources/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="resources/assets/css/bootstraps.css" rel="stylesheet">
     <!--external css-->
     <link href="resources/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link href="resources/assets/js/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
@@ -45,11 +41,6 @@
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script src="resources/date_picker/jquery-ui-timepicker-addon.js"></script>
-    
- 
-    
-    <!--common script for all pages-->
-    <script src="resources/assets/js/common-scripts.js"></script>
 
     <!--script for this page-->
 	<script src="resources/assets/js/calendar-conf-events.js"></script>    
@@ -424,20 +415,69 @@ element.style {
     width: 52px;
     top: 222px;
 }
+
+.box1{
+	border-bottom: 0;
+}
+#scrolltbody {
+   display: -webkit-inline-box;
+    height: 418px;
+    width: 546px;
+    overflow: auto;
+}
+#scrolltbody::-webkit-scrollbar-track
+{
+   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+   background-color: #F5F5F5;
+}
+
+#scrolltbody::-webkit-scrollbar
+{
+   width: 10px;
+   background-color: #F5F5F5;
+}
+
+#scrolltbody::-webkit-scrollbar-thumb
+{
+   background-color: #ffd777;   
+   background-image: -webkit-linear-gradient(45deg,
+                                             rgba(255, 255, 255, .2) 25%,
+                                   transparent 25%,
+                                   transparent 50%,
+                                   rgba(255, 255, 255, .2) 50%,
+                                   rgba(255, 255, 255, .2) 75%,
+                                   transparent 75%,
+                                   transparent)
+}
+#table_dialog{
+	margin-left: 45px;
+	margin-top: 25px;
+
+}
+#addForm{
+	margin-left: 45px;
+}
+
 </style>
 </head>
 
 
 <section id="main-content">
 	<section class="wrapper">
-			<h3><i class="fa fa-angle-right"></i></h3>
+
+			<h3><i class="fa fa-angle-right">현장관리</i></h3>
 			<!-- page start -->
 		<div class="row.mt">
-			<aside class="col-md-6">
+		<!-- 크기 -->
+			<aside class="col-md-6" style="margin-top: 40px;">
 			 	<section class="panel">
-                    <div class="panel-body">
+			 	<div id="totalcal">
+                    <div class="panel-body" align="center">
+                    <div id="calendarr" align="center" style="width: 590px; ">
                         <div id="calendar" class="has-toolbar"></div>
                     </div>
+                    </div>
+                   </div>
                 </section>
 			</aside>
 		<div class="col-md-6">
@@ -450,7 +490,7 @@ element.style {
 							</h4>
 							<section id="unseen">
 								<table
-									class="table table-bordered table-striped table-condensed">
+									class="table table-bordered table-striped table-condensed"  id="scrolltbody">
 									<thead>
 										<tr>
 											<th class="numeric">번호</th>
@@ -464,7 +504,8 @@ element.style {
 											<th class="numeric">거래일자</th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody >
+									
 										<c:forEach var="i" items="${tradeList}">
 											<tr>
 												<td class="numeric">${i.tradeNo}</td>
@@ -496,7 +537,7 @@ element.style {
 		
 		<div id="dialog" name="dialog" class ="dialog" title="일정 등록" style="display: none"> 
 			<form method="POST" action="insertSchedule">
-			<table>
+			<table id="table_dialog">
 				<input type="hidden" id="userBn" name="userBn" value="1"><!-- ${sessionScope.userBn} -->
 				<input type="hidden" id="coordinates" name="coordinates" value="">
 				<input type="hidden" id="tradeStatus" name="tradeStatus" value="">
@@ -504,7 +545,7 @@ element.style {
 				<tr>
 					<td>staff Id</td>
 					<td>
-						<select id="staffId" name="staffId">
+						<select id="staffId" name="staffId" class="form-control">
 						     <!-- 해당 사업장의 직원 리스트 -->
 							    <c:forEach var="i" items="${staffList}" >
 							    	 <option value="${i.staffId}">${i.staffName}</option>
@@ -516,7 +557,7 @@ element.style {
 				<tr>
 					<td>거래 번호</td>
 					<td>
-						<select id="tradeNo" name="tradeNo" onchange="changeSelect()">
+						<select id="tradeNo" name="tradeNo" onchange="changeSelect()" class="form-control">
 						     <option value="">거래번호</option><!-- 해당 사업장의 직원 리스트 -->
 							    <c:forEach var="i" items="${tradeList}" >
 									 <option value="${i.tradeNo}">${i.tradeNo}</option>
@@ -528,27 +569,28 @@ element.style {
 				<tr>
 					<td>방문지</td>
 					<td>
-					<input type="text" id="schedulesaddress" name="schedulesaddress" readonly>
+					<input type="text" id="schedulesaddress" name="schedulesaddress" class="form-control" readonly="readonly">
 					</td>
 				</tr>
 				
 				<tr>
 					<td>시작시간</td>
 					<td>
-					<input type="text" id="startTime" name="startTime" readonly>
+					<input type="text" id="startTime" name="startTime" class="form-control" readonly="readonly" placeholder="클릭해주세요.">
 					</td>
 				</tr>
 				
 				<tr>
 					<td>내용</td>
 					<td>
-					<input type="text" id="title" name="title" placeholder="제목">
+					<input type="text" id="title" name="title" placeholder="제목" class="form-control">
 					</td>
 				</tr>
 				
 				<tr>
 					<td>
-						<input type="submit" value="일정 등록" onsubmit="scheduleInsert()">
+					<br>
+						<input type="submit" value="일정 등록" class="btn btn-success" onsubmit="scheduleInsert()">
 					</td>
 				
 				</tr>
@@ -560,7 +602,7 @@ element.style {
 		
 		<!-- 이벤트를 클릭 했을 때 나오는 다이얼로그 -->
 		<div id="confirmdialog" title="일정 확인" style="display: none"> 
-			<form id="addForm" name="addForm" method="post">
+			<form id="addForm" name="addForm" method="post" >
 			<table>
 				<input type="hidden" id="cuserBn" name="cuserBn" value="1"><!-- ${sessionScope.userBn} -->
 				<input type="hidden" id="ccoordinates" name="ccoordinates" value="">
@@ -570,7 +612,7 @@ element.style {
 				<tr>
 					<td>매장 내 직원</td>
 					<td>
-						<select id="cstaffId" name="cstaffId">
+						<select id="cstaffId" name="cstaffId" class="form-control">
 						     <!-- 해당 사업장의 직원 리스트 -->
 							  <c:forEach var="i" items="${staffList}" >
 							    	 <option value="${i.staffId}">${i.staffName}</option>
@@ -583,7 +625,7 @@ element.style {
 				<tr>
 					<td>거래 번호</td>
 					<td>
-						<select id="ctradeNo" name="ctradeNo" onchange="cchangeSelect()">
+						<select id="ctradeNo" name="ctradeNo" onchange="cchangeSelect()" class="form-control">
 						     <option value="">거래번호</option><!-- 해당 사업장의 직원 리스트 -->
 							    <c:forEach var="i" items="${tradeList}" >
 									 <option value="${i.tradeNo}">${i.tradeNo}</option>
@@ -595,36 +637,39 @@ element.style {
 				<tr>
 					<td>방문지</td>
 					<td>
-					<input type="text" id="cschedulesaddress" name="cschedulesaddress" readonly>
+					<input type="text" id="cschedulesaddress" name="cschedulesaddress" readonly class="form-control">
 					</td>
 				</tr>
 				
 				<tr>
 					<td>시작시간</td>
 					<td>
-					<input type="text" id="cstartTime" name="cstartTime" readonly>
+					<input type="text" id="cstartTime" name="cstartTime" readonly class="form-control">
 					</td>
 				</tr>
 				
 				<tr>
 					<td>내용</td>
 					<td>
-					<input type="text" id="ctitle" name="ctitle" placeholder="제목">
+					<input type="text" id="ctitle" name="ctitle" placeholder="제목" class="form-control">
 					</td>
 				</tr>
 				<tr>
 					<td>인수인계</td>
 					<td>
-					<input type="text" id="cremark" name="cremark" placeholder="인수인계">
+					<input type="text" id="cremark" name="cremark" placeholder="인수인계" class="form-control">
 					</td>
 				</tr>
 				
 				<tr>
 					<td>
-						<input type="button" value="일정 수정" onclick="updateSchedule()">
-						<input type="button" value="일정 삭제" onclick="deleteSchedule()">
+						<input type="button" value="일정 수정"  class="btn btn-warning"  onclick="updateSchedule()">
+						
 					</td>
-				
+					
+					<td>
+						<input type="button" class="btn btn-danger" value="일정 삭제" onclick="deleteSchedule()">
+					</td>
 				</tr>
 				
 			</table>

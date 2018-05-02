@@ -58,6 +58,19 @@ public class TradeDAO {
 		return a;
 	}
 	
+public TradeVO selectTradeTwo(int tradeNo) {
+		
+		TradeMapper mapper = sqlSession.getMapper(TradeMapper.class);
+		TradeVO a = null;
+		try {
+			a = mapper.selectTrade(tradeNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return a;
+	}
+	
 	// 거래 삭제
 	public int deleteTrade(int tradeNo) {
 		

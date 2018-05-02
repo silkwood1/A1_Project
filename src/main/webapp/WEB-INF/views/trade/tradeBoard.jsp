@@ -14,6 +14,16 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
+function zz() {
+	var sortDiv = $('#sortDiv').find("option:selected").val();
+	if (sortDiv == '상태') {
+			$('#sortExp')[0].placeholder = "0:대기, 1:거래완료, 2:판매취소,3:구매취소";
+	} else {
+		$('#sortExp')[0].placeholder = "";
+	}
+	
+}
+
 // 결제완료하기
 function status(obj) {
 	//alert(obj);
@@ -581,7 +591,7 @@ $(document).ready(function() {
 					<!-- newtradeform 끝 -->
 
 					<div>
-								<select class="form-control" style="width: 150px; float: left; margin-left: 10px;" id="sortDiv">
+								<select class="form-control" style="width: 150px; float: left; margin-left: 10px;" id="sortDiv" onchange="zz()">
 									<option>검색 설정</option>
 									<option>거래구분</option>
 									<option>거래처</option>

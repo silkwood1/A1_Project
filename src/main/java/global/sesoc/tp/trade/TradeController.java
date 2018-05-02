@@ -148,7 +148,7 @@ public class TradeController {
 		try {
 			res = dao.deleteTrade(tradeNo);
 			if (res == 1) {
-				result = "redirect:tradeBoard";
+				result = "redirect:tradeBoardPage";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -231,6 +231,7 @@ public class TradeController {
 		@RequestMapping(value = "searchTradeByItem", method = RequestMethod.POST)
 		public String searchTradeByItem(HttpSession session, TradeVO trade) {
 			System.out.println(trade.toString());
+			System.out.println("들어왔다");
 			int res = 0;
 			ArrayList<TradeVO> searchTradeByItem = new ArrayList<TradeVO>();
 			
@@ -242,6 +243,10 @@ public class TradeController {
 				e.printStackTrace();
 			}
 
+		for (int i = 0; i < searchTradeByItem.size(); i++) {
+			System.out.println(searchTradeByItem.get(i));
+		}
+			
 			session.setAttribute("b", searchTradeByItem);
 			String result = String.valueOf(res);
 			System.out.println(result);

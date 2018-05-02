@@ -402,8 +402,8 @@ $(document).ready(function() {
 					</form>
 					<!-- line 8 -->
 						<div class="form-group" align="center">
-							<button id="editTrade" class="btn btn-default">수정하기</button>&nbsp&nbsp
-							<button type="button" class="btn btn-default"
+							<button id="editTrade" class="btn btn-warning">수정하기</button>&nbsp&nbsp
+							<button type="button" class="btn btn-theme"
 								onclick="location.href='/trade/tradeBoard'">목록으로</button>&nbsp&nbsp
 							<button type="button" class="btn btn-danger" onclick="location.href='/trade/deleteTrade?tradeNo=${t.tradeNo }'">삭제하기</button>
 						</div>

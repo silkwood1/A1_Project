@@ -5,6 +5,50 @@
 <%@include file="include/header.jsp"%>
 <!-- 네이버 지도 -->
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=NeOragwFwZrlC04RCdGu&submodules=geocoder"></script>
+<style>
+.mappp{
+	width: 52%;
+    height: 568px;
+    float: right;
+	
+}
+#colll{
+	width: 170%;
+}
+.row mt{
+	float: left;
+    display: inline;
+    margin-left: 60px;
+}
+.box1{
+	float: left;
+	display: inline;
+	width: 585px;
+	border-bottom: 0;
+}
+
+
+.row{
+	display: inherit;
+}
+#barr {
+   height: 100%;
+    position: relative;
+    width: 19px;
+    margin: 1px 14px;
+    float: left;
+    text-align: center;
+    z-index: 10;
+}
+#titleee{
+    position: absolute;
+    bottom: -43px;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+}
+</style>
+
 <section id="main-content">
 	<section class="wrapper">
 	 <br>
@@ -20,7 +64,7 @@
       </c:forEach>
    </div>
 
-   <div id="map" style="width: 80%; height: 640px;">
+   <div id="map" class="mappp">
       <script type="text/javascript">
          // 맵 옵션
          var mapOptions = {
@@ -97,8 +141,8 @@
       </script>
    </div>
 		<div class="row">
-			<div class="col-md-12">
-				<div class="box1">
+			<div class="col-md-12" id="colll">
+				<div class="box1" id="boxx">
 			<div class="row mt">
 				<!--CUSTOM CHART START -->
 				<div class="border-head">
@@ -108,8 +152,8 @@
 				<%int month = 0; %>
 				<c:forEach var="u" items="${uriage } ">
 					<%month++; %>
-					<div class="bar">
-						<div class="title"><%= month %>월</div>
+					<div class="bar" id="barr">
+						<div class="title" id="titleee"><%= month %>월</div>
 						<div class="value tooltips" data-original-title="${u }건"
 							data-toggle="tooltip" data-placement="top">${u }</div>
 					</div>

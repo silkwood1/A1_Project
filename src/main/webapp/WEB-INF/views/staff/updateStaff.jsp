@@ -99,7 +99,7 @@ function formCheck() {
 								</select>
 							</div>
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 70px;">입사일</label>
+								style="width: 70px; margin-left: 100px;">입사일</label>
 							<div class="col-sm-6" style="width: 250px;">
 								<input type="text" class="form-control" id="staffIndate"
 									name="staffIndate" value="${staff.staffIndate}" disabled="disabled" />
@@ -177,13 +177,13 @@ function formCheck() {
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label"
 								style="width: 125px;">아이디*</label>
-							<div class="col-sm-3">
+							<div class="col-sm-2" style="width: 250px;">
 								<input type="text" class="form-control" id="staffId"
 									name="staffId" value="${staff.staffId }" readonly="readonly"/>
 							</div>
 							<label class="col-sm-2 col-sm-2 control-label"
-								style="width: 100px;">비밀번호*</label>
-							<div class="col-sm-3">
+								style="width: 100px;" style="width: 250px;">비밀번호*</label>
+							<div class="col-sm-2">
 								<input type="text" class="form-control" id="staffPassword"
 									name="staffPassword" value="${staff.staffPassword }" readonly="readonly"/>
 							</div>
